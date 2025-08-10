@@ -1,0 +1,297 @@
+
+:root {
+    --color-light: #FEFCFB;
+    --color-white: #FFFF;
+    --color-purple: #230067;
+    --color-gradient: linear-gradient(to bottom, 
+    #5CCEE6 0%, 
+    #6979E6 75%, 
+    #6D5CE6 100%);
+    --font-primary: "League Spartan", sans-serif;
+}
+
+body {
+    background: var(--color-gradient) !important;
+    font-family: var(--font-primary) !important;
+}
+
+main {
+    --bs-gutter-x: 0rem !important;
+}
+
+.cadastro {
+    margin-right: 5rem;
+}
+
+.text-orange {
+    color: var(--color-orange) !important;
+}
+
+.text-light {
+    color: var(--color-light) !important;
+}
+
+.forma {
+    display: none;
+}
+
+header {
+    display: none;
+}
+
+.conteiner-ladoBranco {
+    margin-left: 15rem;
+}
+
+.btn-default {
+    background-color: #FFF5EC !important;
+}
+
+.form-control, .form-select {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: 3px solid #230067 !important;
+    background-color: #FEFCFB !important;
+    width: 25vw !important;
+}
+
+#togglePass, #togglePass2 {
+    position: absolute;
+}
+
+#password::placeholder, #email::placeholder, #nome::placeholder, #matricula::placeholder, #confpassword::placeholder, .bi-eye, .bi-eye-slash, select.form-select:invalid {
+    color: #A6A6A6;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.conta {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.login, .esqueci {
+    font-size: 0.8rem !important;
+    font-weight: 400;
+    border: none !important;
+}
+
+.cadastre {
+    padding: 0 !important;
+    margin-top: 0 !important;
+    font-size: 0.8rem !important;
+    border: none !important;
+}
+
+#cadastrar {
+    background-color: #543199;
+}
+
+.ladoBranco {
+    background-color: #FEFCFB;
+    width: 70%;
+    height: 100vh;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.ladoGradient {
+    width: 30%;
+    height: 100vh;
+}
+
+.logo {
+    width: 10rem;
+}
+
+.subtitle {
+    font-weight: 300;
+    color: #7B7B7B;
+    font-size: 1.2rem;
+}
+
+.errorInput {
+    border-bottom: 3px solid rgb(207, 53, 53) !important;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: none !important; /* Se necessário, ajuste a cor da borda */
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+
+    body {
+        background: var(--color-light) !important;
+    }
+
+    .forma {
+        display: block;
+    }
+    
+    header {
+        display: block;
+    }
+
+    .logo {
+        width: 10rem;
+    }
+
+    .ladoBranco {
+        width: 100%;
+        margin-top: 41rem;
+        height: auto;
+    }
+
+    .cadastro, .ladoGradient, .ladoBranco {
+        display: none;
+    }
+
+    .formCadastro {
+        flex-direction: column;
+    }
+
+    .conta {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: start;
+    }
+
+    .conteiner-ladoBranco {
+        margin-left: 0;
+    }
+
+    .ladoBranco {
+        position: absolute;
+        background-color: transparent;
+    }
+
+    .forma {
+        width: 100vw;
+    }
+
+    .form-control, .form-select {
+        width: 65vw !important;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    header {
+        display: block;
+        background-image: url(../assets/forma.svg);
+        background-size: cover;
+    }
+}
+
+@media(min-width: 768px) and (max-width: 1000px) {
+    body {
+        background: var(--color-light) !important;
+    }
+
+    .logo {
+        width: 10rem;
+    }
+
+    .forma {
+        display: block;
+    }
+    
+    header {
+        display: block;
+    }
+
+    .ladoBranco {
+        width: 100%;
+        margin-top: 41rem;
+        height: auto;
+    }
+
+    .cadastro, .ladoGradient, .ladoBranco {
+        display: none;
+    }
+
+    .form-control, .form-select {
+        width: 65vw !important;
+    }
+
+    .conta {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: start;
+    }
+
+    .conteiner-ladoBranco {
+        margin-left: 0;
+    }
+
+    .esqueci {
+        margin-left: 0.2rem !important;
+        --bs-btn-padding-y: 0 !important;
+        --bs-btn-padding-x: 0 !important;
+    }
+
+    .cadastre, .login, .esqueci {
+        font-size: 0.7rem !important;
+    }
+
+    .ladoBranco {
+        position: absolute;
+        background-color: transparent;
+    }
+
+    .forma {
+        width: 100vw;
+    }
+
+    header {
+        display: block;
+        background-image: url(../assets/forma.svg);
+        background-size: cover;
+    }
+}
+
+@media(min-width: 1024px) and (max-width: 1090px){
+
+    .ladoBranco {
+        width: 90%;
+    }
+
+    .cadastro {
+        width: 40%;
+        margin-left: 5rem;
+    }
+    
+    .ladoGradient {
+        width: 40%;
+        height: 100vh;
+    }
+
+    .form-control, .form-select {
+        width: 30vw !important;
+    }
+}
+
+@media(min-width: 1091px) {
+
+    .ladoBranco {
+        width: 90%;
+    }
+
+    .cadastro {
+        width: 40%;
+        margin-left: 5rem;
+    }
+    
+    .ladoGradient {
+        width: 40%;
+        height: 100vh;
+    }
+}

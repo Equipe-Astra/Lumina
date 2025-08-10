@@ -1,0 +1,7 @@
+# Ignorar arquivos e pastas do Eclipse
+.metadata/
+RemoteSystemsTempFiles/
+
+# Ignorar arquivos temporários
+*.log
+*.tmp
