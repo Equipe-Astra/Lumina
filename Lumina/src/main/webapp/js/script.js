@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   const currentPage = window.location.pathname.split("/").pop();
 
@@ -7,141 +6,203 @@ document.addEventListener("DOMContentLoaded", function () {
     const iconDiv = link.querySelector("div.icon-wrapper");
 
     if (iconDiv) {
-      // Remove a classe de todos
-      iconDiv.classList.remove("area-card");
+      iconDiv.classList.remove("pagina-atual");
     }
 
-    // Se for a página atual, adiciona a classe de borda
     if (linkPage === currentPage && iconDiv) {
-      iconDiv.classList.add("area-card");
+      iconDiv.classList.add("pagina-atual");
     }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.open-modal').forEach(botao => {
+    botao.addEventListener('click', () => {
+      const status = botao.getAttribute('data-status');
+      const inputTitulo = document.getElementById('modalTituloInput');
+      const statusInput = document.getElementById('statusProjeto');
+
+      const novoTexto = `ADICIONE UM TÍTULO - ${status}`;
+      inputTitulo.placeholder = novoTexto;
+      inputTitulo.value = novoTexto;
+      statusInput.value = status;
+    });
   });
 });
 
 // Upload de imagem
 const imageInput = document.getElementById('image-upload');
-const imageName = document.getElementById('image-name');
-
-imageInput.addEventListener('change', function () {
-  if (imageInput.files.length > 0) {
-    imageName.textContent = imageInput.files[0].name;
-  } else {
-    imageName.textContent = "Adicione uma imagem";
-  }
-});
+if (imageInput) {
+  const imageName = document.getElementById('image-name');
+  imageInput.addEventListener('change', function () {
+    if (imageInput.files.length > 0) {
+      imageName.textContent = imageInput.files[0].name;
+    } else {
+      imageName.textContent = "Adicione uma imagem";
+    }
+  });
+}
 
 // Upload de projeto
 const projectInput = document.getElementById('file-upload');
-const projectName = document.getElementById('file-name');
+if (projectInput) {
+  const projectName = document.getElementById('file-name');
+  projectInput.addEventListener('change', function () {
+    if (projectInput.files.length > 0) {
+      projectName.textContent = projectInput.files[0].name;
+    } else {
+      projectName.textContent = "Faça o upload do seu projeto aqui";
+    }
+  });
+}
 
-projectInput.addEventListener('change', function () {
-  if (projectInput.files.length > 0) {
-    projectName.textContent = projectInput.files[0].name;
-  } else {
-    projectName.textContent = "Faça o upload do seu projeto aqui";
-  }
-});
-
-document.getElementById('btn-novo-post').addEventListener('click', function () {
+const btnNovoPost = document.getElementById('btn-novo-post');
+if (btnNovoPost) {
+  btnNovoPost.addEventListener('click', function () {
     const navbar = document.getElementById('navbarNav');
     const isMobile = window.innerWidth < 992;
-
-    // Se o menu está aberto (tem classe show), e for mobile
     if (isMobile && navbar.classList.contains('show')) {
       const bsCollapse = bootstrap.Collapse.getInstance(navbar) || new bootstrap.Collapse(navbar);
       bsCollapse.hide();
     }
   });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-    const consulta = document.querySelector('.consulta');
-    if (consulta) {
-        consulta.style.maxHeight = `${consulta.scrollHeight}px`;
-    }
+  const consulta = document.querySelector('.consulta');
+  if (consulta) {
+    consulta.style.maxHeight = `${consulta.scrollHeight}px`;
+  }
 });
 
+// Toggle senha
 const togglePassword = document.querySelector('#togglePass');
 const togglePassword2 = document.querySelector('#togglePass2');
 const password = document.querySelector('#password');
 const confpassword = document.querySelector('#confpassword');
 
-togglePassword.addEventListener("click", function () {
+if (togglePassword && password) {
+  togglePassword.addEventListener("click", function () {
     const type = password.type === "password" ? "text" : "password";
     password.type = type;
     this.classList.toggle("bi-eye");
     this.classList.toggle("bi-eye-slash");
-});
+  });
+}
 
-togglePassword2.addEventListener("click", function () {
+if (togglePassword2 && confpassword) {
+  togglePassword2.addEventListener("click", function () {
     const type = confpassword.type === "password" ? "text" : "password";
     confpassword.type = type;
     this.classList.toggle("bi-eye");
     this.classList.toggle("bi-eye-slash");
-});
-
+  });
+}
 
 document.querySelectorAll('input[data-js]').forEach(($input) => {
-    const field = $input.dataset.js;
-
-    $input.addEventListener('input', (e) => {
-        if (masks[field]) {
-            e.target.value = masks[field](e.target.value);
-        }
-    }, false);
+  const field = $input.dataset.js;
+  $input.addEventListener('input', (e) => {
+    if (masks[field]) {
+      e.target.value = masks[field](e.target.value);
+    }
+  }, false);
 });
 
 // Validação
-
 const button = document.getElementById('cadastrar');
-
-button.addEventListener('click', (event) => {
+if (button) {
+  button.addEventListener('click', (event) => {
     event.preventDefault();
-    
+
+    let isValid = true; // controle de validação
+    const form = document.querySelector('form');
+
     const matricula = document.getElementById('matricula');
+    const nome = document.getElementById('nome');
+    const cargo = document.getElementById('cargo');
+    const email = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confpasswordInput = document.getElementById('confpassword');
 
     if (matricula.value === '') {
-        matricula.classList.add("errorInput");
+      matricula.classList.add("errorInput");
+      isValid = false;
     }
-
-    const nome = document.getElementById('nome');
-
     if (nome.value === '') {
-        nome.classList.add("errorInput");
+      nome.classList.add("errorInput");
+      isValid = false;
     }
-
-    const cargo = document.getElementById('cargo');
-
     if (cargo.value === '') {
-        cargo.classList.add("errorInput");
+      cargo.classList.add("errorInput");
+      isValid = false;
     }
-    
-    const email = document.getElementById('email');
-
     if (email.value === '') {
-        email.classList.add("errorInput");
+      email.classList.add("errorInput");
+      isValid = false;
     }
-
-    const password = document.getElementById('password');
-
-    if (password.value === '') {
-        password.classList.add("errorInput");
+    if (passwordInput.value === '') {
+      passwordInput.classList.add("errorInput");
+      isValid = false;
     }
-
-    const confpassword = document.getElementById('confpassword');
-
-    if (confpassword.value === '') {
-        confpassword.classList.add("errorInput");
+    if (confpasswordInput.value === '') {
+      confpasswordInput.classList.add("errorInput");
+      isValid = false;
     }
 
     if (email.value.indexOf("@") === -1 || email.value.indexOf(".") === -1 || (email.value.indexOf(".") - email.value.indexOf("@") === 1)) {
-        email.classList.add("errorInput");
+      email.classList.add("errorInput");
+      isValid = false;
     } else {
-        email.classList.remove("errorInput");
+      email.classList.remove("errorInput");
     }
-});
+
+    if (isValid) {
+      form.submit();
+    }
+  });
+}
+
 
 document.querySelectorAll('input').forEach(($input) => {
-    $input.addEventListener('input', (e) => {
-        e.target.classList.remove("errorInput");
-    });
+  $input.addEventListener('input', (e) => {
+    e.target.classList.remove("errorInput");
+  });
+});
+
+const buttonlogin = document.getElementById('entrar');
+if (buttonlogin) {
+  buttonlogin.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    let isValid = true;
+    const form = document.querySelector('form');
+
+    const email = document.getElementById('email');
+    const passwordLogin = document.getElementById('password');
+
+    if (email.value === '') {
+      email.classList.add("errorInput");
+      isValid = false;
+    }
+    if (passwordLogin.value === '') {
+      passwordLogin.classList.add("errorInput");
+      isValid = false;
+    }
+    if (email.value.indexOf("@") === -1 || email.value.indexOf(".") === -1 || (email.value.indexOf(".") - email.value.indexOf("@") === 1)) {
+      email.classList.add("errorInput");
+      isValid = false;
+    } else {
+      email.classList.remove("errorInput");
+    }
+
+    if (isValid) {
+      form.submit();
+    }
+  });
+}
+
+document.querySelectorAll('input').forEach(($input) => {
+  $input.addEventListener('input', (e) => {
+    e.target.classList.remove("errorInput");
+  });
 });

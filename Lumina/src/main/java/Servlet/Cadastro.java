@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dao.CadastroDao;
+import Entidades.Area;
 import Entidades.Cargo;
 import Entidades.Funcionarios;
 
@@ -26,6 +27,7 @@ public class Cadastro extends HttpServlet {
 		String nome = request.getParameter("nome");
 		String email = request.getParameter("email");
 		String cargo = request.getParameter("cargo");
+		String area = request.getParameter("area");
 		String senha = request.getParameter("password");
 		String confsenha = request.getParameter("confpassword");
 		
@@ -33,10 +35,14 @@ public class Cadastro extends HttpServlet {
 		request.setAttribute("nome", nome);
 		request.setAttribute("email", email);
 		request.setAttribute("cargo", cargo);
+		request.setAttribute("area", area);
+		
 
 		Cargo cargoId = dao.buscaCargo(cargo);
+		Area areaId = dao.buscaArea(area);
 		Integer usuarioExistente = dao.buscaUsuario(matricula);
 		Integer emailExistente = dao.buscaEmail(email);
+		
 		
 		if (senha.equals(confsenha)) {
 			if (!email.endsWith("@euron.com.br") && !email.endsWith("@eurofarma.com.br")) {
@@ -53,15 +59,16 @@ public class Cadastro extends HttpServlet {
 			}
 			else {
 			
-				funcionario.setId(Double.parseDouble(matricula));
+				funcionario.setId(matricula);
 				funcionario.setNome(nome);
 				funcionario.setEmail(email);
 				funcionario.setIdCargo(cargoId);
+				funcionario.setIdArea(areaId);
 				funcionario.setSenha(confsenha);
 
 				dao.cadastraFuncionario(funcionario);
 
-				response.sendRedirect("/Lumina/login.html");
+				response.sendRedirect("/Lumina/login.jsp");
 
 			}
 		}

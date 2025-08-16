@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -269,19 +271,16 @@
                         </form>
                         <p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">O PROJETO</p>
                         <div class="input-group">
-                            <textarea class="form-control" aria-label="With textarea" placeholder="Digite aqui..."></textarea>
+                            <textarea name="descricao" class="form-control" aria-label="With textarea" placeholder="Digite aqui...">${descricao}</textarea>
                         </div>
                         <p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">OBJETIVOS</p>
                         <div class="input-group">
-                            <textarea class="form-control" aria-label="With textarea" placeholder="Digite aqui..."></textarea>
+                            <textarea name="objetivos"class="form-control" aria-label="With textarea" placeholder="Digite aqui...">${objetivos}</textarea>
                         </div>
+                       
                         <p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">RESULTADOS</p>
                         <div class="input-group">
-                            <textarea class="form-control" aria-label="With textarea" placeholder="Digite aqui..."></textarea>
-                        </div>
-                        <p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">RESULTADOS</p>
-                        <div class="input-group">
-                            <textarea class="form-control" aria-label="With textarea" placeholder="Digite aqui..."></textarea>
+                            <textarea name="resultados" class="form-control" aria-label="With textarea" placeholder="Digite aqui...">${resultados}</textarea>
                         </div>
                     </div>
                     <div class="modal-footer border-0">

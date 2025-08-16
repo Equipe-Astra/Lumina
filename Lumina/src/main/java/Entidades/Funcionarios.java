@@ -1,5 +1,6 @@
 package Entidades;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -8,8 +9,9 @@ import javax.persistence.ManyToOne;
 @Entity
 
 public class Funcionarios {
-	@Id
-	private Double id;
+	@Id 
+	@Column(name = "id_funcionario")
+	private String id;
 	private String nome;
 	private String email;
 	private String senha;
@@ -17,12 +19,16 @@ public class Funcionarios {
     @JoinColumn(name = "id_cargo")
     @ManyToOne
     private Cargo idCargo;
+    
+    @JoinColumn(name = "ID_AREA")
+    @ManyToOne
+    private Area idArea;
 
-	public Double getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Double id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -58,4 +64,11 @@ public class Funcionarios {
 		this.idCargo = idCargo;
 	}
 
+	public Area getIdArea() {
+		return idArea;
+	}
+
+	public void setIdArea(Area idArea) {
+		this.idArea = idArea;
+	}
 }

@@ -15,16 +15,16 @@ public class LoginDao {
 		em = emf.createEntityManager();
 	}
 
-	public Integer buscaUsuario(String email) {
+	public String buscaUsuario(String email) {
 		try {
-			String sql = "SELECT id FROM Funcionarios WHERE lower(email) = lower(:email)";
+			String sql = "SELECT id_funcionario FROM Funcionarios WHERE lower(email) = lower(:email)";
 			Query query = em.createNativeQuery(sql);
 			query.setParameter("email", email);
 
 			if (query.getSingleResult() == null) {
 				return null;
 			}
-			return Integer.parseInt(query.getSingleResult().toString());
+			return query.getSingleResult().toString();
 		} catch (NoResultException e) {
 			return null;
 		}
@@ -45,9 +45,9 @@ public class LoginDao {
 		}
 	}
 
-	public String buscaCargo(Integer usuario) {
+	public String buscaCargo(String usuario) {
 			try {
-				String sql = "SELECT b.descricao FROM funcionarios a JOIN cargo b ON a.id_cargo = b.id_cargo WHERE a.id = :usuario";
+				String sql = "SELECT b.descricao FROM funcionarios a JOIN cargo b ON a.id_cargo = b.id_cargo WHERE lower(a.id_funcionario) = lower(:usuario)";
 				Query query = em.createNativeQuery(sql);
 				query.setParameter("usuario", usuario);
 

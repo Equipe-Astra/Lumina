@@ -67,11 +67,20 @@
                         </div>
 
                         <div class="mb-4">
-                            <select class="form-select" name="cargo" id="cargo" required aria-label="Selecione o cargo">
+                            <select class="form-select" name="cargo" id="cargo" aria-label="Selecione o cargo">
                                 <option value="" disabled hidden <%= request.getAttribute("cargo") == null ? "selected" : "" %>>CARGO</option>
                                 <option value="Gerente de Projetos" <%= "Gerente de Projetos".equals(request.getAttribute("cargo")) ? "selected" : "" %>>Gerente de Projetos</option>
-                                <option value="Executivos" <%= "Executivos".equals(request.getAttribute("cargo")) ? "selected" : "" %>>Executivo de Dados</option>
+                                <option value="Executivo" <%= "Executivo".equals(request.getAttribute("cargo")) ? "selected" : "" %>>Executivo</option>
                                 <option value="Colaborador Euron" <%= "Colaborador Euron".equals(request.getAttribute("cargo")) ? "selected" : "" %>>Auxiliar administrativo</option>
+                            </select>
+                        </div>
+                        
+                         <div class="mb-4">
+                            <select class="form-select" name="area" id="area" aria-label="Selecione a área">
+                                <option value="" disabled hidden <%= request.getAttribute("area") == null ? "selected" : "" %>>ÁREA</option>
+                                <option value="Six Sigma" <%="Six Sigma".equals(request.getAttribute("area")) ? "selected" : "" %>>Six Sigma</option>
+                                <option value="Open Data" <%= "Open Data".equals(request.getAttribute("area")) ? "selected" : "" %>>Open Data</option>
+                                <option value="Digital Health" <%= "Digital Health".equals(request.getAttribute("area")) ? "selected" : "" %>>Digital Health</option>
                             </select>
                         </div>
 

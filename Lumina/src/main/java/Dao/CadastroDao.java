@@ -6,6 +6,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import Entidades.Area;
 import Entidades.Cargo;
 import Entidades.Funcionarios;
 
@@ -39,10 +40,30 @@ public class CadastroDao {
 			return null;
 		}
 	}
+	
+	public Area buscaArea(String area) {
+		try {
+			String sql = "SELECT ID_AREA FROM Area WHERE lower(descricao) = lower(:area)";
+			Query query = em.createNativeQuery(sql);
+			query.setParameter("area", area);
+
+			Area areaFunc = new Area();
+
+			if (query.getSingleResult() == null) {
+				return areaFunc = null;
+			} else {
+				areaFunc.setIdArea(Double.parseDouble(query.getSingleResult().toString()));
+			}
+
+			return areaFunc;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 
 	public Integer buscaUsuario(String matricula) {
 		try {
-			String sql = "SELECT 1 FROM Funcionarios WHERE id = :matricula";
+			String sql = "SELECT 1 FROM Funcionarios WHERE lower(id_funcionario) = lower(:matricula)";
 			Query query = em.createNativeQuery(sql);
 			query.setParameter("matricula", matricula);
 
@@ -70,7 +91,7 @@ public class CadastroDao {
 		}
 	}
 
-	public Double cadastraFuncionario(Funcionarios funcionario) {
+	public String cadastraFuncionario(Funcionarios funcionario) {
 		try {
 			em.getTransaction().begin();
 			em.persist(funcionario);

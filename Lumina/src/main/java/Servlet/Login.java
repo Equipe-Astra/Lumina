@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
 		LoginDao dao = new LoginDao();
 
 		boolean loginSuccess = false;
-		Integer usuarioValido = dao.buscaUsuario(email);
+		String usuarioValido = dao.buscaUsuario(email);
 
 		if (usuarioValido != null && dao.buscaSenha(email).equals(senha)) {
 			String cargo = dao.buscaCargo(usuarioValido);
