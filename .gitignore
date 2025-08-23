@@ -5,3 +5,5 @@ RemoteSystemsTempFiles/
 # Ignorar arquivos temporários
 *.log
 *.tmp
+
+/target/
