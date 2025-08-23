@@ -278,7 +278,8 @@
 				aria-labelledby="meuModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content rounded-4 border-end-0 border-bottom-0">
-						<form action="PublicarProjeto" method="post">
+						<form action="Gemini" method="post"
+									enctype="multipart/form-data">
 
 							<div
 								class="modal-header d-flex justify-content-center flex-column align-items-center">
@@ -316,15 +317,13 @@
 									<p class="texto-area-post fw-medium ms-2 color-gradient">GEMINI
 										FAZ SEU POST PARA VOCÊ</p>
 								</div>
-
-								<form action="Gemini" method="post"
-									enctype="multipart/form-data">
+								
 									<label for="file-upload"
 										class="custom-upload-box justify-content-between"
 										id="file-label"> <span id="file-name"
 										class="text-truncate d-inline-block" style="max-width: 600px;">Faça
 											o upload do seu projeto aqui</span>
-										<button type="submit" class="border-0 bg-transparent">
+										<button type="submit" name="acao" value="gemini" class="border-0 bg-transparent">
 											<i class="bi bi-upload me-2 color-gradient"></i>
 										</button> <input id="file-upload" type="file" name="arquivo"
 										accept=".pdf,.csv,.xls,.xlsx,.doc,.docx,.pptx" required hidden />
@@ -357,10 +356,9 @@
 							</div>
 
 							<div class="modal-footer border-0">
-								<button type="submit"
+								<button type="submit" name="acao" value="gemini"
 									class="btn btn-secondary publicar border-0">PUBLICAR</button>
 							</div>
-						</form>
 					</div>
 				</div>
 			</div>

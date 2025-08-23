@@ -1174,7 +1174,7 @@ footer {
         padding-bottom: 1.5rem;
     }
 
-	 .bi-database, .bi-bandaid, .bi-lightbulb, .sigma, .bi-currency-dollar
+	 .bi-database, .bi-bandaid, .bi-lightbulb, .bi-currency-dollar
 	{
 		font-size: 1rem;
 	}
@@ -1205,8 +1205,8 @@ footer {
     }
 
     .area {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2.1rem;
+        height: 2.1rem;
     }
 
 
@@ -1217,12 +1217,12 @@ footer {
 	.scrollable-cards .card
 	{
 		scroll-snap-align: start;
-		max-height: 60vh !important;
+		height: 60vh !important;
 		margin-bottom: 20px;
 	}
 
 	.scrollable-cards {
-		height: 415px;
+		height: 387px;
 		max-width: 37rem;
 	}
 
