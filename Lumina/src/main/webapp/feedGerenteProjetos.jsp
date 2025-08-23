@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -133,7 +134,8 @@
 									<div class="d-flex flex-column align-items-center">
 										<button type="button"
 											class="area d-flex justify-content-center align-items-center">
-											<span class="sigma-icon texto-area fw-medium color-gradient d-flex justify-content-center align-items-center">&Sigma;</span>
+											<span
+												class="sigma-icon texto-area fw-medium color-gradient d-flex justify-content-center align-items-center">&Sigma;</span>
 										</button>
 									</div>
 									<div class="texto flex-column">
@@ -245,9 +247,11 @@
 								data-points="100">
 								<div
 									class="d-flex justify-content-center flex-column align-items-center">
-									<button type="button" class="area d-flex justify-content-center align-items-center">
-                                        <span class="sigma-icon fs-5 texto-area fw-medium color-gradient d-flex justify-content-center align-items-center">&Sigma;</span>
-                                    </button>
+									<button type="button"
+										class="area d-flex justify-content-center align-items-center">
+										<span
+											class="sigma-icon fs-5 texto-area fw-medium color-gradient d-flex justify-content-center align-items-center">&Sigma;</span>
+									</button>
 								</div>
 								<div class="texto flex-column">
 									<p class="texto-area fw-medium mb-0 ms-3">SIX SIGMA</p>
@@ -276,8 +280,7 @@
 				aria-labelledby="meuModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content rounded-4 border-end-0 border-bottom-0">
-						<form action="Gemini" method="post"
-									enctype="multipart/form-data">
+						<form action="Gemini" method="post" enctype="multipart/form-data">
 
 							<div
 								class="modal-header d-flex justify-content-center flex-column align-items-center">
@@ -303,8 +306,10 @@
 									<select class="form-select" name="projeto" id="projeto"
 										aria-label="Selecione o projeto">
 										<option value="" disabled selected hidden>PROJETO</option>
-										<option value="1">FRONT-END APP</option>
-										<option value="2">BACK-END SITE</option>
+										<c:forEach var="p" items="${projetos}">
+											<option value="${p.idProjeto}">${p.titulo}</option>
+										</c:forEach>
+
 									</select>
 								</div>
 
@@ -315,111 +320,203 @@
 									<p class="texto-area-post fw-medium ms-2 color-gradient">GEMINI
 										FAZ SEU POST PARA VOCÊ</p>
 								</div>
-								
-									<label for="file-upload"
-										class="custom-upload-box justify-content-between"
-										id="file-label"> <span id="file-name"
-										class="text-truncate d-inline-block" style="max-width: 600px;">Faça
-											o upload do seu projeto aqui</span>
-										<button type="submit" name="acao" value="gemini" class="border-0 bg-transparent">
-											<i class="bi bi-upload me-2 color-gradient"></i>
-										</button> <input id="file-upload" type="file" name="arquivo"
-										accept=".pdf,.csv,.xls,.xlsx,.doc,.docx,.pptx" required hidden />
-									</label>
-								</form>
-								<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">O
-									PROJETO</p>
-								<div class="input-group">
-									<textarea class="form-control" name="descricao"
-										placeholder="Digite aqui...">${descricao}</textarea>
-								</div>
 
-								<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">OBJETIVOS</p>
-								<div class="input-group">
-									<textarea class="form-control" name="objetivos"
-										placeholder="Digite aqui...">${objetivos}</textarea>
-								</div>
+								<label for="file-upload"
+									class="custom-upload-box justify-content-between"
+									id="file-label"> <span id="file-name"
+									class="text-truncate d-inline-block" style="max-width: 600px;">Faça
+										o upload do seu projeto aqui</span>
+									<button type="submit" name="acao" value="gemini"
+										class="border-0 bg-transparent">
+										<i class="bi bi-upload me-2 color-gradient"></i>
+									</button> <input id="file-upload" type="file" name="arquivo"
+									accept=".pdf,.csv,.xls,.xlsx,.doc,.docx,.pptx" required hidden />
+								</label>
+						</form>
+						<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">O
+							PROJETO</p>
+						<div class="input-group">
+							<textarea class="form-control" name="descricao"
+								placeholder="Digite aqui...">${descricao}</textarea>
+						</div>
 
-								<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">RESULTADOS</p>
-								<div class="input-group">
-									<textarea class="form-control" name="resultados"
-										placeholder="Digite aqui...">${resultados}</textarea>
-								</div>
+						<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">OBJETIVOS</p>
+						<div class="input-group">
+							<textarea class="form-control" name="objetivos"
+								placeholder="Digite aqui...">${objetivos}</textarea>
+						</div>
 
-								<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">LUCROS</p>
-								<div class="input-group">
-									<textarea class="form-control" name="lucros"
-										placeholder="Digite aqui..."></textarea>
-								</div>
-							</div>
+						<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">RESULTADOS</p>
+						<div class="input-group">
+							<textarea class="form-control" name="resultados"
+								placeholder="Digite aqui...">${resultados}</textarea>
+						</div>
 
-							<div class="modal-footer border-0">
-								<button type="submit" name="acao" value="gemini"
-									class="btn btn-secondary publicar border-0">PUBLICAR</button>
-							</div>
+						<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">LUCROS</p>
+						<div class="input-group">
+							<textarea class="form-control" name="lucros"
+								placeholder="Digite aqui..."></textarea>
+						</div>
+					</div>
+
+					<div class="modal-footer border-0">
+						<button type="submit" name="acao" value="gemini"
+							class="btn btn-secondary publicar border-0">PUBLICAR</button>
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<div
-				class="col-md-9 main-content d-flex flex-column justify-content-center align-items-center mb-0">
-				<div class="scrollable-cards w-100 p-3">
-					<div
-						class="card rounded-3 border-top-0 border-start-0 border-end-0 shadow">
-						<div class="card-body">
-							<div
-								class="area-row d-flex justify-content-start align-items-center flex-row mb-3 card-header"
-								data-points="100">
-								<div class="d-flex justify-content-center align-items-center">
-									<div
-										class="area-card d-flex justify-content-center align-items-center">
-										<i
-											class="bi bi-lightbulb fs-5 d-flex justify-content-center align-items-center color-gradient"></i>
-									</div>
-								</div>
-								<div class="texto flex-column">
-									<p class="texto-area fw-medium mb-0 ms-3">OPEN INNOVATION</p>
-									<p class="publicado fw-medium mb-0 ms-3">Publicado por
-										Fernanda Matos</p>
+		<div
+			class="col-md-9 main-content d-flex flex-column justify-content-center align-items-center mb-0">
+			<div class="scrollable-cards w-100 p-3">
+				<div
+					class="card rounded-3 border-top-0 border-start-0 border-end-0 shadow">
+					<div class="card-body">
+						<div
+							class="area-row d-flex justify-content-start align-items-center flex-row mb-3 card-header"
+							data-points="100">
+							<div class="d-flex justify-content-center align-items-center">
+								<div
+									class="area-card d-flex justify-content-center align-items-center">
+									<i
+										class="bi bi-lightbulb fs-5 d-flex justify-content-center align-items-center color-gradient"></i>
 								</div>
 							</div>
-							<figure class="mb-0">
-								<img src="./assets/foto-publicacao.png"
-									class="card-img-bottom ps-2 pe-2" alt="">
-							</figure>
-							<div
-								class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row">
-								<div
-									class="d-flex justify-content-center align-items-center flex-column">
-									<i type="button" class="bi bi-heart me-3"></i>
-									<p class="me-3 mb-0 quant-reacoes">10</p>
-								</div>
-								<div
-									class="d-flex justify-content-center align-items-center flex-column">
-									<i type="button" class="bi bi-chat me-3" data-bs-toggle="modal"
-										data-bs-target="#modalComentario"></i>
-									<p class="me-3 mb-0 quant-reacoes">5</p>
-								</div>
-								<div
-									class="d-flex justify-content-center align-items-center flex-column">
-									<i type="button" class="bi bi-emoji-laughing"></i>
-									<p class="mb-0 quant-reacoes">2</p>
-								</div>
+							<div class="texto flex-column">
+								<p class="texto-area fw-medium mb-0 ms-3">OPEN INNOVATION</p>
+								<p class="publicado fw-medium mb-0 ms-3">Publicado por
+									Fernanda Matos</p>
 							</div>
-							<p
-								class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-0">O
-								PROJETO</p>
-							<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
-								amet, consectetur adipiscing elit. Sed do eiusmod tempor
-								incididunt ut labore et dolore magna aliqua.</p>
-							<input type="button" class="fw-medium ver-mais" value="VER MAIS">
 						</div>
-					</div>
-					<div
-						class="card rounded-3 border-top-0 border-start-0 border-end-0 shadow">
-						<div class="card-body">
+						<figure class="mb-0">
+							<img src="./assets/foto-publicacao.png"
+								class="card-img-bottom ps-2 pe-2" alt="">
+						</figure>
+						<div
+							class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row">
 							<div
-								class="area-row d-flex justify-content-start align-items-center flex-row mb-3 card-header"
+								class="d-flex justify-content-center align-items-center flex-column">
+								<i type="button" class="bi bi-heart me-3"></i>
+								<p class="me-3 mb-0 quant-reacoes">10</p>
+							</div>
+							<div
+								class="d-flex justify-content-center align-items-center flex-column">
+								<i type="button" class="bi bi-chat me-3" data-bs-toggle="modal"
+									data-bs-target="#modalComentario"></i>
+								<p class="me-3 mb-0 quant-reacoes">5</p>
+							</div>
+							<div
+								class="d-flex justify-content-center align-items-center flex-column">
+								<i type="button" class="bi bi-emoji-laughing"></i>
+								<p class="mb-0 quant-reacoes">2</p>
+							</div>
+						</div>
+						<p class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-0">O
+							PROJETO</p>
+						<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
+							amet, consectetur adipiscing elit. Sed do eiusmod tempor
+							incididunt ut labore et dolore magna aliqua.</p>
+						<input type="button" class="fw-medium ver-mais" value="VER MAIS">
+					</div>
+				</div>
+				<div
+					class="card rounded-3 border-top-0 border-start-0 border-end-0 shadow">
+					<div class="card-body">
+						<div
+							class="area-row d-flex justify-content-start align-items-center flex-row mb-3 card-header"
+							data-points="100">
+							<div class="d-flex justify-content-center align-items-center">
+								<div
+									class="area-card d-flex justify-content-center align-items-center">
+									<i
+										class="bi bi-lightbulb fs-5 d-flex justify-content-center align-items-center color-gradient"></i>
+								</div>
+							</div>
+							<div class="texto flex-column">
+								<p class="texto-area fw-medium mb-0 ms-3">OPEN INNOVATION</p>
+								<p class="publicado fw-medium mb-0 ms-3">Publicado por
+									Fernanda Matos</p>
+							</div>
+						</div>
+						<figure class="mb-0">
+							<img src="./assets/foto-publicacao.png"
+								class="card-img-bottom ps-2 pe-2" alt="">
+						</figure>
+						<div
+							class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row">
+							<div
+								class="d-flex justify-content-center align-items-center flex-column">
+								<i type="button" class="bi bi-heart me-3"></i>
+								<p class="me-3 mb-0 quant-reacoes">10</p>
+							</div>
+							<div
+								class="d-flex justify-content-center align-items-center flex-column">
+								<i type="button" class="bi bi-chat me-3"></i>
+								<p class="me-3 mb-0 quant-reacoes">5</p>
+							</div>
+							<div
+								class="d-flex justify-content-center align-items-center flex-column">
+								<i type="button" class="bi bi-emoji-laughing"></i>
+								<p class="mb-0 quant-reacoes">2</p>
+							</div>
+						</div>
+						<p class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-2">O
+							PROJETO</p>
+						<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
+							amet, consectetur adipiscing elit. Sed do eiusmod tempor
+							incididunt ut labore et dolore magna aliqua.</p>
+						<input type="button" class="fw-medium ver-mais" value="VER MAIS">
+					</div>
+				</div>
+			</div>
+			<nav
+				class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
+				<a href="/feedGerenteProjetos.html"
+					class="text-center text-decoration-none text-primary">
+					<div
+						class="d-flex justify-content-center flex-column align-items-center">
+						<div
+							class="icon-wrapper d-flex justify-content-center align-items-center">
+							<i
+								class="bi bi-house d-flex justify-content-center align-items-center color-gradient"></i>
+						</div>
+						<small class="color-gradient mt-1">Feed</small>
+					</div>
+				</a> <a href="./projetos.html"
+					class="text-center text-decoration-none text-primary">
+					<div
+						class="d-flex justify-content-center flex-column align-items-center">
+						<div
+							class="icon-wrapper d-flex justify-content-center align-items-center">
+							<i
+								class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
+						</div>
+						<small class="color-gradient mt-1">Meus Projetos</small>
+					</div>
+				</a> <a href="#" class="text-center text-decoration-none text-primary">
+					<div
+						class="d-flex justify-content-center flex-column align-items-center">
+						<div
+							class="icon-wrapper d-flex justify-content-center align-items-center">
+							<i
+								class="bi bi-box-arrow-right d-flex justify-content-center align-items-center color-gradient"></i>
+						</div>
+						<small class="color-gradient mt-1">Sair</small>
+					</div>
+				</a>
+			</nav>
+			<footer>
+				<p class="mt-2 text-grey">© 2025 Lumina from Astra</p>
+			</footer>
+			<div class="modal fade" id="modalComentario" tabindex="-1"
+				aria-labelledby="meuModalComentarioLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content rounded-4 border-end-0 border-bottom-0">
+						<div
+							class="modal-header d-flex justify-content-start align-items-center">
+							<div
+								class="area-row d-flex justify-content-start align-items-center flex-row card-header"
 								data-points="100">
 								<div class="d-flex justify-content-center align-items-center">
 									<div
@@ -434,9 +531,13 @@
 										Fernanda Matos</p>
 								</div>
 							</div>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
 							<figure class="mb-0">
 								<img src="./assets/foto-publicacao.png"
-									class="card-img-bottom ps-2 pe-2" alt="">
+									class="modal-img-bottom rounded-4 ps-1 pe-1" alt="">
 							</figure>
 							<div
 								class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row">
@@ -456,171 +557,74 @@
 									<p class="mb-0 quant-reacoes">2</p>
 								</div>
 							</div>
-							<p
-								class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-2">O
-								PROJETO</p>
-							<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
-								amet, consectetur adipiscing elit. Sed do eiusmod tempor
-								incididunt ut labore et dolore magna aliqua.</p>
-							<input type="button" class="fw-medium ver-mais" value="VER MAIS">
-						</div>
-					</div>
-				</div>
-				<nav
-					class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
-					<a href="/feedGerenteProjetos.html"
-						class="text-center text-decoration-none text-primary">
-						<div
-							class="d-flex justify-content-center flex-column align-items-center">
-							<div
-								class="icon-wrapper d-flex justify-content-center align-items-center">
-								<i
-									class="bi bi-house d-flex justify-content-center align-items-center color-gradient"></i>
-							</div>
-							<small class="color-gradient mt-1">Feed</small>
-						</div>
-					</a> <a href="./projetos.html"
-						class="text-center text-decoration-none text-primary">
-						<div
-							class="d-flex justify-content-center flex-column align-items-center">
-							<div
-								class="icon-wrapper d-flex justify-content-center align-items-center">
-								<i
-									class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
-							</div>
-							<small class="color-gradient mt-1">Meus Projetos</small>
-						</div>
-					</a> <a href="#" class="text-center text-decoration-none text-primary">
-						<div
-							class="d-flex justify-content-center flex-column align-items-center">
-							<div
-								class="icon-wrapper d-flex justify-content-center align-items-center">
-								<i
-									class="bi bi-box-arrow-right d-flex justify-content-center align-items-center color-gradient"></i>
-							</div>
-							<small class="color-gradient mt-1">Sair</small>
-						</div>
-					</a>
-				</nav>
-				<footer>
-					<p class="mt-2 text-grey">© 2025 Lumina from Astra</p>
-				</footer>
-				<div class="modal fade" id="modalComentario" tabindex="-1"
-					aria-labelledby="meuModalComentarioLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content rounded-4 border-end-0 border-bottom-0">
-							<div
-								class="modal-header d-flex justify-content-start align-items-center">
-								<div
-									class="area-row d-flex justify-content-start align-items-center flex-row card-header"
-									data-points="100">
-									<div class="d-flex justify-content-center align-items-center">
-										<div
-											class="area-card d-flex justify-content-center align-items-center">
-											<i
-												class="bi bi-lightbulb fs-5 d-flex justify-content-center align-items-center color-gradient"></i>
-										</div>
-									</div>
-									<div class="texto flex-column">
-										<p class="texto-area fw-medium mb-0 ms-3">OPEN INNOVATION</p>
-										<p class="publicado fw-medium mb-0 ms-3">Publicado por
-											Fernanda Matos</p>
+							<div class="scrollable-modal w-100 mt-3 mb-3">
+								<div class="perfil-modal mt-1">
+									<figure class="mb-0">
+										<img class="foto-modal rounded-circle" src="./assets/foto.png"
+											alt="Foto de perfil">
+									</figure>
+									<div
+										class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
+										<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
+											PAULA</p>
+										<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
+											projeto!</p>
 									</div>
 								</div>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
+								<div class="perfil-modal mt-4">
+									<figure class="mb-0">
+										<img class="foto-modal rounded-circle" src="./assets/foto.png"
+											alt="Foto de perfil">
+									</figure>
+									<div
+										class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
+										<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
+											PAULA</p>
+										<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
+											projeto!</p>
+									</div>
+								</div>
+								<div class="perfil-modal mt-4">
+									<figure class="mb-0">
+										<img class="foto-modal rounded-circle" src="./assets/foto.png"
+											alt="Foto de perfil">
+									</figure>
+									<div
+										class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
+										<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
+											PAULA</p>
+										<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
+											projeto!</p>
+									</div>
+								</div>
+								<div class="perfil-modal mt-4">
+									<figure class="mb-0">
+										<img class="foto-modal rounded-circle" src="./assets/foto.png"
+											alt="Foto de perfil">
+									</figure>
+									<div
+										class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
+										<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
+											PAULA</p>
+										<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
+											projeto!</p>
+									</div>
+								</div>
 							</div>
-							<div class="modal-body">
-								<figure class="mb-0">
-									<img src="./assets/foto-publicacao.png"
-										class="modal-img-bottom rounded-4 ps-1 pe-1" alt="">
-								</figure>
-								<div
-									class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row">
-									<div
-										class="d-flex justify-content-center align-items-center flex-column">
-										<i type="button" class="bi bi-heart me-3"></i>
-										<p class="me-3 mb-0 quant-reacoes">10</p>
-									</div>
-									<div
-										class="d-flex justify-content-center align-items-center flex-column">
-										<i type="button" class="bi bi-chat me-3"></i>
-										<p class="me-3 mb-0 quant-reacoes">5</p>
-									</div>
-									<div
-										class="d-flex justify-content-center align-items-center flex-column">
-										<i type="button" class="bi bi-emoji-laughing"></i>
-										<p class="mb-0 quant-reacoes">2</p>
-									</div>
-								</div>
-								<div class="scrollable-modal w-100 mt-3 mb-3">
-									<div class="perfil-modal mt-1">
-										<figure class="mb-0">
-											<img class="foto-modal rounded-circle"
-												src="./assets/foto.png" alt="Foto de perfil">
-										</figure>
-										<div
-											class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
-											<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
-												PAULA</p>
-											<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
-												projeto!</p>
-										</div>
-									</div>
-									<div class="perfil-modal mt-4">
-										<figure class="mb-0">
-											<img class="foto-modal rounded-circle"
-												src="./assets/foto.png" alt="Foto de perfil">
-										</figure>
-										<div
-											class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
-											<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
-												PAULA</p>
-											<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
-												projeto!</p>
-										</div>
-									</div>
-									<div class="perfil-modal mt-4">
-										<figure class="mb-0">
-											<img class="foto-modal rounded-circle"
-												src="./assets/foto.png" alt="Foto de perfil">
-										</figure>
-										<div
-											class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
-											<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
-												PAULA</p>
-											<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
-												projeto!</p>
-										</div>
-									</div>
-									<div class="perfil-modal mt-4">
-										<figure class="mb-0">
-											<img class="foto-modal rounded-circle"
-												src="./assets/foto.png" alt="Foto de perfil">
-										</figure>
-										<div
-											class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
-											<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
-												PAULA</p>
-											<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
-												projeto!</p>
-										</div>
-									</div>
-								</div>
-								<div class="input-fazer-comentario">
-									<div class="input-group">
-										<input type="text" class="form-control fazer-comentario"
-											placeholder="Adicione um comentário"
-											aria-label="Recipient’s username"
-											aria-describedby="button-addon2">
-										<button class="btn btn-outline-secondary" type="button"
-											id="button-addon2">Postar</button>
-									</div>
+							<div class="input-fazer-comentario">
+								<div class="input-group">
+									<input type="text" class="form-control fazer-comentario"
+										placeholder="Adicione um comentário"
+										aria-label="Recipient’s username"
+										aria-describedby="button-addon2">
+									<button class="btn btn-outline-secondary" type="button"
+										id="button-addon2">Postar</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 	</main>
 	<!-- Chamada JS do BS -->
 	<script

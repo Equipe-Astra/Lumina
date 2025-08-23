@@ -13,7 +13,7 @@ public class Projetos {
 
     @Id
     @Column(name = "id_projeto")
-    private double id;
+    private double idProjeto;
 
     @Column(name = "titulo")
     private String titulo;
@@ -30,13 +30,18 @@ public class Projetos {
     @ManyToOne
     @JoinColumn(name = "id_status")
     private Status status;
+    
+    @ManyToOne
+    @JoinColumn(name = "ID_AREA")
+    private Area idArea;
 
-	public double getId() {
-		return id;
+
+	public double getIdProjeto() {
+		return idProjeto;
 	}
 
-	public void setId(double id) {
-		this.id = id;
+	public void setIdProjeto(double idProjeto) {
+		this.idProjeto = idProjeto;
 	}
 
 	public String getTitulo() {

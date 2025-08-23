@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -57,6 +58,9 @@ public class GeminiServlet extends HttpServlet {
 		FeedDao dao = new FeedDao();
 		String nome = dao.buscaNome(usuarioLogado);
 		request.setAttribute("nome", nome);
+		List<Entidades.Projetos> lista = dao.buscaProjetos(usuarioLogado);
+		request.setAttribute("projetos", lista);
+		
 		if (session != null) {
 			if ("gemini".equals(acao)) {
 				try {
@@ -164,11 +168,6 @@ public class GeminiServlet extends HttpServlet {
 				request.setAttribute("objetivos", objetivos);
 				request.setAttribute("resultados", resultados);
 				request.getRequestDispatcher("feedGerenteProjetos.jsp").forward(request, response);
-			}
-
-			if ("manual".equals(acao)) {
-				
-
 			}
 		}
 

@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,18 +20,22 @@ public class feedGerenteProjetos extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		
+
 		FeedDao dao = new FeedDao();
 		if (session != null) {
 			String usuarioLogado = (String) session.getAttribute("usuarioLogado");
 			session.setAttribute("usuarioLogado", usuarioLogado);
+
+			String nome = dao.buscaNome(usuarioLogado);
+			request.setAttribute("nome", nome);
+			List<Entidades.Projetos> lista = dao.buscaProjetos(usuarioLogado);
+			request.setAttribute("projetos", lista);
+			System.out.println("Projetos encontrados: " + lista);
 			
-			 String nome = dao.buscaNome(usuarioLogado);
-			 request.setAttribute("nome", nome);
-			 RequestDispatcher rd = request.getRequestDispatcher("feedGerenteProjetos.jsp");
-	            rd.forward(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("feedGerenteProjetos.jsp");
+			rd.forward(request, response);
 		}
-		
+
 		else {
 			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		}
