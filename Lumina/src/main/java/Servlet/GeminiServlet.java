@@ -127,7 +127,7 @@ public class GeminiServlet extends HttpServlet {
 
         String texto = textoExtraido.toString();
         
-        String prompt = "Separe o seguinte texto nos tópicos descrição do projeto, objetivo, resultados (o título do tópico deve ser o nome dele) e faça uma publicação completa e um pouco informal, mas com seriedade, pois os gestores irão ver e acompanhar os resultados por esse post, para o feed da empresa (quero apenas o texto, não coloque trechos como 'aqui está um texto...'). Por gentileza, não deixar lacunas para o usuário preencher (como: [cite aqui exemplos...])"
+        String prompt = "Separe o seguinte texto nos tópicos Descrição do projeto, Objetivos, Resultados (o título do tópico deve ser o nome dele) e faça uma publicação completa e um pouco informal, mas com seriedade, pois os gestores irão ver e acompanhar os resultados por esse post, para o feed da empresa (quero apenas o texto, não coloque trechos como 'aqui está um texto...'). Por gentileza, não deixar lacunas para o usuário preencher (como: [cite aqui exemplos...])"
                       + texto;
 
         String json = GeminiService.enviarPrompt(prompt);

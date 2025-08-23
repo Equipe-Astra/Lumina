@@ -130,12 +130,6 @@
                                     <p class="texto-area fw-medium mb-0 ms-3">VENTURES</p>
                                 </div>
                             </div>
-                            <button class="pt-2 pb-2  ms-2 ps-0 d-flex border-0 bg-transparent align-items-center sair">
-                                <i class="bi bi-box-arrow-right fs-5"></i>
-                                <p class="sair-text fw-medium mb-0 ms-3">
-                                    SAIR
-                                </p>
-                            </button>
                             </div>
                         </div>
                     </ul>
@@ -230,12 +224,6 @@
                                     <p class="texto-area fw-medium mb-0 ms-3">VENTURES</p>
                                 </div>
                             </div>
-                            <button class="pt-2 pb-2 d-flex justify-content-center border-0 bg-transparent align-items-center sair">
-                                <i class="bi bi-box-arrow-right fs-5"></i>
-                                <p class="sair-text fw-medium mb-0 ms-3">
-                                    SAIR
-                                </p>
-                            </button>
                         </section>
                     </div>
                 </div>
@@ -264,7 +252,7 @@
                         <label for="file-upload" class="custom-upload-box" id="file-label">
                             <i class="bi bi-upload me-2"></i>
                             <span id="file-name">Faça o upload do seu projeto aqui</span>
-                            <input id="file-upload" type="file" name="arquivo" accept=".ppt,.pptx" required hidden/>
+                            <input id="file-upload" type="file" name="arquivo" accept=".pdf,.csv,.xls,.xlsx,.docx,.pptx" required hidden/>
                             
                         </label>
                         <button type="submit">Enviar</button>
@@ -275,12 +263,15 @@
                         </div>
                         <p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">OBJETIVOS</p>
                         <div class="input-group">
-                            <textarea name="objetivos"class="form-control" aria-label="With textarea" placeholder="Digite aqui...">${objetivos}</textarea>
+                            <textarea name="objetivos" class="form-control" aria-label="With textarea" placeholder="Digite aqui...">${objetivos}</textarea>
                         </div>
-                       
                         <p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">RESULTADOS</p>
                         <div class="input-group">
                             <textarea name="resultados" class="form-control" aria-label="With textarea" placeholder="Digite aqui...">${resultados}</textarea>
+                        </div>
+                        <p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">RESULTADOS</p>
+                        <div class="input-group">
+                            <textarea class="form-control" aria-label="With textarea" placeholder="Digite aqui..."></textarea>
                         </div>
                     </div>
                     <div class="modal-footer border-0">
@@ -389,6 +380,15 @@
                             <i class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
                         </div>
                         <small class="color-gradient mt-1">Meus Projetos</small>
+                        </div>
+                    </a>
+                    <a href="#" class="text-center text-decoration-none text-primary">
+                        <div class="d-flex justify-content-center flex-column align-items-center">
+                            <div class="icon-wrapper d-flex justify-content-center align-items-center">
+                                <i
+                                    class="bi bi-box-arrow-right d-flex justify-content-center align-items-center color-gradient"></i>
+                            </div>
+                            <small class="color-gradient mt-1">Sair</small>
                         </div>
                     </a>
                 </nav>
