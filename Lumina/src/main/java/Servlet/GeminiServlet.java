@@ -167,6 +167,7 @@ public class GeminiServlet extends HttpServlet {
 			}
 
 			if ("manual".equals(acao)) {
+				
 
 			}
 		}
