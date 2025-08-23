@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
+<!DOCTYPE html>
+<html lang="pt-br">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -202,7 +205,7 @@
 									<button type="button"
 										class="area d-flex justify-content-center align-items-center">
 										<i
-											class="bi bi-database fs-4 d-flex justify-content-center align-items-center color-gradient"></i>
+											class="bi bi-database d-flex justify-content-center align-items-center color-gradient"></i>
 									</button>
 								</div>
 								<div class="texto flex-column">
@@ -217,7 +220,7 @@
 									<button type="button"
 										class="area d-flex justify-content-center align-items-center">
 										<i
-											class="bi bi-bandaid fs-4 d-flex justify-content-center align-items-center color-gradient"></i>
+											class="bi bi-bandaid d-flex justify-content-center align-items-center color-gradient"></i>
 									</button>
 								</div>
 								<div class="texto flex-column">
@@ -232,7 +235,7 @@
 									<button type="button"
 										class="area d-flex justify-content-center align-items-center">
 										<i
-											class="bi bi-lightbulb fs-4 d-flex justify-content-center align-items-center color-gradient"></i>
+											class="bi bi-lightbulb d-flex justify-content-center align-items-center color-gradient"></i>
 									</button>
 								</div>
 								<div class="texto flex-column">
@@ -245,7 +248,7 @@
 								<div
 									class="d-flex justify-content-center flex-column align-items-center">
 									<button type="button" class="area d-flex justify-content-center align-items-center">
-                                        <span class="sigma-icon texto-area fw-medium color-gradient d-flex justify-content-center align-items-center">&Sigma;</span>
+                                        <span class="sigma-icon fs-5 texto-area fw-medium color-gradient d-flex justify-content-center align-items-center">&Sigma;</span>
                                     </button>
 								</div>
 								<div class="texto flex-column">
@@ -260,7 +263,7 @@
 									<button type="button"
 										class="area d-flex justify-content-center align-items-center">
 										<i
-											class="bi bi-currency-dollar fs-4 d-flex justify-content-center align-items-center color-gradient"></i>
+											class="bi bi-currency-dollar d-flex justify-content-center align-items-center color-gradient"></i>
 									</button>
 								</div>
 								<div class="texto flex-column">
@@ -295,7 +298,7 @@
 							<div class="modal-body ps-3 pe-3 m-3 mt-2">
 								<input type="hidden" name="idProjeto" value="123"> <input
 									type="hidden" name="areaPessoa" value="Front-End">
-								<p class="texto-area-post fw-medium color-gradient mt-0 mb-2">SELECIONE
+								<p class="texto-area-post fw-medium  color-gradient mt-0 mb-2">SELECIONE
 									SEU PROJETO</p>
 								<div class="mb-4">
 									<select class="form-select" name="projeto" id="projeto"
@@ -408,9 +411,9 @@
 								</div>
 							</div>
 							<p
-								class="texto-area-post fw-medium mt-3 ms-2 color-gradient mb-2">O
+								class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-0">O
 								PROJETO</p>
-							<p class="card-text ps-2 pe-2 mb-2">Lorem ipsum dolor sit
+							<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
 								amet, consectetur adipiscing elit. Sed do eiusmod tempor
 								incididunt ut labore et dolore magna aliqua.</p>
 							<input type="button" class="fw-medium ver-mais" value="VER MAIS">
@@ -458,9 +461,9 @@
 								</div>
 							</div>
 							<p
-								class="texto-area-post fw-medium mt-3 ms-2 color-gradient mb-2">O
+								class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-2">O
 								PROJETO</p>
-							<p class="card-text ps-2 pe-2 mb-2">Lorem ipsum dolor sit
+							<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
 								amet, consectetur adipiscing elit. Sed do eiusmod tempor
 								incididunt ut labore et dolore magna aliqua.</p>
 							<input type="button" class="fw-medium ver-mais" value="VER MAIS">
@@ -674,3 +677,5 @@
 	</script>
 
 </body>
+
+</html>
