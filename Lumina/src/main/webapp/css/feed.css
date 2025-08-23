@@ -117,7 +117,7 @@ header {
     bottom: 0;
     left: 0;
     margin-top: 8rem;
-    margin-left: 8rem;
+    margin-left: 5rem;
     padding-bottom: 2rem;
 }
 
@@ -132,16 +132,6 @@ header {
 	height: 8rem;
 	object-fit: cover;
     margin-bottom: 1rem;
-}
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    margin-top: 8rem;
-    margin-left: 5rem;
-    padding-bottom: 2rem;
 }
 
 .perfil {
@@ -404,12 +394,15 @@ header {
 }
 
 .navbar-bottom {
-    border: 2px solid transparent !important; 
-    background: linear-gradient(#fff 0 0) padding-box, var(--color-gradient) border-box !important;   
-  	border-radius: 5rem;
-  	width: 20rem;
-	padding: 0.2rem !important;
-  	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+    border: 2px solid transparent !important;
+    background: linear-gradient(#fff 0 0) padding-box, var(--color-gradient) border-box !important;
+    border-radius: 5rem;
+    width: 20rem;
+    height: 9vh;
+    padding-top: 0.1rem !important;
+	padding-bottom: 0.1rem !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
 }
 
 footer {
@@ -1187,7 +1180,7 @@ footer {
 	}
 
     .barra-header {
-        height: 10vh; /* menos altura para liberar espaço */
+        height: 12vh; /* menos altura para liberar espaço */
     }
     
     .perfil {
@@ -1224,12 +1217,12 @@ footer {
 	.scrollable-cards .card
 	{
 		scroll-snap-align: start;
-		min-height: 62.5vh !important;
+		max-height: 60vh !important;
 		margin-bottom: 20px;
 	}
 
 	.scrollable-cards {
-		height: 390px;
+		height: 400px;
 		max-width: 37rem;
 	}
 
@@ -1254,10 +1247,20 @@ footer {
 	.card-img-bottom  {
 		height: 8rem;
 	}
-	.navbar-bottom {
-		height: 9vh;
+
+	 .navbar-bottom {
+		height: 10vh;
 		padding: 0 !important;
+        margin-top: 0rem;
 	}
+
+    .navbar-bottom {
+        margin-top: 0rem;
+    }
+
+    .texto-status {
+        font-size: 0.8rem;
+    }
 	 
 	.pagina-atual {
 		width: 2rem;
