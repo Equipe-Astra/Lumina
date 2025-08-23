@@ -76,7 +76,7 @@ header {
     color: #A6A6A6;
 }
 
-.barra-search.form-control:focus, textarea.form-control:focus, .fazer-comentario.form-control:focus  {
+.barra-search.form-control:focus, textarea.form-control:focus, .fazer-comentario.form-control:focus, select.form-select:focus  {
     box-shadow: none !important;
 	border-color: #DBDBDB;
 }
@@ -259,7 +259,7 @@ header {
 	flex-direction: row !important;
 }
 
-.custom-upload-box, .input-group textarea {
+.custom-upload-box, .input-group textarea, select.form-select {
   display: flex;
   align-items: center;
   padding: 12px 16px;
@@ -271,6 +271,7 @@ header {
   transition: border-color 0.3s ease;
   font-size: 0.95rem;
   transition: border-color 0.3s ease;
+  resize: none;  
 }
 
 .input-group textarea::placeholder {
@@ -1028,8 +1029,8 @@ footer {
     }
 
     .area {
-        width: 2rem;
-        height: 2rem;
+        width: 2.5rem;
+        height: 2.5rem;
     }
 
 
@@ -1040,14 +1041,13 @@ footer {
 	.scrollable-cards .card
 	{
 		scroll-snap-align: start;
-		min-height: 60vh !important;
 		margin-bottom: 20px;
 	}
 
 	.scrollable-cards {
 		height: 400px;
 		max-width: 37rem;
-		margin-left: 16rem;
+		margin-left: 14rem;
 	}
 
 	.area-card {
@@ -1056,7 +1056,7 @@ footer {
 	}
 
 	.texto-area {
-		font-size: 0.9rem;
+		font-size: 1rem;
 	}
 
 	.publicado {
@@ -1205,8 +1205,8 @@ footer {
     }
 
     .area {
-        width: 2rem;
-        height: 2rem;
+        width: 2.5rem;
+        height: 2.5rem;
     }
 
 
@@ -1222,7 +1222,7 @@ footer {
 	}
 
 	.scrollable-cards {
-		height: 400px;
+		height: 415px;
 		max-width: 37rem;
 	}
 
@@ -1232,7 +1232,7 @@ footer {
 	}
 
 	.texto-area {
-		font-size: 0.9rem;
+		font-size: 1rem;
 	}
 
 	.publicado {
