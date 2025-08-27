@@ -65,8 +65,7 @@
 								</figure>
 								<div
 									class="nome d-flex justify-content-start flex-column ms-3 mb-0">
-									<p class="fw-medium mb-0 color-gradient text-uppercase">FERNANDA
-										MATOS</p>
+									<p class="fw-medium mb-0 color-gradient text-uppercase">${nome}</p>
 									<p class="fw-medium cargo text-grey mt-1 mb-0">Gerente de
 										Projetos</p>
 								</div>
@@ -175,8 +174,7 @@
 						</figure>
 						<div
 							class="nome d-flex justify-content-center flex-column align-items-center">
-							<p class="fw-medium mb-0 color-gradient text-uppercase fs-5">FERNANDA
-								MATOS</p>
+							<p class="fw-medium mb-0 color-gradient text-uppercase">${nome}</p>
 							<p class="fw-medium cargo text-grey mt-2">Gerente de Projetos</p>
 						</div>
 						<section
