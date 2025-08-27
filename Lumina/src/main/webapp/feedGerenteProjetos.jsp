@@ -481,7 +481,7 @@
 							</div>
 							<small class="color-gradient mt-1">Feed</small>
 						</div>
-					</a> <a href="./projetos.html"
+					</a> <a href="./projetos.jsp"
 						class="text-center text-decoration-none text-primary">
 						<div
 							class="d-flex justify-content-center flex-column align-items-center">

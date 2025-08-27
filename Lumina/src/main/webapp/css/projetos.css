@@ -234,6 +234,10 @@ textarea.form-control:focus,
     border-color: #DBDBDB;
 }
 
+.barra-search-participantes.form-control {
+	font-size: 0.9rem !important;
+}
+
 .adicionar {
     background: var(--color-gradient);
     width: 7rem;
@@ -330,7 +334,7 @@ textarea.form-control:focus,
     .swiper {
         width: 90% !important;
         padding: 0 1rem !important;
-        height: 53vh;
+        height: 60vh;
     }
 
     .swiper-button-next,
@@ -353,7 +357,7 @@ textarea.form-control:focus,
     }
 
     .card {
-        max-height: 48vh;
+        max-height: 54vh;
         overflow-y: auto;
     }
 

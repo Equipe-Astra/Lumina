@@ -10,9 +10,10 @@
     <!-- NÃO precisa mais declarar o <provider>, o Hibernate 6 se registra sozinho -->
     <class>Entidades.Cargo</class>
     <class>Entidades.Area</class>
-    <class>Entidades.Funcionarios</class>
+    <class>Entidades.Funcionarios</class> 
     <class>Entidades.Projetos</class>
     <class>Entidades.Status</class>
+    <class>Entidades.ProjetoFuncionario</class> 
     <properties>
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL"/>

@@ -18,17 +18,22 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.open-modal').forEach(botao => {
     botao.addEventListener('click', () => {
-      const status = botao.getAttribute('data-status');
+      const statusTexto = botao.getAttribute('data-status'); // Ex: "Não Iniciado"
+      const statusId = botao.getAttribute('data-status-id');  // Ex: "1"
+
       const inputTitulo = document.getElementById('modalTituloInput');
       const statusInput = document.getElementById('statusProjeto');
 
-      const novoTexto = `ADICIONE UM TÍTULO - ${status}`;
+      const novoTexto = `ADICIONE UM TÍTULO - ${statusTexto.toUpperCase()}`;
       inputTitulo.placeholder = novoTexto;
-      inputTitulo.value = novoTexto;
-      statusInput.value = status;
+      inputTitulo.value = '';  // Limpa para o usuário digitar
+
+      statusInput.value = statusId;  // Atualiza o input hidden com o id correto
     });
   });
 });
+
+
 
 // Upload de imagem
 const imageInput = document.getElementById('image-upload');
@@ -206,3 +211,45 @@ document.querySelectorAll('input').forEach(($input) => {
     e.target.classList.remove("errorInput");
   });
 });
+
+const participantesSelecionadosDiv = document.getElementById("participantesSelecionados");
+const inputsParticipantesDiv = document.getElementById("inputsParticipantes");
+
+document.querySelectorAll(".participante-item").forEach(item => {
+    item.addEventListener("click", function(e) {
+        e.preventDefault();
+        const id = this.dataset.id;
+        const nome = this.dataset.nome;
+        const foto = this.dataset.foto;
+
+        if (document.getElementById("foto-" + id)) return;
+
+        // Mostrar foto no modal
+        const img = document.createElement("img");
+        img.src = foto;
+        img.alt = nome;
+        img.className = "foto rounded-circle shadow me-1";
+        img.id = "foto-" + id;
+        img.style.width = "40px";
+        img.style.height = "40px";
+        img.style.cursor = "pointer";
+
+        img.addEventListener("click", function() {
+            img.remove();
+            document.getElementById("input-" + id).remove();
+        });
+
+        participantesSelecionadosDiv.appendChild(img);
+
+        // Criar input hidden para o participante
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "participantes";  // mesmo nome para criar array no backend
+        input.value = id;
+        input.id = "input-" + id;
+        inputsParticipantesDiv.appendChild(input);
+    });
+});
+
+
+

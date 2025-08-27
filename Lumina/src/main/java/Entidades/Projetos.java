@@ -2,41 +2,59 @@ package Entidades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import Dto.FuncionariosDTO;
+
 import java.util.Date;
+import java.util.List;
 
 @Entity
 
 public class Projetos {
+	
+	@Transient
+	private List<FuncionariosDTO> participantes;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_projeto")
-    private double id;
+    private Long idProjeto;
 
     @Column(name = "titulo")
     private String titulo;
 
     @Column(name = "descricao")
-    private byte[] descricao; 
+    private String descricao; 
 
     @Column(name = "data_criacao")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;
 
     @Column(name = "criado_por")
-    private double criadoPor;
+    private String criadoPor;
 
     @ManyToOne
     @JoinColumn(name = "id_status")
     private Status status;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_area")
+    private Area idArea;
 
-	public double getId() {
-		return id;
+	public Long getId() {
+		return idProjeto;
 	}
 
-	public void setId(double id) {
-		this.id = id;
+	public void setId(Long id_projeto) {
+		this.idProjeto = id_projeto;
 	}
 
 	public String getTitulo() {
@@ -47,11 +65,11 @@ public class Projetos {
 		this.titulo = titulo;
 	}
 
-	public byte[] getDescricao() {
+	public String getDescricao() {
 		return descricao;
 	}
 
-	public void setDescricao(byte[] descricao) {
+	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
@@ -63,11 +81,11 @@ public class Projetos {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public double getCriadoPor() {
+	public String getCriadoPor() {
 		return criadoPor;
 	}
 
-	public void setCriadoPor(double criadoPor) {
+	public void setCriadoPor(String criadoPor) {
 		this.criadoPor = criadoPor;
 	}
 
@@ -78,4 +96,29 @@ public class Projetos {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public double getId_projeto() {
+		return idProjeto;
+	}
+
+	public void setId_projeto(Long id_projeto) {
+		this.idProjeto = id_projeto;
+	}
+
+	public Area getId_area() {
+		return idArea;
+	}
+
+	public void setId_area(Area id_area) {
+		this.idArea = id_area;
+	}
+	
+	public List<FuncionariosDTO> getParticipantes() {
+        return participantes;
+    }
+
+    public void setParticipantes(List<FuncionariosDTO> participantes) {
+        this.participantes = participantes;
+    }
+	
 }
