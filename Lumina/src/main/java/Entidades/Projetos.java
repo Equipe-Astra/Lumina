@@ -11,38 +11,42 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import Dto.FuncionariosDTO;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 
 public class Projetos {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_projeto")
-    private Long idProjeto;
 
-    @Column(name = "titulo")
-    private String titulo;
+	@Transient
+	private List<FuncionariosDTO> participantes;
 
-    @Column(name = "descricao")
-    private String descricao; 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_projeto")
+	private Long idProjeto;
 
-    @Column(name = "data_criacao")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataCriacao;
+	@Column(name = "titulo")
+	private String titulo;
 
-    @Column(name = "criado_por")
-    private String criadoPor;
+	@Column(name = "descricao")
+	private String descricao;
 
-    @ManyToOne
-    @JoinColumn(name = "id_status")
-    private Status status;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_area")
-    private Area idArea;
+	@Column(name = "data_criacao")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCriacao;
+
+	@Column(name = "criado_por")
+	private String criadoPor;
+
+	@ManyToOne
+	@JoinColumn(name = "id_status")
+	private Status status;
+
+	@ManyToOne
+	@JoinColumn(name = "id_area")
+	private Area idArea;
 
 	public Long getIdProjeto() {
 		return idProjeto;
@@ -98,5 +102,29 @@ public class Projetos {
 
 	public void setIdArea(Area idArea) {
 		this.idArea = idArea;
+	}
+
+	public double getId_projeto() {
+		return idProjeto;
+	}
+
+	public void setId_projeto(Long id_projeto) {
+		this.idProjeto = id_projeto;
+	}
+
+	public Area getId_area() {
+		return idArea;
+	}
+
+	public void setId_area(Area id_area) {
+		this.idArea = id_area;
+	}
+
+	public List<FuncionariosDTO> getParticipantes() {
+		return participantes;
+	}
+
+	public void setParticipantes(List<FuncionariosDTO> participantes) {
+		this.participantes = participantes;
 	}
 }

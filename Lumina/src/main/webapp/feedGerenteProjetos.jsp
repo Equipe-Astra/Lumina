@@ -554,6 +554,7 @@
 									<p class="mb-0 quant-reacoes">2</p>
 								</div>
 							</div>
+<<<<<<< HEAD
 							<div class="scrollable-modal w-100 mt-3 mb-3">
 								<div class="perfil-modal mt-1">
 									<figure class="mb-0">
@@ -605,6 +606,77 @@
 											PAULA</p>
 										<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
 											projeto!</p>
+=======
+							<p
+								class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-2">O
+								PROJETO</p>
+							<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
+								amet, consectetur adipiscing elit. Sed do eiusmod tempor
+								incididunt ut labore et dolore magna aliqua.</p>
+							<input type="button" class="fw-medium ver-mais" value="VER MAIS">
+						</div>
+					</div>
+				</div>
+				<nav
+					class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
+					<a href="/feedGerenteProjetos.html"
+						class="text-center text-decoration-none text-primary">
+						<div
+							class="d-flex justify-content-center flex-column align-items-center">
+							<div
+								class="icon-wrapper d-flex justify-content-center align-items-center">
+								<i
+									class="bi bi-house d-flex justify-content-center align-items-center color-gradient"></i>
+							</div>
+							<small class="color-gradient mt-1">Feed</small>
+						</div>
+					</a> <a href="./projetos.jsp"
+						class="text-center text-decoration-none text-primary">
+						<div
+							class="d-flex justify-content-center flex-column align-items-center">
+							<div
+								class="icon-wrapper d-flex justify-content-center align-items-center">
+								<i
+									class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
+							</div>
+							<small class="color-gradient mt-1">Meus Projetos</small>
+						</div>
+					</a> <a href="#" class="text-center text-decoration-none text-primary">
+						<div
+							class="d-flex justify-content-center flex-column align-items-center">
+							<div
+								class="icon-wrapper d-flex justify-content-center align-items-center">
+								<i
+									class="bi bi-box-arrow-right d-flex justify-content-center align-items-center color-gradient"></i>
+							</div>
+							<small class="color-gradient mt-1">Sair</small>
+						</div>
+					</a>
+				</nav>
+				<footer>
+					<p class="mt-2 text-grey">© 2025 Lumina from Astra</p>
+				</footer>
+				<div class="modal fade" id="modalComentario" tabindex="-1"
+					aria-labelledby="meuModalComentarioLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content rounded-4 border-end-0 border-bottom-0">
+							<div
+								class="modal-header d-flex justify-content-start align-items-center">
+								<div
+									class="area-row d-flex justify-content-start align-items-center flex-row card-header"
+									data-points="100">
+									<div class="d-flex justify-content-center align-items-center">
+										<div
+											class="area-card d-flex justify-content-center align-items-center">
+											<i
+												class="bi bi-lightbulb fs-5 d-flex justify-content-center align-items-center color-gradient"></i>
+										</div>
+									</div>
+									<div class="texto flex-column">
+										<p class="texto-area fw-medium mb-0 ms-3">OPEN INNOVATION</p>
+										<p class="publicado fw-medium mb-0 ms-3">Publicado por
+											Fernanda Matos</p>
+>>>>>>> ecb55488c4eedd2570c9472abccbdbdf53181154
 									</div>
 								</div>
 							</div>
