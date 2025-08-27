@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -34,6 +35,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import Dao.FeedDao;
+import Entidades.Area;
+import Entidades.Funcionarios;
+import Entidades.LucroProjeto;
+import Entidades.Publicacao;
 import Service.GeminiService;
 
 @WebServlet("/Gemini")
@@ -44,28 +49,36 @@ public class GeminiServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Part filePart = request.getPart("arquivo");
-		String fileName = filePart.getSubmittedFileName();
-		String extensao = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-		String acao = request.getParameter("acao");
-
-		InputStream fileContent = filePart.getInputStream();
-		StringBuilder textoExtraido = new StringBuilder();
-
 		HttpSession session = request.getSession(false);
 		String usuarioLogado = (String) session.getAttribute("usuarioLogado");
-
+		
 		FeedDao dao = new FeedDao();
+		
 		String nome = dao.buscaNome(usuarioLogado);
 		request.setAttribute("nome", nome);
+		
 		List<Entidades.Projetos> lista = dao.buscaProjetos(usuarioLogado);
 		request.setAttribute("projetos", lista);
+		
+		Funcionarios funcionario = new Funcionarios();
+		funcionario.setId(usuarioLogado);
+		
+		Area area = new Area();
+		area.setIdArea(dao.buscaArea(usuarioLogado));
+		
+		Part arquivo = request.getPart("arquivo");
+		String nomeArquivo = arquivo.getSubmittedFileName();
+		String extensao = nomeArquivo.substring(nomeArquivo.lastIndexOf(".") + 1).toLowerCase();
+		String acao = request.getParameter("acao");
+
+		InputStream fileContent = arquivo.getInputStream();
+		StringBuilder textoExtraido = new StringBuilder();
+
 		
 		if (session != null) {
 			if ("gemini".equals(acao)) {
 				try {
 					switch (extensao) {
-					// PDF
 					case "pdf":
 						try (PDDocument document = PDDocument.load(fileContent)) {
 							PDFTextStripper stripper = new PDFTextStripper();
@@ -73,7 +86,6 @@ public class GeminiServlet extends HttpServlet {
 						}
 						break;
 
-					// CSV
 					case "csv":
 						try (BufferedReader br = new BufferedReader(new InputStreamReader(fileContent))) {
 							String linha;
@@ -82,8 +94,7 @@ public class GeminiServlet extends HttpServlet {
 							}
 						}
 						break;
-
-					// XLS / XLSX
+						
 					case "xls":
 					case "xlsx":
 						try (Workbook workbook = WorkbookFactory.create(fileContent)) {
@@ -116,7 +127,6 @@ public class GeminiServlet extends HttpServlet {
 						}
 						break;
 
-					// PPTX
 					case "pptx":
 						try (XMLSlideShow ppt = new XMLSlideShow(fileContent)) {
 							for (XSLFSlide slide : ppt.getSlides()) {
@@ -138,7 +148,7 @@ public class GeminiServlet extends HttpServlet {
 
 				String texto = textoExtraido.toString();
 
-				String prompt = "Separe o seguinte texto nos tópicos Descrição do projeto, Objetivos, Resultados (o título do tópico deve ser o nome dele) e faça uma publicação completa e um pouco informal, mas com seriedade, pois os gestores irão ver e acompanhar os resultados por esse post, para o feed da empresa (quero apenas o texto, não coloque trechos como 'aqui está um texto...'). Por gentileza, não deixar lacunas para o usuário preencher (como: [cite aqui exemplos...])"
+				String prompt = "Separe o seguinte texto nos tópicos Descrição do projeto, Objetivos, Resultados, Lucro (o título do tópico deve ser o nome dele) e faça uma publicação completa e um pouco informal, mas com seriedade, pois os gestores irão ver e acompanhar os resultados por esse post, para o feed da empresa (quero apenas o texto, não coloque trechos como 'aqui está um texto...'). O campo de lucro deve ser preenchido apenas com um valor numérico (essa informação vai para o banco de dados para um campo number), se não houver essa informação no texto, preencher com 0, essa deve ser a ÚLTIMA informção do texto, não pode vir nada a mais abaixo dela. Por gentileza, não deixar lacunas para o usuário preencher (como: [cite aqui exemplos...])"
 						+ texto;
 
 				String json = GeminiService.enviarPrompt(prompt);
@@ -149,13 +159,15 @@ public class GeminiServlet extends HttpServlet {
 						.getAsString();
 
 				textoGerado = textoGerado.replaceAll("(\\*\\*|\\*|__|_)", "").trim();
+				textoGerado = textoGerado.replaceAll("(\\##\\##|\\##|__|_)", "").trim();
 				textoGerado = textoGerado.replaceAll("\\n{2,}", "\n\n").trim();
 
 				String descricao = "";
 				String objetivos = "";
 				String resultados = "";
+				String lucro = "";
 
-				String[] partes = textoGerado.split("(?i)(?=Objetivos:|Resultados:)");
+				String[] partes = textoGerado.split("(?i)(?=Objetivos:|Resultados:|Lucro:)");
 
 				if (partes.length > 0)
 					descricao = partes[0].replaceFirst("(?i)Descrição do projeto:", "").trim();
@@ -163,11 +175,41 @@ public class GeminiServlet extends HttpServlet {
 					objetivos = partes[1].replaceFirst("(?i)Objetivos:", "").trim();
 				if (partes.length > 2)
 					resultados = partes[2].replaceFirst("(?i)Resultados:", "").trim();
+				if (partes.length > 3)
+					lucro = partes[3].replaceFirst("(?i)Lucro:", "").trim();
 
 				request.setAttribute("descricao", descricao);
 				request.setAttribute("objetivos", objetivos);
 				request.setAttribute("resultados", resultados);
+				request.setAttribute("lucro", lucro);
 				request.getRequestDispatcher("feedGerenteProjetos.jsp").forward(request, response);
+			}
+			else if ("manual".equals(acao)) {
+				Publicacao publicacao = new Publicacao();
+				LucroProjeto lucro = new LucroProjeto();
+				
+				Part imagem = request.getPart("imagemProjeto");
+				if (imagem != null && imagem.getSize() > 0) {
+				    publicacao.setImagem(imagem.getInputStream().readAllBytes());
+				}
+				String descricao = request.getParameter("descricao");
+				String objetivos = request.getParameter("objetivos");
+				String resultados = request.getParameter("resultados");
+				String lucros = request.getParameter("lucro");
+				String idProjeto = request.getParameter("idProjeto");
+				
+				lucro.setLucro(Double.parseDouble(lucros));	
+				lucro.setIdProjeto(dao.buscaProjeto(idProjeto));
+				publicacao.setIdFuncionario(funcionario);
+				publicacao.setIdArea(area);
+				publicacao.setIdProjeto(dao.buscaProjeto(idProjeto));
+				publicacao.setDescricao(descricao.getBytes(StandardCharsets.UTF_8));
+				publicacao.setObjetivos(objetivos.getBytes(StandardCharsets.UTF_8));
+				publicacao.setResultados(resultados.getBytes(StandardCharsets.UTF_8));
+				
+				dao.cadastraLucro(lucro);
+				dao.cadastraPublicacao(publicacao);
+				
 			}
 		}
 

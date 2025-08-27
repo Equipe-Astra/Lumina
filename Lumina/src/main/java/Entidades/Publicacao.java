@@ -1,18 +1,31 @@
 package Entidades;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
+@Entity
 public class Publicacao {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "publicacao_seq")
+	@SequenceGenerator(name = "publicacao_seq", sequenceName = "SEQ_PUBLICACAO", allocationSize = 1)
 	@Column(name = "id_publicacao")
-	private Double idPublicacao;
+	private Long idPublicacao;
+	
+	@Lob
 	private byte[] descricao;
+	
+	@Lob
 	private byte[] objetivos;
+	
+	@Lob
 	private byte[] resultados;
 
 	@Lob
@@ -31,11 +44,11 @@ public class Publicacao {
 	@OneToOne
 	private Projetos idProjeto;
 
-	public Double getIdPublicacao() {
+	public Long getIdPublicacao() {
 		return idPublicacao;
 	}
 
-	public void setIdPublicacao(Double idPublicacao) {
+	public void setIdPublicacao(Long idPublicacao) {
 		this.idPublicacao = idPublicacao;
 	}
 

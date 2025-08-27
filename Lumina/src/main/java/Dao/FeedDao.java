@@ -9,7 +9,9 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import Entidades.LucroProjeto;
 import Entidades.Projetos;
+import Entidades.Publicacao;
 
 public class FeedDao {
 	private EntityManagerFactory emf;
@@ -36,7 +38,7 @@ public class FeedDao {
 		}
 	}
 
-	private Double buscaArea(String usuarioLogado) {
+	public Double buscaArea(String usuarioLogado) {
 		try {
 			String sql = "SELECT id_area FROM Funcionarios WHERE lower(id_funcionario) = lower(:matricula)";
 			Query query = em.createNativeQuery(sql);
@@ -62,6 +64,40 @@ public class FeedDao {
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+	
+	public Projetos buscaProjeto(String idProjeto) {
+		return em.find(Projetos.class, Long.valueOf(idProjeto));
+		
+	}
+
+	public void cadastraPublicacao(Publicacao publicacao) {
+		try {
+			em.getTransaction().begin();
+			em.persist(publicacao);
+			em.getTransaction().commit();
+
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			e.printStackTrace();
+		}
+	}
+
+	public void cadastraLucro(LucroProjeto lucro) {
+		try {
+			em.getTransaction().begin();
+			em.persist(lucro);
+			em.getTransaction().commit();
+
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			e.printStackTrace();
+		}
+		
 	}
 
 }

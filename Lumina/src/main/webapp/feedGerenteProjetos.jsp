@@ -298,12 +298,10 @@
 							</div>
 
 							<div class="modal-body ps-3 pe-3 m-3 mt-2">
-								<input type="hidden" name="idProjeto" value="123"> <input
-									type="hidden" name="areaPessoa" value="Front-End">
 								<p class="texto-area-post fw-medium  color-gradient mt-0 mb-2">SELECIONE
 									SEU PROJETO</p>
 								<div class="mb-4">
-									<select class="form-select" name="projeto" id="projeto"
+									<select class="form-select" name="idProjeto" id="projeto"
 										aria-label="Selecione o projeto">
 										<option value="" disabled selected hidden>PROJETO</option>
 										<c:forEach var="p" items="${projetos}">
@@ -330,9 +328,8 @@
 										class="border-0 bg-transparent">
 										<i class="bi bi-upload me-2 color-gradient"></i>
 									</button> <input id="file-upload" type="file" name="arquivo"
-									accept=".pdf,.csv,.xls,.xlsx,.doc,.docx,.pptx" required hidden />
+									accept=".pdf,.csv,.xls,.xlsx,.doc,.docx,.pptx" hidden/>
 								</label>
-						</form>
 						<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">O
 							PROJETO</p>
 						<div class="input-group">
@@ -354,19 +351,19 @@
 
 						<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">LUCROS</p>
 						<div class="input-group">
-							<textarea class="form-control" name="lucros"
-								placeholder="Digite aqui..."></textarea>
+							<textarea class="form-control" name="lucro"
+								placeholder="Digite aqui...">${lucro}</textarea>
 						</div>
 					</div>
 
 					<div class="modal-footer border-0">
-						<button type="submit" name="acao" value="gemini"
+						<button type="submit" name="acao" value="manual"
 							class="btn btn-secondary publicar border-0">PUBLICAR</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
+</form>
 		<div
 			class="col-md-9 main-content d-flex flex-column justify-content-center align-items-center mb-0">
 			<div class="scrollable-cards w-100 p-3">

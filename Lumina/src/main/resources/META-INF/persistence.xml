@@ -7,19 +7,19 @@
 
   <persistence-unit name="Lumina" transaction-type="JTA">
   <jta-data-source>java:/LuminaDS</jta-data-source>
-    <!-- NÃO precisa mais declarar o <provider>, o Hibernate 6 se registra sozinho -->
     <class>Entidades.Cargo</class>
     <class>Entidades.Area</class>
     <class>Entidades.Funcionarios</class>
     <class>Entidades.Projetos</class>
     <class>Entidades.Status</class>
+    <class>Entidades.Publicacao</class>
+    <class>Entidades.LucroProjeto</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL"/>
       <property name="javax.persistence.jdbc.user" value="rm552352"/>
       <property name="javax.persistence.jdbc.password" value="080103"/>
 
-      <!-- Hibernate -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect" />
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.show_sql" value="true"/>
