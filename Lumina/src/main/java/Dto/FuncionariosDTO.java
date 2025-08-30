@@ -11,7 +11,7 @@ public class FuncionariosDTO {
 	private String foto;
 
     public FuncionariosDTO(String id, String nome, String email, Double idArea, String foto) {
-        this.id = id;
+        this.id = id; 
         this.nome = nome;
         this.email = email;
         this.area = idArea;

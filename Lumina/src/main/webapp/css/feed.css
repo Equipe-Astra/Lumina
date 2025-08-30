@@ -308,10 +308,13 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-bottom: 8px solid transparent !important; 
     background: linear-gradient(#fff 0 0) padding-box, var(--color-gradient) border-box !important;  
-	height: 60vh !important; 
+    height: auto !important;
+    max-height: none !important;
 }
 
+
 .card-body {
+	overflow: hidden;
 	padding: 0.5rem !important;
 }
 
@@ -390,7 +393,7 @@ header {
 
 .scrollable-cards .card {
   scroll-snap-align: start;
-  max-height: 510px !important;
+  min-height: auto !important;
   margin-bottom: 20px;
 }
 
@@ -1217,7 +1220,7 @@ footer {
 	.scrollable-cards .card
 	{
 		scroll-snap-align: start;
-		height: 60vh !important;
+		height: auto !important;
 		margin-bottom: 20px;
 	}
 

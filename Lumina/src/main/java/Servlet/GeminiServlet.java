@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,6 +38,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import Dao.FeedDao;
+import Dto.ComentarioDTO;
+import Dto.PublicacoesDTO;
 import Entidades.Area;
 import Entidades.Funcionarios;
 import Entidades.LucroProjeto;
@@ -48,11 +53,16 @@ public class GeminiServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(false);
 		String usuarioLogado = (String) session.getAttribute("usuarioLogado");
 		
 		FeedDao dao = new FeedDao();
+		
+		String caminhoImagem;
+		
+			caminhoImagem = dao.buscaFotoPerfil(usuarioLogado, getServletContext());
+			request.setAttribute("caminhoFotoPerfil", caminhoImagem);
 		
 		String nome = dao.buscaNome(usuarioLogado);
 		request.setAttribute("nome", nome);
@@ -66,6 +76,23 @@ public class GeminiServlet extends HttpServlet {
 		Area area = new Area();
 		area.setIdArea(dao.buscaArea(usuarioLogado));
 		
+		List<PublicacoesDTO> publicacoes;
+		try {
+			publicacoes = dao.buscaPublicacao();
+			request.setAttribute("publicacoes", publicacoes);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		List<ComentarioDTO> comentarios;
+		try {
+			comentarios = dao.buscaComentarios(getServletContext());
+			request.setAttribute("comentarios", comentarios);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		Part arquivo = request.getPart("arquivo");
 		String nomeArquivo = arquivo.getSubmittedFileName();
 		String extensao = nomeArquivo.substring(nomeArquivo.lastIndexOf(".") + 1).toLowerCase();
@@ -74,8 +101,13 @@ public class GeminiServlet extends HttpServlet {
 		InputStream fileContent = arquivo.getInputStream();
 		StringBuilder textoExtraido = new StringBuilder();
 
+		if (session == null || session.getAttribute("usuarioLogado") == null) {
+		    RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		    rd.forward(request, response);
+		    return;
+		}
 		
-		if (session != null) {
+		else{
 			if ("gemini".equals(acao)) {
 				try {
 					switch (extensao) {
@@ -148,7 +180,7 @@ public class GeminiServlet extends HttpServlet {
 
 				String texto = textoExtraido.toString();
 
-				String prompt = "Separe o seguinte texto nos tópicos Descrição do projeto, Objetivos, Resultados, Lucro (o título do tópico deve ser o nome dele) e faça uma publicação completa e um pouco informal, mas com seriedade, pois os gestores irão ver e acompanhar os resultados por esse post, para o feed da empresa (quero apenas o texto, não coloque trechos como 'aqui está um texto...'). O campo de lucro deve ser preenchido apenas com um valor numérico (essa informação vai para o banco de dados para um campo number), se não houver essa informação no texto, preencher com 0, essa deve ser a ÚLTIMA informção do texto, não pode vir nada a mais abaixo dela. Por gentileza, não deixar lacunas para o usuário preencher (como: [cite aqui exemplos...])"
+				String prompt = "Separe o seguinte texto nos tópicos Descrição do projeto, Objetivos, Resultados, Lucro (o título dos tópicos devem ser os especificados anteriormente) e faça uma publicação completa e um pouco informal, mas com seriedade, pois os gestores irão ver e acompanhar os resultados por esse post, para o feed da empresa (quero apenas o texto, não coloque trechos como 'aqui está um texto...'). O campo de lucro deve ser preenchido apenas com um valor numérico (essa informação vai para o banco de dados para um campo number), se não houver essa informação no texto, preencher com 0, essa deve ser a ÚLTIMA informção do texto, não pode vir nada a mais abaixo dela. Por gentileza, não deixar lacunas para o usuário preencher (como: [cite aqui exemplos...])"
 						+ texto;
 
 				String json = GeminiService.enviarPrompt(prompt);
@@ -162,26 +194,34 @@ public class GeminiServlet extends HttpServlet {
 				textoGerado = textoGerado.replaceAll("(\\##\\##|\\##|__|_)", "").trim();
 				textoGerado = textoGerado.replaceAll("\\n{2,}", "\n\n").trim();
 
-				String descricao = "";
-				String objetivos = "";
-				String resultados = "";
-				String lucro = "";
 
-				String[] partes = textoGerado.split("(?i)(?=Objetivos:|Resultados:|Lucro:)");
+				String descricao = "", objetivos = "", resultados = "", lucro = "";
 
-				if (partes.length > 0)
-					descricao = partes[0].replaceFirst("(?i)Descrição do projeto:", "").trim();
-				if (partes.length > 1)
-					objetivos = partes[1].replaceFirst("(?i)Objetivos:", "").trim();
-				if (partes.length > 2)
-					resultados = partes[2].replaceFirst("(?i)Resultados:", "").trim();
-				if (partes.length > 3)
-					lucro = partes[3].replaceFirst("(?i)Lucro:", "").trim();
+				String regex = "(?is)" +
+					    "Descrição do projeto:\\s*(?<descricao>.*?)(?=\\n\\s*Objetivos:|\\n\\s*Resultados:|\\n\\s*Lucro\\s*:|\\n\\s*Lucro\\s*|$)" +
+					    "(?:\\n\\s*Objetivos:\\s*(?<objetivos>.*?)(?=\\n\\s*Resultados:|\\n\\s*Lucro\\s*:|\\n\\s*Lucro\\s*|$))?" +
+					    "(?:\\n\\s*Resultados:\\s*(?<resultados>.*?)(?=\\n\\s*Lucro\\s*:|\\n\\s*Lucro\\s*|$))?" +
+					    "(?:\\n\\s*Lucro\\s*:??\\s*(?<lucro>.*))?";
+
+				
+				System.out.println(textoGerado);
+
+				Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
+				Matcher matcher = pattern.matcher(textoGerado);
+
+				if (matcher.find()) {
+				    descricao = matcher.group("descricao") != null ? matcher.group("descricao").trim() : "";
+				    objetivos = matcher.group("objetivos") != null ? matcher.group("objetivos").trim() : "";
+				    resultados = matcher.group("resultados") != null ? matcher.group("resultados").trim() : "";
+				    lucro = matcher.group("lucro") != null ? matcher.group("lucro").trim() : "";
+				}
 
 				request.setAttribute("descricao", descricao);
 				request.setAttribute("objetivos", objetivos);
 				request.setAttribute("resultados", resultados);
 				request.setAttribute("lucro", lucro);
+				
+				
 				request.getRequestDispatcher("feedGerenteProjetos.jsp").forward(request, response);
 			}
 			else if ("manual".equals(acao)) {
@@ -192,30 +232,31 @@ public class GeminiServlet extends HttpServlet {
 				if (imagem != null && imagem.getSize() > 0) {
 				    publicacao.setImagem(imagem.getInputStream().readAllBytes());
 				}
+				
 				String descricao = request.getParameter("descricao");
 				String objetivos = request.getParameter("objetivos");
 				String resultados = request.getParameter("resultados");
-				String lucros = request.getParameter("lucro");
 				String idProjeto = request.getParameter("idProjeto");
+				String lucros = request.getParameter("lucro").replaceAll("[^0-9.]", "");
 				
-				lucro.setLucro(Double.parseDouble(lucros));	
+				if(lucros.isEmpty()) {
+				    lucros = "0";
+				}
+				lucro.setLucro(Double.parseDouble(lucros));
+				
 				lucro.setIdProjeto(dao.buscaProjeto(idProjeto));
 				publicacao.setIdFuncionario(funcionario);
 				publicacao.setIdArea(area);
 				publicacao.setIdProjeto(dao.buscaProjeto(idProjeto));
-				publicacao.setDescricao(descricao.getBytes(StandardCharsets.UTF_8));
-				publicacao.setObjetivos(objetivos.getBytes(StandardCharsets.UTF_8));
-				publicacao.setResultados(resultados.getBytes(StandardCharsets.UTF_8));
+				publicacao.setDescricao(descricao);
+				publicacao.setObjetivos(objetivos);
+				publicacao.setResultados(resultados);
 				
 				dao.cadastraLucro(lucro);
 				dao.cadastraPublicacao(publicacao);
 				
+				response.sendRedirect("feedGerenteProjetos");
 			}
 		}
-
-		else {
-			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-		}
-
 	}
 }

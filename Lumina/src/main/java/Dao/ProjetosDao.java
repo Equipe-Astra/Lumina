@@ -118,7 +118,7 @@ public class ProjetosDao {
 
 
             FuncionariosDTO dto = new FuncionariosDTO(id, nome, email, idArea, foto);
-
+ 
             listaFuncionarios.add(dto);
         }
 

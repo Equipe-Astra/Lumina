@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java"%>
+<meta charset="UTF-8">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -31,12 +31,13 @@
 
 <!-- BS Icons -->
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> 
 </head>
 
 <body>
 	<header class="color-light shadow">
-		<nav class="navbar d-lg-flex background-nav ps-4 pe-4">
+		<nav class="navbar d-lg-flex background-nav ps-4 pe-4"
+			style="z-index: 1">
 			<div class="container-fluid">
 				<a class="navbar-brand logo" href="#"> <img class="logoHeader"
 					src="./assets/logo.svg" alt="Logo">
@@ -168,11 +169,21 @@
 		<div class="row">
 			<div class="col-md-3 p-0">
 				<div class="sidebar">
-					<div class="perfil color-light d-flex justify-content-center align-items-center flex-column shadow rounded">
-						<figure class="mb-0">
-							<img class="foto rounded-circle"
-								src="./assets/foto-gerente-projetos.png" alt="Foto de perfil">
-						</figure>
+					<div
+						class="perfil color-light d-flex justify-content-center align-items-center flex-column shadow rounded">
+						<form action="AtualizaPerfil" method="post"
+							enctype="multipart/form-data">
+							<figure class="mb-0 position-relative">
+								<img id="fotoPerfil" class="foto rounded-circle"
+									src= "data:image/png;base64,${caminhoFotoPerfil}" alt="Foto de perfil">
+								<label for="perfilUpload"
+									class="position-absolute bottom-0 end-0 rounded-circle bg-white p-1"
+									style="cursor: pointer;"> <i class="bi bi-camera-fill"></i>
+								</label>
+								<input type="file" id="perfilUpload" name="fotoPerfil"
+									accept="image/*" hidden onchange="this.form.submit()">
+							</figure>
+						</form>
 						<div
 							class="nome d-flex justify-content-center flex-column align-items-center">
 							<p class="fw-medium mb-0 color-gradient text-uppercase">${nome}</p>
@@ -188,7 +199,7 @@
 									<button type="button"
 										class="area d-flex justify-content-center align-items-center"
 										data-bs-toggle="modal" data-bs-target="#meuModal">
-										<i class="bi bi-plus fs-3 mt-1 color-gradient"></i>
+										<i class="bi bi-plus fs-3 color-gradient"></i>
 									</button>
 								</div>
 								<div class="texto flex-column">
@@ -279,8 +290,8 @@
 				aria-labelledby="meuModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content rounded-4 border-end-0 border-bottom-0">
-						<form action="Gemini" method="post" enctype="multipart/form-data">
-
+						<form action="Gemini" method="post" enctype="multipart/form-data"
+							accept-charset="UTF-8">
 							<div
 								class="modal-header d-flex justify-content-center flex-column align-items-center">
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -327,246 +338,209 @@
 										class="border-0 bg-transparent">
 										<i class="bi bi-upload me-2 color-gradient"></i>
 									</button> <input id="file-upload" type="file" name="arquivo"
-									accept=".pdf,.csv,.xls,.xlsx,.doc,.docx,.pptx" hidden/>
+									accept=".pdf,.csv,.xls,.xlsx,.doc,.docx,.pptx" hidden />
 								</label>
-						<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">O
-							PROJETO</p>
-						<div class="input-group">
-							<textarea class="form-control" name="descricao"
-								placeholder="Digite aqui...">${descricao}</textarea>
-						</div>
+								<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">O
+									PROJETO</p>
+								<div class="input-group">
+									<textarea class="form-control" name="descricao"
+										placeholder="Digite aqui...">${descricao}</textarea>
+								</div>
 
-						<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">OBJETIVOS</p>
-						<div class="input-group">
-							<textarea class="form-control" name="objetivos"
-								placeholder="Digite aqui...">${objetivos}</textarea>
-						</div>
+								<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">OBJETIVOS</p>
+								<div class="input-group">
+									<textarea class="form-control" name="objetivos"
+										placeholder="Digite aqui...">${objetivos}</textarea>
+								</div>
 
-						<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">RESULTADOS</p>
-						<div class="input-group">
-							<textarea class="form-control" name="resultados"
-								placeholder="Digite aqui...">${resultados}</textarea>
-						</div>
+								<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">RESULTADOS</p>
+								<div class="input-group">
+									<textarea class="form-control" name="resultados"
+										placeholder="Digite aqui...">${resultados}</textarea>
+								</div>
 
-						<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">LUCROS</p>
-						<div class="input-group">
-							<textarea class="form-control" name="lucro"
-								placeholder="Digite aqui...">${lucro}</textarea>
-						</div>
-					</div>
+								<p class="texto-area-post fw-medium  color-gradient mt-3 mb-2">LUCROS</p>
+								<div class="input-group">
+									<textarea class="form-control" name="lucro"
+										placeholder="Digite aqui...">${lucro}</textarea>
+								</div>
+							</div>
 
-					<div class="modal-footer border-0">
-						<button type="submit" name="acao" value="manual"
-							class="btn btn-secondary publicar border-0">PUBLICAR</button>
+							<div class="modal-footer border-0">
+								<button type="submit" name="acao" value="manual"
+									class="btn btn-secondary publicar border-0">PUBLICAR</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
-		</div>
-</form>
-		<div
-			class="col-md-9 main-content d-flex flex-column justify-content-center align-items-center mb-0">
-			<div class="scrollable-cards w-100 p-3">
-				<div
-					class="card rounded-3 border-top-0 border-start-0 border-end-0 shadow">
-					<div class="card-body">
+
+			<div
+				class="col-md-9 main-content d-flex flex-column justify-content-center align-items-center mb-0">
+				<div class="scrollable-cards w-100 p-3">
+					<c:forEach var="publicacao" items="${publicacoes}">
 						<div
-							class="area-row d-flex justify-content-start align-items-center flex-row mb-3 card-header"
-							data-points="100">
-							<div class="d-flex justify-content-center align-items-center">
+							class="card rounded-3 border-top-0 border-start-0 border-end-0 shadow mb-3">
+							<div class="card-body">
 								<div
-									class="area-card d-flex justify-content-center align-items-center">
-									<i
-										class="bi bi-lightbulb fs-5 d-flex justify-content-center align-items-center color-gradient"></i>
+									class="area-row d-flex justify-content-start align-items-center flex-row mb-3 card-header"
+									data-points="100">
+									<div class="d-flex justify-content-center align-items-center">
+										<div
+											class="area-card d-flex justify-content-center align-items-center">
+
+										</div>
+									</div>
+									<div class="texto flex-column">
+										<p class="texto-area fw-medium mb-0 ms-3">${publicacao.area}</p>
+										<p class="publicado fw-medium mb-0 ms-3">Publicado por
+											${publicacao.funcionario}</p>
+									</div>
+								</div>
+
+								<figure class="mb-0">
+									<img src="data:image/png;base64,${publicacao.imagemBase64}"
+										class="card-img-bottom ps-2 pe-2" alt="">
+								</figure>
+
+								<div
+									class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row">
+									<div
+										class="d-flex justify-content-center align-items-center flex-column">
+										<i type="button" class="bi bi-heart me-3"></i>
+										<p class="me-3 mb-0 quant-reacoes">10</p>
+									</div>
+									<div
+										class="d-flex justify-content-center align-items-center flex-column">
+										<i type="button" class="bi bi-chat me-3"
+											data-bs-toggle="modal"
+											data-bs-target="#modalComentario-${publicacao.idPublicacao}"
+											data-id="${publicacao.idPublicacao}"
+											data-area="${publicacao.area}"
+											data-funcionario="${publicacao.funcionario}"
+											data-descricao="${publicacao.descricao}"
+											data-imagem="data:image/png;base64,${publicacao.imagemBase64}"></i>
+										<p class="me-3 mb-0 quant-reacoes">5</p>
+									</div>
+									<div
+										class="d-flex justify-content-center align-items-center flex-column">
+										<i type="button" class="bi bi-emoji-laughing"></i>
+										<p class="mb-0 quant-reacoes">2</p>
+									</div>
+								</div>
+
+								<p
+									class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-0">O
+									PROJETO</p>
+								<p class="card-text ps-2 pe-2 mb-0 resumo-projeto">
+									${publicacao.descricao.length() > 100 ? publicacao.descricao.substring(0,160) : publicacao.descricao}
+									<span class="dots">...</span>
+								</p>
+
+								<div class="conteudo-oculto" style="display: none;">
+									<p class="card-text ps-2 pe-2 mb-0">${publicacao.descricao.length() > 100 ? publicacao.descricao.substring(100) : ""}</p>
+									<p
+										class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-0">
+										OBJETIVOS</p>
+									<p class="card-text ps-2 pe-2 mb-0">${publicacao.objetivos}</p>
+									<p
+										class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-0">
+										RESULTADOS</p>
+									<p class="card-text ps-2 pe-2 mb-0">${publicacao.resultados}</p>
+								</div>
+
+								<input type="button" class="fw-medium ver-mais" value="VER MAIS"
+									onclick="toggleVerMais(this)">
+							</div>
+						</div>
+						<div class="modal fade"
+							id="modalComentario-${publicacao.idPublicacao}" tabindex="-1"
+							aria-labelledby="meuModalComentarioLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div
+									class="modal-content rounded-4 border-end-0 border-bottom-0">
+									<div
+										class="modal-header d-flex justify-content-start align-items-center">
+										<div
+											class="area-row d-flex justify-content-start align-items-center flex-row card-header"
+											data-points="100">
+											<div class="d-flex justify-content-center align-items-center">
+												<div
+													class="area-card d-flex justify-content-center align-items-center">
+												</div>
+											</div>
+											<div class="texto flex-column">
+												<p class="texto-area fw-medium mb-0 ms-3"></p>
+												<p class="publicado fw-medium mb-0 ms-3"></p>
+											</div>
+										</div>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<figure class="mb-0">
+											<img src="./assets/foto-publicacao.png"
+												class="modal-img-bottom rounded-4 ps-1 pe-1" alt="">
+										</figure>
+										<div
+											class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row">
+											<div
+												class="d-flex justify-content-center align-items-center flex-column">
+												<i type="button" class="bi bi-heart me-3"></i>
+												<p class="me-3 mb-0 quant-reacoes">10</p>
+											</div>
+											<div
+												class="d-flex justify-content-center align-items-center flex-column">
+												<i type="button" class="bi bi-chat me-3"></i>
+												<p class="me-3 mb-0 quant-reacoes">5</p>
+											</div>
+											<div
+												class="d-flex justify-content-center align-items-center flex-column">
+												<i type="button" class="bi bi-emoji-laughing"></i>
+												<p class="mb-0 quant-reacoes">2</p>
+											</div>
+										</div>
+										<div class="scrollable-modal w-100 mt-3 mb-3">
+											<c:forEach var="comentarios" items="${comentarios}">
+												<c:if
+													test="${comentarios.idPublicacao == publicacao.idPublicacao}">
+													<div class="perfil-modal mb-3">
+														<figure class="mb-0">
+															<img class="foto-modal rounded-circle"
+																src="data:image/png;base64,${comentarios.imagemBase64}"
+																alt="Foto de perfil">
+														</figure>
+														<div
+															class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
+															<p class="fw-medium mb-0 color-gradient text-uppercase">${comentarios.nomeFuncionario}</p>
+															<p class="fw-medium cargo-modal mt-1 mb-0">${comentarios.descricao}</p>
+														</div>
+													</div>
+												</c:if>
+											</c:forEach>
+										</div>
+										<form action="CadastraComentario" method="post"
+											accept-charset="UTF-8">
+											<div class="input-fazer-comentario">
+												<div class="input-group">
+													<input type="hidden" name="publicacao" value=""> <input
+														type="text" name="descricao"
+														class="form-control fazer-comentario"
+														placeholder="Adicione um comentário"
+														aria-label="Recipient’s username"
+														aria-describedby="button-addon2">
+													<button class="btn btn-outline-secondary" type="submit"
+														id="button-addon2">Postar</button>
+												</div>
+											</div>
+										</form>
+									</div>
 								</div>
 							</div>
-							<div class="texto flex-column">
-								<p class="texto-area fw-medium mb-0 ms-3">OPEN INNOVATION</p>
-								<p class="publicado fw-medium mb-0 ms-3">Publicado por
-									Fernanda Matos</p>
-							</div>
 						</div>
-						<figure class="mb-0">
-							<img src="./assets/foto-publicacao.png"
-								class="card-img-bottom ps-2 pe-2" alt="">
-						</figure>
-						<div
-							class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row">
-							<div
-								class="d-flex justify-content-center align-items-center flex-column">
-								<i type="button" class="bi bi-heart me-3"></i>
-								<p class="me-3 mb-0 quant-reacoes">10</p>
-							</div>
-							<div
-								class="d-flex justify-content-center align-items-center flex-column">
-								<i type="button" class="bi bi-chat me-3" data-bs-toggle="modal"
-									data-bs-target="#modalComentario"></i>
-								<p class="me-3 mb-0 quant-reacoes">5</p>
-							</div>
-							<div
-								class="d-flex justify-content-center align-items-center flex-column">
-								<i type="button" class="bi bi-emoji-laughing"></i>
-								<p class="mb-0 quant-reacoes">2</p>
-							</div>
-						</div>
-						<p class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-0">O
-							PROJETO</p>
-						<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
-							amet, consectetur adipiscing elit. Sed do eiusmod tempor
-							incididunt ut labore et dolore magna aliqua.</p>
-						<input type="button" class="fw-medium ver-mais" value="VER MAIS">
-					</div>
+					</c:forEach>
 				</div>
-			</div>
-			<nav
-				class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
-				<a href="/feedGerenteProjetos.html"
-					class="text-center text-decoration-none text-primary">
-					<div
-						class="d-flex justify-content-center flex-column align-items-center">
-						<div
-							class="icon-wrapper d-flex justify-content-center align-items-center">
-							<i
-								class="bi bi-house d-flex justify-content-center align-items-center color-gradient"></i>
-						</div>
-						<small class="color-gradient mt-1">Feed</small>
-					</div>
-				</a> <a href="./projetos.html"
-					class="text-center text-decoration-none text-primary">
-					<div
-						class="d-flex justify-content-center flex-column align-items-center">
-						<div
-							class="icon-wrapper d-flex justify-content-center align-items-center">
-							<i
-								class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
-						</div>
-						<small class="color-gradient mt-1">Meus Projetos</small>
-					</div>
-				</a> <a href="#" class="text-center text-decoration-none text-primary">
-					<div
-						class="d-flex justify-content-center flex-column align-items-center">
-						<div
-							class="icon-wrapper d-flex justify-content-center align-items-center">
-							<i
-								class="bi bi-box-arrow-right d-flex justify-content-center align-items-center color-gradient"></i>
-						</div>
-						<small class="color-gradient mt-1">Sair</small>
-					</div>
-				</a>
-			</nav>
-			<footer>
-				<p class="mt-2 text-grey">© 2025 Lumina from Astra</p>
-			</footer>
-			<div class="modal fade" id="modalComentario" tabindex="-1"
-				aria-labelledby="meuModalComentarioLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content rounded-4 border-end-0 border-bottom-0">
-						<div
-							class="modal-header d-flex justify-content-start align-items-center">
-							<div
-								class="area-row d-flex justify-content-start align-items-center flex-row card-header"
-								data-points="100">
-								<div class="d-flex justify-content-center align-items-center">
-									<div
-										class="area-card d-flex justify-content-center align-items-center">
-										<i
-											class="bi bi-lightbulb fs-5 d-flex justify-content-center align-items-center color-gradient"></i>
-									</div>
-								</div>
-								<div class="texto flex-column">
-									<p class="texto-area fw-medium mb-0 ms-3">OPEN INNOVATION</p>
-									<p class="publicado fw-medium mb-0 ms-3">Publicado por
-										Fernanda Matos</p>
-								</div>
-							</div>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<figure class="mb-0">
-								<img src="./assets/foto-publicacao.png"
-									class="modal-img-bottom rounded-4 ps-1 pe-1" alt="">
-							</figure>
-							<div
-								class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row">
-								<div
-									class="d-flex justify-content-center align-items-center flex-column">
-									<i type="button" class="bi bi-heart me-3"></i>
-									<p class="me-3 mb-0 quant-reacoes">10</p>
-								</div>
-								<div
-									class="d-flex justify-content-center align-items-center flex-column">
-									<i type="button" class="bi bi-chat me-3"></i>
-									<p class="me-3 mb-0 quant-reacoes">5</p>
-								</div>
-								<div
-									class="d-flex justify-content-center align-items-center flex-column">
-									<i type="button" class="bi bi-emoji-laughing"></i>
-									<p class="mb-0 quant-reacoes">2</p>
-								</div>
-							</div>
-<<<<<<< HEAD
-							<div class="scrollable-modal w-100 mt-3 mb-3">
-								<div class="perfil-modal mt-1">
-									<figure class="mb-0">
-										<img class="foto-modal rounded-circle" src="./assets/foto.png"
-											alt="Foto de perfil">
-									</figure>
-									<div
-										class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
-										<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
-											PAULA</p>
-										<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
-											projeto!</p>
-									</div>
-								</div>
-								<div class="perfil-modal mt-4">
-									<figure class="mb-0">
-										<img class="foto-modal rounded-circle" src="./assets/foto.png"
-											alt="Foto de perfil">
-									</figure>
-									<div
-										class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
-										<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
-											PAULA</p>
-										<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
-											projeto!</p>
-									</div>
-								</div>
-								<div class="perfil-modal mt-4">
-									<figure class="mb-0">
-										<img class="foto-modal rounded-circle" src="./assets/foto.png"
-											alt="Foto de perfil">
-									</figure>
-									<div
-										class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
-										<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
-											PAULA</p>
-										<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
-											projeto!</p>
-									</div>
-								</div>
-								<div class="perfil-modal mt-4">
-									<figure class="mb-0">
-										<img class="foto-modal rounded-circle" src="./assets/foto.png"
-											alt="Foto de perfil">
-									</figure>
-									<div
-										class="nome-modal d-flex justify-content-start flex-column ms-3 mb-0">
-										<p class="fw-medium mb-0 color-gradient text-uppercase">ANA
-											PAULA</p>
-										<p class="fw-medium cargo-modal mt-1 mb-0">Parabéns pelo
-											projeto!</p>
-=======
-							<p
-								class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-2">O
-								PROJETO</p>
-							<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
-								amet, consectetur adipiscing elit. Sed do eiusmod tempor
-								incididunt ut labore et dolore magna aliqua.</p>
-							<input type="button" class="fw-medium ver-mais" value="VER MAIS">
-						</div>
-					</div>
-				</div>
+
 				<nav
 					class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
 					<a href="/feedGerenteProjetos.html"
@@ -580,7 +554,7 @@
 							</div>
 							<small class="color-gradient mt-1">Feed</small>
 						</div>
-					</a> <a href="./projetos.jsp"
+					</a> <a href="./projetos.html"
 						class="text-center text-decoration-none text-primary">
 						<div
 							class="d-flex justify-content-center flex-column align-items-center">
@@ -606,44 +580,8 @@
 				<footer>
 					<p class="mt-2 text-grey">© 2025 Lumina from Astra</p>
 				</footer>
-				<div class="modal fade" id="modalComentario" tabindex="-1"
-					aria-labelledby="meuModalComentarioLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content rounded-4 border-end-0 border-bottom-0">
-							<div
-								class="modal-header d-flex justify-content-start align-items-center">
-								<div
-									class="area-row d-flex justify-content-start align-items-center flex-row card-header"
-									data-points="100">
-									<div class="d-flex justify-content-center align-items-center">
-										<div
-											class="area-card d-flex justify-content-center align-items-center">
-											<i
-												class="bi bi-lightbulb fs-5 d-flex justify-content-center align-items-center color-gradient"></i>
-										</div>
-									</div>
-									<div class="texto flex-column">
-										<p class="texto-area fw-medium mb-0 ms-3">OPEN INNOVATION</p>
-										<p class="publicado fw-medium mb-0 ms-3">Publicado por
-											Fernanda Matos</p>
->>>>>>> ecb55488c4eedd2570c9472abccbdbdf53181154
-									</div>
-								</div>
-							</div>
-							<div class="input-fazer-comentario">
-								<div class="input-group">
-									<input type="text" class="form-control fazer-comentario"
-										placeholder="Adicione um comentário"
-										aria-label="Recipient’s username"
-										aria-describedby="button-addon2">
-									<button class="btn btn-outline-secondary" type="button"
-										id="button-addon2">Postar</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
+		</div>
 	</main>
 	<!-- Chamada JS do BS -->
 	<script
@@ -693,6 +631,120 @@
 						});
 					});
 		});
+
+		function toggleVerMais(btn) {
+		    const card = btn.closest('.card-body');
+		    const conteudo = card.querySelector('.conteudo-oculto');
+		    const dots = card.querySelector('.dots');
+
+		    if (conteudo.style.display === "none") {
+		        conteudo.style.display = "block";
+		        dots.style.display = "none";
+		        btn.value = "VER MENOS";
+		    } else {
+		        conteudo.style.display = "none";
+		        dots.style.display = "inline";
+		        btn.value = "VER MAIS";
+		    }
+		}
+		
+		document.addEventListener("DOMContentLoaded", function() {
+		    const publicacoes = document.querySelectorAll('.card-body');
+
+		    publicacoes.forEach(pub => {
+		        const areaNome = pub.querySelector('.texto-area').textContent.trim();
+		        const iconeContainer = pub.querySelector('.area-card');
+
+		        switch(areaNome) {
+		            case 'SIX SIGMA':
+		                iconeContainer.innerHTML = '<span class="sigma-icon fs-5 texto-area fw-medium color-gradient d-flex justify-content-center align-items-center">&Sigma;</span>';
+		                break;
+		            case 'DATA':
+		                iconeContainer.innerHTML = '<i class="bi bi-database d-flex justify-content-center align-items-center color-gradient"></i>';
+		                break;
+		            case 'DIGITAL HEALTH':
+		                iconeContainer.innerHTML = '<i class="bi bi-bandaid d-flex justify-content-center align-items-center color-gradient"></i>';
+		                break;
+		            case 'OPEN INNOVATION':
+		                iconeContainer.innerHTML = '<i class="bi bi-lightbulb d-flex justify-content-center align-items-center color-gradient"></i>';
+		                break;
+		                
+		            case 'VENTURES':
+		                iconeContainer.innerHTML = '<i class="bi bi-currency-dollar d-flex justify-content-center align-items-center color-gradient"></i>';
+		                break;
+		                
+		            default:
+		                iconeContainer.innerHTML = '<i class="bi bi-question fs-5 color-gradient"></i>';
+		        }
+		    });
+		});
+		document.addEventListener("DOMContentLoaded", function () {
+			  document.querySelectorAll('.modal').forEach(modal => {
+			    modal.addEventListener('show.bs.modal', function (event) {
+			      const button = event.relatedTarget;
+			      const id = button.getAttribute('data-id');
+			      const area = button.getAttribute('data-area');
+			      const funcionario = button.getAttribute('data-funcionario');
+			      const descricao = button.getAttribute('data-descricao');
+			      const imagem = button.getAttribute('data-imagem');
+			      
+			     
+			      modal.querySelector('.texto-area').textContent = area;
+			      modal.querySelector('.publicado').textContent = 'Publicado por ' + funcionario;
+			      modal.querySelector('.modal-body img').src = imagem;
+
+			      modal.querySelector('#button-addon2').dataset.id = id;
+			      modal.querySelector('input[name="publicacao"]').value = id;
+			     
+
+			      const iconeContainer = modal.querySelector('.area-card');
+			      switch(area) {
+			        case 'SIX SIGMA':
+			          iconeContainer.innerHTML = '<span class="sigma-icon fs-5 texto-area fw-medium color-gradient d-flex justify-content-center align-items-center">&Sigma;</span>';
+			          break;
+			        case 'DATA':
+			          iconeContainer.innerHTML = '<i class="bi bi-database d-flex justify-content-center align-items-center color-gradient"></i>';
+			          break;
+			        case 'DIGITAL HEALTH':
+			          iconeContainer.innerHTML = '<i class="bi bi-bandaid d-flex justify-content-center align-items-center color-gradient"></i>';
+			          break;
+			        case 'OPEN INNOVATION':
+			          iconeContainer.innerHTML = '<i class="bi bi-lightbulb d-flex justify-content-center align-items-center color-gradient"></i>';
+			          break;
+			        case 'VENTURES':
+			          iconeContainer.innerHTML = '<i class="bi bi-currency-dollar d-flex justify-content-center align-items-center color-gradient"></i>';
+			          break;
+			        default:
+			          iconeContainer.innerHTML = '<i class="bi bi-question fs-5 color-gradient"></i>';
+			      }
+			    });
+			  });
+			});
+		
+		document.getElementById('perfilUpload').addEventListener('change', function() {
+		    const file = this.files[0];
+		    if (!file) return;
+
+		    const formData = new FormData();
+		    formData.append('fotoPerfil', file);
+
+		    fetch('AtualizaPerfil', {
+		        method: 'POST',
+		        body: formData
+		    })
+		    .then(res => res.json())
+		    .then(data => {
+		        if (data.sucesso) {
+		            document.getElementById('fotoPerfil').src = data.novaImagem;
+		        } else {
+		            alert('Erro ao atualizar foto');
+		        }
+		    })
+		    .catch(err => console.error(err));
+		});
+
+
+
 	</script>
 
 </body>
