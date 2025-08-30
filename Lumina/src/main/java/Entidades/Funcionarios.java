@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -15,6 +16,9 @@ public class Funcionarios {
 	private String nome;
 	private String email;
 	private String senha;
+	
+    @Lob
+    private byte[] foto;
 	
     @JoinColumn(name = "id_cargo")
     @ManyToOne
@@ -56,6 +60,14 @@ public class Funcionarios {
 		this.senha = senha;
 	}
 	
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
 	public Cargo getIdCargo() {
 		return idCargo;
 	}

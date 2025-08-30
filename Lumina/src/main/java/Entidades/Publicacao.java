@@ -20,13 +20,13 @@ public class Publicacao {
 	private Long idPublicacao;
 	
 	@Lob
-	private byte[] descricao;
+	private String descricao;
 	
 	@Lob
-	private byte[] objetivos;
+	private String objetivos;
 	
 	@Lob
-	private byte[] resultados;
+	private String resultados;
 
 	@Lob
 	@Column(name = "imagem")
@@ -52,27 +52,27 @@ public class Publicacao {
 		this.idPublicacao = idPublicacao;
 	}
 
-	public byte[] getDescricao() {
+	public String getDescricao() {
 		return descricao;
 	}
 
-	public void setDescricao(byte[] descricao) {
+	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
-	public byte[] getObjetivos() {
+	public String getObjetivos() {
 		return objetivos;
 	}
 
-	public void setObjetivos(byte[] objetivos) {
+	public void setObjetivos(String objetivos) {
 		this.objetivos = objetivos;
 	}
 
-	public byte[] getResultados() {
+	public String getResultados() {
 		return resultados;
 	}
 
-	public void setResultados(byte[] resultados) {
+	public void setResultados(String resultados) {
 		this.resultados = resultados;
 	}
 
