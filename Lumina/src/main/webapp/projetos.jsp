@@ -557,7 +557,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body m-0">
-          <input type="hidden" name="idProjeto" id="idProjetoEditar">
+          <input type="hidden" name="projetoId" id="idProjetoEditar">
 
           <div class="mb-3">
             <label for="descricaoEditar" class="form-label fw-semibold color-gradient">DESCRIÇÃO</label>

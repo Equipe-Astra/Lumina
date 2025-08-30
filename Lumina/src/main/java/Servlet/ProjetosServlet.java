@@ -133,8 +133,6 @@ public class ProjetosServlet extends HttpServlet {
                     }
                 }
 
-
-
              // === PARTE 2: Criar novo projeto ===
                 String titulo = request.getParameter("titulo");
                 String descricao = request.getParameter("descricao");
