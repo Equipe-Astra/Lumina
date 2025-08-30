@@ -103,7 +103,7 @@ textarea.form-control:focus,
 }
 
 .colunas {
-    gap: 1rem;
+    gap: 3rem;
 }
 
 .swiper-button-next,
@@ -165,8 +165,8 @@ textarea.form-control:focus,
 }
 
 .foto {
-    width: 2rem;
-    height: 2rem;
+    width: 2.3rem;
+    height: 2.3rem;
     object-fit: cover;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: 1px solid transparent !important;
@@ -474,10 +474,6 @@ textarea.form-control:focus,
         font-size: 0.9rem;
     }
 
-    .foto {
-        width: 1.7rem;
-        height: 1.7rem;
-    }
 
 }
 

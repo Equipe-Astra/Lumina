@@ -1,46 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+pageEncoding="UTF-8"%> <%@ taglib
+uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> <%@ taglib
+uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lumina</title>
-
-<!--  Google Fonts -->
+<!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet">
-
 <!-- Minha CSS -->
 <link rel="stylesheet" href="./css/projetos.css">
-
 <!-- Chamada da CSS do BS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <!-- BS Icons -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
-
 <body>
-	<form id="formAtualizaStatus" action="ProjetosServlet" method="post">
-	    <input type="hidden" name="projetoId" id="projetoIdInput">
-	    <input type="hidden" name="statusId" id="statusIdInput">
-	</form>
 	<header class="color-light shadow">
 		<nav class="navbar d-lg-flex background-nav ps-4 pe-4">
 			<div class="container-fluid">
@@ -73,295 +58,362 @@
 	</header>
 	<div class="barra-header"></div>
 	<div class="wrapper"></div>
-	<main class="container-fluid d-flex justify-content-center flex-column align-items-center">
-	    <div class="scroll-cards-container d-flex justify-content-center align-items-center flex-column">
-	        <section class="container container-cards">
-	            <div class="row d-flex justify-content-center flex-wrap colunas">
-	
-	                <div class="col-md-3">
-	                    <div class="card shadow rounded-3 border-0">
-	                        <div class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
-	                            <p class="fw-semibold texto-status color-gradient m-0">NÃO INICIADO</p>
-	                            <div class="d-flex justify-content-center flex-column align-items-center">
-	                                <button type="button"
-	                                        class="area open-modal d-flex justify-content-center align-items-center"
-	                                        data-bs-toggle="modal" data-bs-target="#meuModal"
-	                                        data-status-id="1"
-	                                        data-status="Não Iniciado">
-	                                    <i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
-	                                </button>
-	                            </div>
-	                        </div>
-	                        <div class="card-body">
-	                            <c:forEach var="projeto" items="${projetos}">
-	                                <c:if test="${projeto.status.descricao == 'Não Iniciado'}">
-	                                    <div class="card card-tarefa mb-3 shadow-sm"data-id="${projeto.id}" data-status="${projeto.status.descricao}">
-	                                        <div class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
-	                                            <p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
-	                                            <button class="border-0 bg-transparent pe-0"
-	                                                    data-bs-toggle="modal" data-bs-target="#modalEdicao">
-	                                                <i class="bi bi-pencil text-grey"></i>
-	                                            </button>
-	                                        </div>
-	                                        <div class="card-body">
-					                            <p class="text-muted small">${projeto.descricao}</p>
-					                            <div class="d-flex justify-content-between align-items-center">
-													<span class="small text-grey fw-medium">Participantes</span>
-					                                <div class="d-flex gap-2">
-						                                <c:forEach var="participante" items="${projeto.participantes}">
-														    <img src="./assets/foto.png" alt="${participante.nome}"
-														         class="foto rounded-circle shadow"
-														         style="width: 35px; height: 35px;"
-														         title="${participante.nome}">
-														</c:forEach>
-													</div>
-					                            </div>
-					                        </div>
-	                                    </div>
-	                                </c:if>
-	                            </c:forEach>
-	                        </div>
-	                    </div>
-	                </div>
+	<main
+		class="container-fluid d-flex justify-content-center flex-column align-items-center">
+		<div
+			class="scroll-cards-container d-flex justify-content-center align-items-center flex-column">
+			<section class="container container-cards">
+				<div class="row d-flex justify-content-center flex-wrap colunas">
+					<div class="col-md-3">
+						<div class="card shadow rounded-3 border-0">
+							<div
+								class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
+								<p class="fw-semibold texto-status color-gradient m-0">NÃO
+									INICIADO</p>
+								<div
+									class="d-flex justify-content-center flex-column align-items-center">
+									<button type="button"
+										class="area open-modal d-flex justify-content-center align-items-center"
+										data-bs-toggle="modal" data-bs-target="#meuModal"
+										data-status-id="1" data-status="Não Iniciado">
+										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body">
+							    <c:forEach var="projeto" items="${projetos}">
+							        <c:if test="${projeto.status.descricao == 'Não Iniciado'}">
+							            <div class="card card-tarefa mb-3 shadow-sm" data-id="${projeto.idProjeto}" draggable="true">
+							                
+							                <!-- Header do Card -->
+							                <div class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
+							                    <p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
+							                    <button class="border-0 bg-transparent pe-0 btn-editar"
+												        data-bs-toggle="modal"
+												        data-bs-target="#modalEdicao"
+												        data-id="${projeto.idProjeto}"
+												        data-titulo="${projeto.titulo}"
+												        data-descricao="${projeto.descricao}">
+												    <i class="bi bi-pencil text-grey"></i>
+												</button>
+							                </div>
+							
+							                <!-- Body do Card -->
+							                <div class="card-body">
+							                    <p class="text-muted small">${projeto.descricao}</p>
+							                    
+							                    <!-- Participantes -->
+							                    <div class="d-flex justify-content-between align-items-center">
+							                        <span class="small text-grey fw-medium">Participantes</span>
+							                        <div class="d-flex gap-2">
+							                            <c:forEach var="participante" items="${projeto.participantes}">
+							                                <img src="data:image/png;base64,${participante.foto}" alt="${participante.nome}"
+							                                     class="foto rounded-circle shadow"
+							                                     style="width: 35px; height: 35px;"
+							                                     title="${participante.nome}"
+							                                     data-id="${participante.id}">
+							                            </c:forEach>
+							                        </div>
+							                    </div>
+							
+							                    <!-- Formulário escondido para atualizar status -->
+							                    <form method="post" class="form-status">
+							                        <input type="hidden" name="projetoId" value="${projeto.idProjeto}">
+							                        <input type="hidden" name="statusId" class="statusProjeto" value="${projeto.status.id}">
+							                    </form>
+							
+							                </div>
+							            </div>
+							        </c:if>
+							    </c:forEach>
+							</div>
 
-	                <div class="col-md-3">
-	                    <div class="card shadow rounded-4 border-0">
-	                        <div class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
-	                            <p class="fw-semibold texto-status color-gradient m-0">EM ANDAMENTO</p>
-	                            <div class="d-flex justify-content-center flex-column align-items-center">
-	                                <button type="button"
-	                                        class="area open-modal d-flex justify-content-center align-items-center"
-	                                        data-bs-toggle="modal" data-bs-target="#meuModal"
-	                                        data-status-id="2"
-	                                        data-status="Em andamento">
-	                                    <i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
-	                                </button>
-	                            </div>
-	                        </div>
-	                        <div class="card-body">
-	                            <c:forEach var="projeto" items="${projetos}">
-	                                <c:if test="${projeto.status.descricao == 'Em andamento'}">
-	                                    <div class="card card-tarefa mb-3 shadow-sm" data-id="${projeto.id}" data-status="${projeto.status.descricao}">
-	                                        <div class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
-	                                            <p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
-	                                            <button class="border-0 bg-transparent pe-0"
-	                                                    data-bs-toggle="modal" data-bs-target="#modalEdicao">
-	                                                <i class="bi bi-pencil text-grey"></i>
-	                                            </button>
-	                                        </div>
-	                                        <div class="card-body">
-					                            <p class="text-muted small">${projeto.descricao}</p>
-					                            <div class="d-flex justify-content-between align-items-center">
-													<span class="small text-grey fw-medium">Participantes</span>
-					                                <div class="d-flex gap-2">
-						                                <c:forEach var="participante" items="${projeto.participantes}">
-														    <img src="./assets/foto.png" alt="${participante.nome}"
-														         class="foto rounded-circle shadow"
-														         style="width: 35px; height: 35px;"
-														         title="${participante.nome}">
-														</c:forEach>
-													</div>
-					                            </div>
-					                        </div>
-	                                    </div>
-	                                </c:if>
-	                            </c:forEach>
-	                        </div>
-	                    </div>
-	                </div>
-	
-	                <!-- COLUNA: CONCLUÍDO -->
-	                <div class="col-md-3">
-					    <div class="card shadow rounded-4 border-0">
-					        <div class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
-					            <p class="fw-semibold texto-status color-gradient m-0">CONCLUÍDO</p>
-					            <div class="d-flex justify-content-center flex-column align-items-center">
-					                <button type="button"
-					                        class="area open-modal d-flex justify-content-center align-items-center"
-					                        data-bs-toggle="modal" data-bs-target="#meuModal"
-					                        data-status-id="3"
-					                        data-status="Concluído">
-					                    <i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
-					                </button>
-					            </div>
-					        </div>
-					        <div class="card-body">
-					            <c:forEach var="projeto" items="${projetos}">
-					                <c:if test="${projeto.status.descricao == 'Concluído'}">
-					                    <div class="card card-tarefa mb-3 shadow-sm" data-id="${projeto.id}" data-status="${projeto.status.descricao}">
-					                        <div class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
-					                            <p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
-					                            <button class="border-0 bg-transparent pe-0"
-					                                    data-bs-toggle="modal" data-bs-target="#modalEdicao">
-					                                <i class="bi bi-pencil text-grey"></i>
-					                            </button>
-					                        </div>
-					                        <div class="card-body">
-					                            <p class="text-muted small">${projeto.descricao}</p>
-					                            <div class="d-flex justify-content-between align-items-center">
-													<span class="small text-grey fw-medium">Participantes</span>
-					                                <div class="d-flex gap-2">
-						                                <c:forEach var="participante" items="${projeto.participantes}">
-														    <img src="./assets/foto.png" alt="${participante.nome}"
-														         class="foto rounded-circle shadow"
-														         style="width: 35px; height: 35px;"
-														         title="${participante.nome}">
-														</c:forEach>
-													</div>
-					                            </div>
-					                        </div>
-					                    </div>
-					                </c:if>
-					            </c:forEach>
-					        </div>
-					    </div>
+						</div>
 					</div>
-	            </div>
-	        </section>
-	        
-	        
-	        <!-- Swiper Wrapper -->
-<div class="swiper mySwiper d-block d-md-none px-2">
-    <div class="swiper-wrapper">
+					<div class="col-md-3">
+						<div class="card shadow rounded-4 border-0">
+							<div
+								class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
+								<p class="fw-semibold texto-status color-gradient m-0">EM ANDAMENTO</p>
+								<div
+									class="d-flex justify-content-center flex-column align-items-center">
+									<button type="button"
+										class="area open-modal d-flex justify-content-center align-items-center"
+										data-bs-toggle="modal" data-bs-target="#meuModal"
+										data-status-id="2" data-status="Em andamento">
+										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body">
+							    <c:forEach var="projeto" items="${projetos}">
+							        <c:if test="${projeto.status.descricao == 'Em andamento'}">
+							            <div class="card card-tarefa mb-3 shadow-sm" data-id="${projeto.idProjeto}" draggable="true">
+							                
+							                <!-- Header do Card -->
+							                <div class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
+							                    <p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
+							                    <button class="border-0 bg-transparent pe-0 btn-editar"
+												        data-bs-toggle="modal"
+												        data-bs-target="#modalEdicao"
+												        data-id="${projeto.idProjeto}"
+												        data-titulo="${projeto.titulo}"
+												        data-descricao="${projeto.descricao}">
+												    <i class="bi bi-pencil text-grey"></i>
+												</button>
+							                </div>
+							
+							                <!-- Body do Card -->
+							                <div class="card-body">
+							                    <p class="text-muted small">${projeto.descricao}</p>
+							                    
+							                    <!-- Participantes -->
+							                    <div class="d-flex justify-content-between align-items-center">
+							                        <span class="small text-grey fw-medium">Participantes</span>
+							                        <div class="d-flex gap-2">
+							                            <c:forEach var="participante" items="${projeto.participantes}">
+							                                <img src="data:image/png;base64,${participante.foto}" alt="${participante.nome}"
+							                                     class="foto rounded-circle shadow"
+							                                     style="width: 36px; height: 36px;"
+							                                     title="${participante.nome}"
+							                                     data-id="${participante.id}">
+							                            </c:forEach>
+							                        </div>
+							                    </div>
+							
+							                    <!-- Formulário escondido para atualizar status -->
+							                    <form method="post" class="form-status">
+							                        <input type="hidden" name="projetoId" value="${projeto.idProjeto}">
+							                        <input type="hidden" name="statusId" class="statusProjeto" value="${projeto.status.id}">
+							                    </form>
+							
+							                </div>
+							            </div>
+							        </c:if>
+							    </c:forEach>
+							</div>
 
-        <!-- Slide 1 - NÃO INICIADO -->
-        <div class="swiper-slide">
-            <div class="card shadow rounded-3 border-0">
-                <div class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
-                    <p class="fw-semibold texto-status color-gradient m-0">NÃO INICIADO</p>
-                    <div class="d-flex justify-content-center flex-column align-items-center">
-                        <button type="button" id="btn-novo-post"
-                                class="area open-modal d-flex justify-content-center align-items-center"
-                                data-bs-toggle="modal" data-bs-target="#meuModal"
-                                data-status="Não Iniciado">
-                            <i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <c:forEach var="projeto" items="${projetos}">
-                        <c:if test="${projeto.status.descricao == 'Não Iniciado'}">
-                            <div class="card card-tarefa mb-3 shadow-sm" data-id="${projeto.id}" data-status="${projeto.status.descricao}">
-                                <div class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
-                                    <p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
-                                    <button class="border-0 bg-transparent pe-0"
-                                            data-bs-toggle="modal" data-bs-target="#modalEdicao">
-                                        <i class="bi bi-pencil text-grey"></i>
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <p class="text-muted small">${projeto.descricao}</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="small text-grey fw-medium">Participantes</span>
-                                        <c:forEach var="participante" items="${projeto.participantes}">
-                                            <img src="./assets/foto.png" alt="${participante.nome}"
-                                                 class="foto rounded-circle shadow"
-                                                 style="width: 35px; height: 35px;"
-                                                 title="${participante.nome}">
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-            </div>
-        </div>
+						</div>
+					</div>
+					<!-- COLUNA: CONCLUÍDO -->
+					<div class="col-md-3">
+						<div class="card shadow rounded-4 border-0">
+							<div
+								class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
+								<p class="fw-semibold texto-status color-gradient m-0">CONCLUÍDO</p>
+								<div
+									class="d-flex justify-content-center flex-column align-items-center">
+									<button type="button"
+										class="area open-modal d-flex justify-content-center align-items-center"
+										data-bs-toggle="modal" data-bs-target="#meuModal"
+										data-status-id="3" data-status="Concluído">
+										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body">
+							    <c:forEach var="projeto" items="${projetos}">
+							        <c:if test="${projeto.status.descricao == 'Concluído'}">
+							            <div class="card card-tarefa mb-3 shadow-sm" data-id="${projeto.idProjeto}" draggable="true">
+							                
+							                <!-- Header do Card -->
+							                <div class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
+							                    <p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
+							                    <button class="border-0 bg-transparent pe-0 btn-editar"
+												        data-bs-toggle="modal"
+												        data-bs-target="#modalEdicao"
+												        data-id="${projeto.idProjeto}"
+												        data-titulo="${projeto.titulo}"
+												        data-descricao="${projeto.descricao}">
+												    <i class="bi bi-pencil text-grey"></i>
+												</button>
+							                </div>
+							
+							                <!-- Body do Card -->
+							                <div class="card-body">
+							                    <p class="text-muted small">${projeto.descricao}</p>
+							                    
+							                    <!-- Participantes -->
+							                    <div class="d-flex justify-content-between align-items-center">
+							                        <span class="small text-grey fw-medium">Participantes</span>
+							                        <div class="d-flex gap-2">
+							                            <c:forEach var="participante" items="${projeto.participantes}">
+							                                <img src="data:image/png;base64,${participante.foto}" alt="${participante.nome}"
+							                                     class="foto rounded-circle shadow"
+							                                     style="width: 35px; height: 35px;"
+							                                     title="${participante.nome}"
+							                                     data-id="${participante.id}">
+							                            </c:forEach>
+							                        </div>
+							                    </div>
+							
+							                    <!-- Formulário escondido para atualizar status -->
+							                    <form method="post" class="form-status">
+							                        <input type="hidden" name="projetoId" value="${projeto.idProjeto}">
+							                        <input type="hidden" name="statusId" class="statusProjeto" value="${projeto.status.id}">
+							                    </form>
+							
+							                </div>
+							            </div>
+							        </c:if>
+							    </c:forEach>
+							</div>
 
-        <!-- Slide 2 - EM ANDAMENTO -->
-        <div class="swiper-slide">
-            <div class="card shadow rounded-4 border-0">
-                <div class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
-                    <p class="fw-semibold texto-status color-gradient m-0">EM ANDAMENTO</p>
-                    <div class="d-flex justify-content-center flex-column align-items-center">
-                        <button type="button" id="btn-novo-post"
-                                class="area open-modal d-flex justify-content-center align-items-center"
-                                data-bs-toggle="modal" data-bs-target="#meuModal"
-                                data-status="Em andamento">
-                            <i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <c:forEach var="projeto" items="${projetos}">
-                        <c:if test="${projeto.status.descricao == 'Em andamento'}">
-                            <div class="card card-tarefa mb-3 shadow-sm" data-id="${projeto.id}" data-status="${projeto.status.descricao}">
-                                <div class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
-                                    <p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
-                                    <button class="border-0 bg-transparent pe-0"
-                                            data-bs-toggle="modal" data-bs-target="#modalEdicao">
-                                        <i class="bi bi-pencil text-grey"></i>
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <p class="text-muted small">${projeto.descricao}</p>
-                                    <div class="d-flex gap-2 mt-2">
-                                        <c:forEach var="participante" items="${projeto.participantes}">
-                                            <img src="./assets/foto.png" alt="${participante.nome}"
-                                                 class="foto rounded-circle shadow"
-                                                 style="width: 35px; height: 35px;"
-                                                 title="${participante.nome}">
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 3 - CONCLUÍDO -->
-        <div class="swiper-slide">
-            <div class="card shadow rounded-4 border-0">
-                <div class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
-                    <p class="fw-semibold texto-status color-gradient m-0">CONCLUÍDO</p>
-                    <div class="d-flex justify-content-center flex-column align-items-center">
-                        <button type="button" id="btn-novo-post"
-                                class="area open-modal d-flex justify-content-center align-items-center"
-                                data-bs-toggle="modal" data-bs-target="#meuModal"
-                                data-status="Concluído">
-                            <i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <c:forEach var="projeto" items="${projetos}">
-                        <c:if test="${projeto.status.descricao == 'Concluído'}">
-                            <div class="card card-tarefa mb-3 shadow-sm" data-id="${projeto.id}" data-status="${projeto.status.descricao}">
-                                <div class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
-                                    <p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
-                                    <button class="border-0 bg-transparent pe-0"
-                                            data-bs-toggle="modal" data-bs-target="#modalEdicao">
-                                        <i class="bi bi-pencil text-grey"></i>
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <p class="text-muted small">${projeto.descricao}</p>
-                                    <div class="d-flex gap-2 mt-2">
-                                        <c:forEach var="participante" items="${projeto.participantes}">
-                                            <img src="./assets/foto.png" alt="${participante.nome}"
-                                                 class="foto rounded-circle shadow"
-                                                 style="width: 35px; height: 35px;"
-                                                 title="${participante.nome}">
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Swiper controles -->
-    <div class="swiper-pagination mt-3"></div>
-</div>
-<div class="swiper-button-next color-purple"></div>
-<div class="swiper-button-prev color-purple"></div>
-
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Swiper Wrapper -->
+			<div class="swiper mySwiper d-block d-md-none px-2">
+				<div class="swiper-wrapper">
+					<!-- Slide 1 - NÃO INICIADO -->
+					<div class="swiper-slide">
+						<div class="card shadow rounded-3 border-0">
+							<div
+								class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
+								<p class="fw-semibold texto-status color-gradient m-0">NÃO
+									INICIADO</p>
+								<div
+									class="d-flex justify-content-center flex-column align-items-center">
+									<button type="button" id="btn-novo-post"
+										class="area open-modal d-flex justify-content-center align-items-center"
+										data-bs-toggle="modal" data-bs-target="#meuModal"
+										data-status="Não Iniciado">
+										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<c:forEach var="projeto" items="${projetos}">
+									<c:if test="${projeto.status.descricao == 'Não Iniciado'}">
+										<div class="card card-tarefa mb-3 shadow-sm">
+											<div
+												class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
+												<p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
+												<button class="border-0 bg-transparent pe-0"
+													data-bs-toggle="modal" data-bs-target="#modalEdicao">
+													<i class="bi bi-pencil text-grey"></i>
+												</button>
+											</div>
+											<div class="card-body">
+												<p class="text-muted small">${projeto.descricao}</p>
+												<div
+													class="d-flex justify-content-between align-items-center">
+													<span class="small text-grey fw-medium">Participantes</span>
+													<c:forEach var="participante"
+														items="${projeto.participantes}">
+														<img src="./assets/foto.png" alt="${participante.nome}"
+															class="foto rounded-circle shadow"
+															style="width: 35px; height: 35px;"
+															title="${participante.nome}">
+													</c:forEach>
+												</div>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+					<!-- Slide 2 - EM ANDAMENTO -->
+					<div class="swiper-slide">
+						<div class="card shadow rounded-4 border-0">
+							<div
+								class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
+								<p class="fw-semibold texto-status color-gradient m-0">EM
+									ANDAMENTO</p>
+								<div
+									class="d-flex justify-content-center flex-column align-items-center">
+									<button type="button" id="btn-novo-post"
+										class="area open-modal d-flex justify-content-center align-items-center"
+										data-bs-toggle="modal" data-bs-target="#meuModal"
+										data-status="Em andamento">
+										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<c:forEach var="projeto" items="${projetos}">
+									<c:if test="${projeto.status.descricao == 'Em andamento'}">
+										<div class="card card-tarefa mb-3 shadow-sm">
+											<div
+												class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
+												<p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
+												<button class="border-0 bg-transparent pe-0"
+													data-bs-toggle="modal" data-bs-target="#modalEdicao">
+													<i class="bi bi-pencil text-grey"></i>
+												</button>
+											</div>
+											<div class="card-body">
+												<p class="text-muted small">${projeto.descricao}</p>
+												<div class="d-flex gap-2 mt-2">
+													<c:forEach var="participante"
+														items="${projeto.participantes}">
+														<img src="./assets/foto.png" alt="${participante.nome}"
+															class="foto rounded-circle shadow"
+															style="width: 35px; height: 35px;"
+															title="${participante.nome}">
+													</c:forEach>
+												</div>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+					<!-- Slide 3 - CONCLUÍDO -->
+					<div class="swiper-slide">
+						<div class="card shadow rounded-4 border-0">
+							<div
+								class="card-header card-header-status bg-white d-flex justify-content-between align-items-center rounded-top-3">
+								<p class="fw-semibold texto-status color-gradient m-0">CONCLUÍDO</p>
+								<div
+									class="d-flex justify-content-center flex-column align-items-center">
+									<button type="button" id="btn-novo-post"
+										class="area open-modal d-flex justify-content-center align-items-center"
+										data-bs-toggle="modal" data-bs-target="#meuModal"
+										data-status="Concluído">
+										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<c:forEach var="projeto" items="${projetos}">
+									<c:if test="${projeto.status.descricao == 'Concluído'}">
+										<div class="card card-tarefa mb-3 shadow-sm">
+											<div
+												class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
+												<p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
+												<button class="border-0 bg-transparent pe-0"
+													data-bs-toggle="modal" data-bs-target="#modalEdicao">
+													<i class="bi bi-pencil text-grey"></i>
+												</button>
+											</div>
+											<div class="card-body">
+												<p class="text-muted small">${projeto.descricao}</p>
+												<div class="d-flex gap-2 mt-2">
+													<c:forEach var="participante"
+														items="${projeto.participantes}">
+														<img src="./assets/foto.png" alt="${participante.nome}"
+															class="foto rounded-circle shadow"
+															style="width: 35px; height: 35px;"
+															title="${participante.nome}">
+													</c:forEach>
+												</div>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Swiper controles -->
+				<div class="swiper-pagination mt-3"></div>
+			</div>
+			<div class="swiper-button-next color-purple"></div>
+			<div class="swiper-button-prev color-purple"></div>
 			<nav
 				class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
 				<a href="/feedGerente.html"
@@ -411,244 +463,172 @@
 			</nav>
 			<footer
 				class="d-flex justify-content-center align-items-center flex-column mb-0">
-
 				<p class="mt-2 text-grey footer">© 2025 Lumina from Astra</p>
 			</footer>
 	</main>
-
-
 	<div class="modal fade" id="meuModal" tabindex="-1"
-    aria-labelledby="meuModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 border-end-0 border-bottom-0">
-            <!-- Transformei o modal em FORM -->
-            <form action="ProjetosServlet" method="post">
-                <div class="modal-header d-flex justify-content-between align-items-center">
-                    <input type="text" name="titulo" id="modalTituloInput"
-                        class="form-control titulo-modal border-0 m-0 p-0 fw-semibold text-grey"
-                        placeholder="ADICIONE UM TÍTULO">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body m-0">
-                    <!-- Campo oculto para enviar o status da coluna -->
-                    <input type="hidden" name="status" id="statusProjeto" value="" />
-                    <div class="mb-3">
-                        <label for="descricao" class="form-label fw-semibold color-gradient">DESCRIÇÃO</label>
-                        <textarea name="descricao" class="form-control rounded-4 p-3" id="descricao"
-                            rows="4" placeholder="Digite aqui..."></textarea>
-                    </div>
-					<div class="mb-3">
-					    <label class="form-label fw-semibold color-gradient">PARTICIPANTES</label>
-					    <div class="d-flex align-items-center gap-2" id="containerParticipantes">
-					        <div id="participantesSelecionados" class="d-flex flex-wrap gap-1"></div>
-					
-					        <div class="d-flex justify-content-center flex-column align-items-center">
-					            <button type="button"
-					                class="area-participantes d-flex justify-content-center align-items-center"
-					                id="dropdownMenuButton" data-bs-toggle="dropdown"
-					                aria-expanded="false">
-					                <i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
-					            </button>
-					            <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton" style="width: 250px;">
-					            <div class="d-flex justify-content-start flex-column ms-2 me-2">
-										<form class="d-flex" role="search">
-											<span
-												class="input-group-text rounded-3 bg-white barra-pesquisar-participantes">
-												<i class="bi bi-search"></i> <input type="search"
-												class="form-control border-0 barra-search-participantes"
-												placeholder="Buscar por e-mail" aria-label="Search">
-											</span>
-										</form>
-									</div>
-				                    <c:forEach var="colaborador" items="${colaboradores}">
-				                        <li class="px-3 participante-item"
-				                            data-id="${colaborador.id}"
-				                            data-nome="${colaborador.nome}"
-				                            data-foto="./assets/foto.png"
-				                            style="cursor:pointer;">
-				                            <div class="nome-email d-flex align-items-center flex-row mb-3 mt-3">
-				                                <figure class="mb-0">
-				                                    <img class="foto rounded-circle shadow" src="./assets/foto.png" alt="Foto de perfil">
-				                                </figure>
-				                                <div class="nome d-flex justify-content-start flex-column ms-3 mb-0">
-				                                    <p class="fw-medium mb-0 text-grey text-uppercase">${colaborador.nome}</p>
-				                                    <p class="fw-medium cargo text-grey mt-1 mb-0">${colaborador.email}</p>
-				                                </div>
-				                            </div>
-				                        </li>
-				                    </c:forEach>
-				                </ul>
-					        </div>
-					    </div>
-						 <!-- CONTAINER PARA OS INPUTS HIDDEN -->
-  <div id="inputsParticipantes"></div>
-
-					</div>
-                </div>
-                <div class="modal-footer border-0 pt-0">
-                    <input type="submit" class="btn btn-secondary adicionar border-0" value="ADICIONAR">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-	<div class="modal fade" id="modalEdicao" tabindex="-1"
-		aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+		aria-labelledby="meuModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content rounded-4 border-end-0 border-bottom-0">
-				<div
-					class="modal-header d-flex justify-content-between align-items-center">
-					<input type="text" id="modalTituloInput"
-						class="form-control titulo-modal border-0 m-0 p-0 fw-semibold text-grey"
-						placeholder="ADICIONE UM TÍTULO - NÃO INICIADO"
-						value="ADICIONE UM TÍTULO - NÃO INICIADO">
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body m-0">
-					<input type="hidden" id="statusProjeto">
-					<div class="mb-3">
-						<label for="descricao"
-							class="form-label fw-semibold color-gradient">DESCRIÇÃO</label>
-						<textarea class="form-control rounded-4 p-3" id="descricao"
-							rows="4" placeholder="Digite aqui...">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</textarea>
+				<!-- Transformei o modal em FORM -->
+				<form id="formNovoProjeto" action="/Lumina/ProjetosServlet" method="post">
+					<div
+						class="modal-header d-flex justify-content-between align-items-center">
+						<input type="text" name="titulo" id="modalTituloInputCriar"
+							class="form-control titulo-modal border-0 m-0 p-0 fw-semibold text-grey"
+							placeholder="ADICIONE UM TÍTULO">
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
 					</div>
-					<div class="mb-3">
-						<label class="form-label fw-semibold color-gradient">PARTICIPANTES</label>
-						<div class="d-flex align-items-center">
-							<!-- Dropdown simulando autocomplete -->
-							<div class="d-flex">
-								<img src="./assets/foto-colaboradora-euron.png"
-									class="foto-participantes shadow rounded-circle me-1" alt="">
-								<img src="./assets/foto-colaborador-eurofarma.png"
-									class="foto-participantes shadow rounded-circle me-1" alt="">
+					<div class="modal-body m-0">
+						<!-- Campo oculto para enviar o status da coluna -->
+						<input type="hidden" name="statusId" id="statusProjeto" value="" />
+						<div class="mb-3">
+							<label for="descricao"
+								class="form-label fw-semibold color-gradient">DESCRIÇÃO</label>
+							<textarea name="descricao" class="form-control rounded-4 p-3"
+								id="descricao" rows="4" placeholder="Digite aqui..."></textarea>
+						</div>
+						<div class="mb-3">
+							<label class="form-label fw-semibold color-gradient">PARTICIPANTES</label>
+							<div class="d-flex align-items-center gap-2"
+								id="containerParticipantes">
+								<div id="participantesSelecionados"
+									class="d-flex flex-wrap gap-1"></div>
+								<div
+									class="d-flex justify-content-center flex-column align-items-center">
+									<button type="button"
+										class="area-participantes d-flex justify-content-center align-items-center"
+										id="dropdownMenuButton" data-bs-toggle="dropdown"
+										aria-expanded="false">
+										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
+									</button>
+									<ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton" style="width: 250px;">
+										<div class="d-flex justify-content-start flex-column ms-2 me-2">
+											<form class="d-flex" role="search">
+												<span
+													class="input-group-text rounded-3 bg-white barra-pesquisar-participantes">
+													<i class="bi bi-search"></i> <input type="search"
+													class="form-control border-0 barra-search-participantes"
+													placeholder="Buscar por e-mail" aria-label="Search">
+												</span>
+											</form>
+										</div>
+										<c:forEach var="colaborador" items="${colaboradores}">
+											<li class="px-3 participante-item"
+												data-id="${colaborador.id}" data-nome="${colaborador.nome}"
+												data-foto="data:image/png;base64,${colaborador.foto}" style="cursor: pointer;">
+												<div
+													class="nome-email d-flex align-items-center flex-row mb-3 mt-3">
+													<figure class="mb-0">
+														<img class="foto rounded-circle shadow"
+															src="data:image/png;base64,${colaborador.foto}"  alt="Foto de perfil">
+													</figure>
+													<div
+														class="nome d-flex justify-content-start flex-column ms-3 mb-0">
+														<p class="fw-medium mb-0 text-grey text-uppercase">${colaborador.nome}</p>
+														<p class="fw-medium cargo text-grey mt-1 mb-0">${colaborador.email}</p>
+													</div>
+												</div>
+											</li>
+										</c:forEach>
+									</ul>
+								</div>
 							</div>
-							<div
-								class="d-flex justify-content-center flex-column align-items-center">
-								<button type="button"
-									class="area-participantes shadow d-flex justify-content-center align-items-center"
-									id="dropdownMenuButton" data-bs-toggle="dropdown"
-									aria-expanded="false">
-									<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
-								</button>
-								<ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton" style="width: 250px;">
-								    <c:forEach var="colaborador" items="${colaboradores}">
-								        <li class="px-3 py-2">
-								            <div class="nome-email d-flex align-items-center flex-row">
-								                <figure class="mb-0">
-								                    <img class="foto rounded-circle shadow" src="./assets/foto.png" alt="Foto de perfil">
-								                </figure>
-								                <div class="nome d-flex justify-content-start flex-column ms-3 mb-0">
-								                    <p class="fw-medium mb-0 text-grey text-uppercase">${colaborador.nome}</p>
-								                    <p class="fw-medium cargo text-grey mt-1 mb-0">${colaborador.email}</p>
-								                </div>
-								            </div>
-								        </li>
-								    </c:forEach>
-								</ul>
-							</div>
+							<!-- CONTAINER PARA OS INPUTS HIDDEN -->
+							<div id="inputsParticipantes"></div>
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer border-0 pt-0">
-					<button type="submit" class="btn btn-secondary adicionar border-0"
-						data-bs-dismiss="modal">EDITAR</button>
-				</div>
+					<div class="modal-footer border-0 pt-0">
+						<input type="button" id="btnAdicionar" class="btn btn-secondary adicionar border-0" value="ADICIONAR"/>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
+<div class="modal fade" id="modalEdicao" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-end-0 border-bottom-0">
+      <form id="formEdicaoProjeto" action="/Lumina/ProjetosServlet" method="post">
+        <div class="modal-header d-flex justify-content-between align-items-center">
+          <input type="text" name="titulo" id="modalTituloInputEditar"
+                 class="form-control titulo-modal border-0 m-0 p-0 fw-semibold text-grey"
+                 placeholder="ADICIONE UM TÍTULO">
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body m-0">
+          <input type="hidden" name="idProjeto" id="idProjetoEditar">
+
+          <div class="mb-3">
+            <label for="descricaoEditar" class="form-label fw-semibold color-gradient">DESCRIÇÃO</label>
+            <textarea name="descricao" class="form-control rounded-4 p-3"
+                      id="descricaoEditar" rows="4" placeholder="Digite aqui..."></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold color-gradient">PARTICIPANTES</label>
+            <div class="d-flex align-items-center gap-2" id="containerParticipantesEditar">
+              <div id="participantesSelecionadosEditar" class="d-flex flex-wrap gap-1"></div>
+              <div class="d-flex justify-content-center flex-column align-items-center">
+                <button type="button"
+                        class="area-participantes d-flex justify-content-center align-items-center"
+                        id="dropdownMenuButtonEditar" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                  <i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
+                </button>
+                <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButtonEditar" style="width: 250px;">
+                  <div class="px-3"> <span class="input-group-text rounded-3 bg-white barra-pesquisar-participantes">
+                      <i class="bi bi-search"></i>
+                      <input type="search" id="inputBuscarParticipante" class="form-control border-0 barra-search-participantes"
+                             placeholder="Buscar por e-mail" aria-label="Search">
+                    </span>
+                  </div>
+                  <div id="listaParticipantesDropdown">
+                    <c:forEach var="colaborador" items="${colaboradores}">
+                      <li class="px-3 participante-item-editar"
+                          data-id="${colaborador.id}" data-nome="${colaborador.nome}"
+                          data-foto="data:image/png;base64,${colaborador.foto}" style="cursor: pointer;">
+                        <div class="nome-email d-flex align-items-center flex-row mb-3 mt-3">
+                          <figure class="mb-0">
+                            <img class="foto rounded-circle shadow"
+                                 src="data:image/png;base64,${colaborador.foto}" alt="Foto de perfil">
+                          </figure>
+                          <div class="nome d-flex justify-content-start flex-column ms-3 mb-0">
+                            <p class="fw-medium mb-0 text-grey text-uppercase">${colaborador.nome}</p>
+                            <p class="fw-medium cargo text-grey mt-1 mb-0">${colaborador.email}</p>
+                          </div>
+                        </div>
+                      </li>
+                    </c:forEach>
+                  </div>
+                </ul>
+              </div>
+            </div>
+            <div id="inputsParticipantesEditar"></div>
+          </div>
+        </div>
+        <div class="modal-footer border-0 pt-0">
+          <button type="submit" class="btn btn-secondary adicionar border-0">SALVAR</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 	<!-- Chamada JS do BS -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-...your-integrity-hash..." crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
 	<script src="./js/script.js"></script>
-
 	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-	
-	
 	<script>
-  document.querySelectorAll('.open-modal').forEach(button => {
-    button.addEventListener('click', function () {
-      const status = this.getAttribute('data-status');
-      document.getElementById('statusProjeto').value = status;
-    });
-  });
-</script>
-
-<script>
-        const swiper = new Swiper('.mySwiper', {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                576: {
-                    slidesPerView: 1.2,
-                },
-                768: {
-                    slidesPerView: 2,
-                },
-                992: {
-                    slidesPerView: 3,
-                }
-            }
-        });
-        
-        let draggedCard = null;
-
-        document.querySelectorAll('.card-tarefa').forEach(card => {
-            card.setAttribute('draggable', true);
-
-            card.addEventListener('dragstart', e => {
-                draggedCard = card;
-                setTimeout(() => card.style.display = 'none', 0);
-            });
-
-            card.addEventListener('dragend', e => {
-                draggedCard = null;
-                card.style.display = 'block';
-            });
-        });
-
-        document.querySelectorAll('.col-md-3').forEach(column => {
-            column.addEventListener('dragover', e => e.preventDefault());
-
-            column.addEventListener('drop', e => {
-                e.preventDefault();
-                if (draggedCard) {
-                    column.querySelector('.card-body').appendChild(draggedCard);
-
-                    // Captura id do projeto
-                    const projetoId = draggedCard.dataset.id;
-
-                    // Status da coluna
-                    const statusDescricao = column.dataset.status;
-                    let statusId;
-                    switch (statusDescricao) {
-                        case 'Não iniciado': statusId = 1; break;
-                        case 'Em andamento': statusId = 2; break;
-                        case 'Concluído': statusId = 3; break;
-                    }
-
-                    // Atualiza e envia o form
-                    document.getElementById('projetoIdInput').value = projetoId;
-                    document.getElementById('statusIdInput').value = statusId;
-                    document.getElementById('formAtualizaStatus').submit();
-                }
-            });
-        });
-    </script>
-
 	
-</body>
+	const swiper = new Swiper('.mySwiper', { 
+					slidesPerView: 1, spaceBetween: 30, 
+					loop: true, pagination: { el: '.swiper-pagination', clickable: true, }, 
+					navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev', }, 
+					breakpoints: { 576: { slidesPerView: 1.2, }, 768: { slidesPerView: 2, }, 
+					992: { slidesPerView: 3, } } }); 
 
+	</script>
+</body>
 </html>

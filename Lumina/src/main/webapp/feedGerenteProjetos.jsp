@@ -168,8 +168,7 @@
 		<div class="row">
 			<div class="col-md-3 p-0">
 				<div class="sidebar">
-					<div
-						class="perfil color-light d-flex justify-content-center align-items-center flex-column shadow rounded">
+					<div class="perfil color-light d-flex justify-content-center align-items-center flex-column shadow rounded">
 						<figure class="mb-0">
 							<img class="foto rounded-circle"
 								src="./assets/foto-gerente-projetos.png" alt="Foto de perfil">
@@ -410,55 +409,6 @@
 							</div>
 						</div>
 						<p class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-0">O
-							PROJETO</p>
-						<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
-							amet, consectetur adipiscing elit. Sed do eiusmod tempor
-							incididunt ut labore et dolore magna aliqua.</p>
-						<input type="button" class="fw-medium ver-mais" value="VER MAIS">
-					</div>
-				</div>
-				<div
-					class="card rounded-3 border-top-0 border-start-0 border-end-0 shadow">
-					<div class="card-body">
-						<div
-							class="area-row d-flex justify-content-start align-items-center flex-row mb-3 card-header"
-							data-points="100">
-							<div class="d-flex justify-content-center align-items-center">
-								<div
-									class="area-card d-flex justify-content-center align-items-center">
-									<i
-										class="bi bi-lightbulb fs-5 d-flex justify-content-center align-items-center color-gradient"></i>
-								</div>
-							</div>
-							<div class="texto flex-column">
-								<p class="texto-area fw-medium mb-0 ms-3">OPEN INNOVATION</p>
-								<p class="publicado fw-medium mb-0 ms-3">Publicado por
-									Fernanda Matos</p>
-							</div>
-						</div>
-						<figure class="mb-0">
-							<img src="./assets/foto-publicacao.png"
-								class="card-img-bottom ps-2 pe-2" alt="">
-						</figure>
-						<div
-							class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row">
-							<div
-								class="d-flex justify-content-center align-items-center flex-column">
-								<i type="button" class="bi bi-heart me-3"></i>
-								<p class="me-3 mb-0 quant-reacoes">10</p>
-							</div>
-							<div
-								class="d-flex justify-content-center align-items-center flex-column">
-								<i type="button" class="bi bi-chat me-3"></i>
-								<p class="me-3 mb-0 quant-reacoes">5</p>
-							</div>
-							<div
-								class="d-flex justify-content-center align-items-center flex-column">
-								<i type="button" class="bi bi-emoji-laughing"></i>
-								<p class="mb-0 quant-reacoes">2</p>
-							</div>
-						</div>
-						<p class="texto-area-post fw-medium mt-2 ms-2 color-gradient mb-2">O
 							PROJETO</p>
 						<p class="card-text ps-2 pe-2 mb-0">Lorem ipsum dolor sit
 							amet, consectetur adipiscing elit. Sed do eiusmod tempor
