@@ -504,16 +504,13 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
 									</button>
 									<ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton" style="width: 250px;">
-										<div class="d-flex justify-content-start flex-column ms-2 me-2">
-											<form class="d-flex" role="search">
-												<span
-													class="input-group-text rounded-3 bg-white barra-pesquisar-participantes">
-													<i class="bi bi-search"></i> <input type="search"
-													class="form-control border-0 barra-search-participantes"
-													placeholder="Buscar por e-mail" aria-label="Search">
-												</span>
-											</form>
-										</div>
+										<div class="px-3"> 
+										<span class="input-group-text rounded-3 bg-white barra-pesquisar-participantes">
+						                      <i class="bi bi-search"></i>
+						                      <input type="search" id="inputBuscarParticipanteCriacao" class="form-control border-0 barra-search-participantes"
+						                             placeholder="Buscar por e-mail" aria-label="Search">
+						                    </span>
+						                  </div>
 										<c:forEach var="colaborador" items="${colaboradores}">
 											<li class="px-3 participante-item"
 												data-id="${colaborador.id}" data-nome="${colaborador.nome}"

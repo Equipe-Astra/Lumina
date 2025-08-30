@@ -193,6 +193,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const inputsParticipantes = document.getElementById('inputsParticipantes');
   const participantesSelecionados = document.getElementById('participantesSelecionados');
   const dropdownMenuCriar = document.querySelector('#meuModal .dropdown-menu');
+  
+  // Cria um Set para os participantes selecionados no modal de criação
+  const participantesAdicionadosCriar = new Set();
+  
   if (dropdownMenuCriar) {
       dropdownMenuCriar.addEventListener('click', (event) => {
           const item = event.target.closest('.participante-item');
@@ -202,8 +206,10 @@ document.addEventListener("DOMContentLoaded", function() {
           const nome = item.getAttribute('data-nome');
           const foto = item.getAttribute('data-foto');
 
-          const fotoExistente = document.getElementById('foto-criacao-' + id);
-          if (fotoExistente) return;
+          // Verifica se o participante já foi adicionado
+          if (participantesAdicionadosCriar.has(id)) {
+              return;
+          }
 
           const img = document.createElement('img');
           img.src = foto;
@@ -222,6 +228,8 @@ document.addEventListener("DOMContentLoaded", function() {
                   inputParaRemover.remove();
               }
               item.style.display = 'block';
+              participantesAdicionadosCriar.delete(id); // Remove do Set
+              atualizarDropdownCriacao();
           });
 
           participantesSelecionados.appendChild(img);
@@ -234,7 +242,41 @@ document.addEventListener("DOMContentLoaded", function() {
           inputsParticipantes.appendChild(inputHidden);
           
           item.style.display = 'none';
+          participantesAdicionadosCriar.add(id); // Adiciona ao Set
+          atualizarDropdownCriacao();
       });
+  }
+  
+  // Função para atualizar o dropdown de criação
+  function atualizarDropdownCriacao() {
+      const itens = document.querySelectorAll('#meuModal .participante-item');
+      itens.forEach(item => {
+          const id = item.getAttribute('data-id');
+          if (participantesAdicionadosCriar.has(id)) {
+              item.style.display = 'none';
+          }
+      });
+  }
+
+  const inputBuscarCriar = document.getElementById('inputBuscarParticipanteCriacao');
+  if (inputBuscarCriar) {
+    inputBuscarCriar.addEventListener('input', function () {
+      const termoBusca = this.value.toLowerCase();
+      const itens = dropdownMenuCriar.querySelectorAll('.participante-item');
+
+      itens.forEach(item => {
+        const nome = item.getAttribute('data-nome').toLowerCase();
+        const email = item.querySelector('.cargo').textContent.toLowerCase();
+        const idParticipante = item.getAttribute('data-id');
+
+        // Adiciona a verificação do Set
+        if ((nome.includes(termoBusca) || email.includes(termoBusca)) && !participantesAdicionadosCriar.has(idParticipante)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
   }
 
   // --- LÓGICA DE EDIÇÃO REVISADA ---
