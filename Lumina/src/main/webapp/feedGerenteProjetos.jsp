@@ -543,7 +543,7 @@
 
 				<nav
 					class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
-					<a href="/feedGerenteProjetos.html"
+					<a href="/Lumina/feedGerenteProjetos"
 						class="text-center text-decoration-none text-primary">
 						<div
 							class="d-flex justify-content-center flex-column align-items-center">
@@ -554,7 +554,7 @@
 							</div>
 							<small class="color-gradient mt-1">Feed</small>
 						</div>
-					</a> <a href="./projetos.html"
+					</a> <a href="/Lumina/ProjetosServlet"
 						class="text-center text-decoration-none text-primary">
 						<div
 							class="d-flex justify-content-center flex-column align-items-center">
@@ -743,6 +743,26 @@
 		    .catch(err => console.error(err));
 		});
 
+		document.addEventListener("DOMContentLoaded", function () {
+			  // Pega o caminho da URL, remove a barra final e converte para minúsculas
+			  const currentPath = window.location.pathname.replace(/\/+$/, "").toLowerCase();
+
+			  document.querySelectorAll("nav a[href]").forEach(link => {
+			    const iconDiv = link.querySelector(".icon-wrapper");
+			    if (!iconDiv) return;
+
+			    // Pega o caminho do link, remove a barra final e converte para minúsculas
+			    const linkPath = link.getAttribute("href").replace(/\/+$/, "").toLowerCase();
+
+			    // Remove a classe de todos os links antes de adicionar ao ativo
+			    iconDiv.classList.remove("pagina-atual");
+
+			    // Adiciona a classe apenas se os caminhos forem idênticos
+			    if (currentPath === linkPath) {
+			      iconDiv.classList.add("pagina-atual");
+			    }
+			  });
+			});
 
 
 	</script>

@@ -1,18 +1,3 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const currentPage = window.location.pathname.split("/").pop();
-
-  document.querySelectorAll("nav a").forEach(link => {
-    const linkPage = link.getAttribute("href").split("/").pop();
-    const iconDiv = link.querySelector("div.icon-wrapper");
-
-    if (iconDiv) {
-      iconDiv.classList.remove("pagina-atual");
-    }
-
-    if (linkPage === currentPage && iconDiv) {
-      iconDiv.classList.add("pagina-atual");
-    }
-  });
 
   document.querySelectorAll("[data-bs-target='#meuModal']").forEach(botao => {
     botao.addEventListener("click", function() {
@@ -190,8 +175,8 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Delegação de eventos para o dropdown de criação
-  const inputsParticipantes = document.getElementById('inputsParticipantes');
-  const participantesSelecionados = document.getElementById('participantesSelecionados');
+  const inputsParticipantesCriar = document.getElementById('inputsParticipantes');
+  const participantesSelecionadosCriar = document.getElementById('participantesSelecionados');
   const dropdownMenuCriar = document.querySelector('#meuModal .dropdown-menu');
   
   // Cria um Set para os participantes selecionados no modal de criação
@@ -232,14 +217,14 @@ document.addEventListener("DOMContentLoaded", function() {
               atualizarDropdownCriacao();
           });
 
-          participantesSelecionados.appendChild(img);
+          participantesSelecionadosCriar.appendChild(img);
 
           const inputHidden = document.createElement('input');
           inputHidden.type = 'hidden';
           inputHidden.name = 'participantes';
           inputHidden.value = id;
           inputHidden.id = 'input-criacao-' + id;
-          inputsParticipantes.appendChild(inputHidden);
+          inputsParticipantesCriar.appendChild(inputHidden);
           
           item.style.display = 'none';
           participantesAdicionadosCriar.add(id); // Adiciona ao Set
@@ -315,7 +300,8 @@ document.addEventListener("DOMContentLoaded", function() {
       const fotosParticipantesNoCard = card.querySelectorAll(".d-flex.gap-2 img");
 
       fotosParticipantesNoCard.forEach(fotoOriginal => {
-        const idParticipante = fotoOriginal.getAttribute("data-id");
+        // CORREÇÃO: Pega o ID do atributo 'data-id' da imagem, não do 'alt'.
+        const idParticipante = fotoOriginal.getAttribute("data-id"); 
         const nomeParticipante = fotoOriginal.getAttribute("alt");
         const fotoSrc = fotoOriginal.src;
 
@@ -339,28 +325,20 @@ document.addEventListener("DOMContentLoaded", function() {
           img.remove();
           inputHidden.remove();
           participantesAdicionados.delete(idParticipante);
-          atualizarDropdownParticipantes(); // Atualiza o dropdown ao remover
+          atualizarDropdownParticipantes(); 
         });
 
         participantesSelecionadosEditar.appendChild(img);
         inputsParticipantesEditar.appendChild(inputHidden);
         
+        // Adiciona o ID do participante ao Set
         participantesAdicionados.add(idParticipante);
       });
       
-      // Chamada da função de filtro quando o modal de edição é aberto
       atualizarDropdownParticipantes();
     });
   });
 
-  // Adiciona evento de clique no botão de + para atualizar o dropdown
-  const dropdownButtonEditar = document.getElementById("dropdownMenuButtonEditar");
-  if (dropdownButtonEditar) {
-    dropdownButtonEditar.addEventListener("click", function() {
-        atualizarDropdownParticipantes();
-    });
-  }
-  
   const modalEdicao = document.getElementById('modalEdicao');
   if (modalEdicao) {
       modalEdicao.addEventListener('show.bs.modal', function () {
@@ -372,7 +350,6 @@ document.addEventListener("DOMContentLoaded", function() {
   const dropdownMenuEditar = document.querySelector('#modalEdicao .dropdown-menu');
   
   if (dropdownMenuEditar) {
-    // Adiciona o filtro de busca ao campo de texto
     const inputBuscar = document.getElementById('inputBuscarParticipante');
     if (inputBuscar) {
       inputBuscar.addEventListener('input', function() {
@@ -384,7 +361,6 @@ document.addEventListener("DOMContentLoaded", function() {
           const email = item.querySelector('.cargo').textContent.toLowerCase();
           const idParticipante = item.getAttribute('data-id');
 
-          // Verifica se o item corresponde ao termo de busca E se ele ainda não foi adicionado
           if ((nome.includes(termoBusca) || email.includes(termoBusca)) && !participantesAdicionados.has(idParticipante)) {
             item.style.display = 'block';
           } else {
@@ -394,7 +370,6 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
 
-    // Adiciona o participante quando um item da lista é clicado
     dropdownMenuEditar.addEventListener('click', (event) => {
       const item = event.target.closest('.participante-item-editar');
       if (!item) return;
@@ -450,63 +425,157 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   }
-});
 
-// A lógica de Drag and Drop
-document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.container-cards .card-tarefa');
-    const columns = document.querySelectorAll('.container-cards .col-md-3 .card-body');
+  document.addEventListener("DOMContentLoaded", function () {
+      const columns = document.querySelectorAll(".card-body"); // as colunas
 
-    let draggedCard = null;
+      columns.forEach(coluna => {
+          coluna.addEventListener("drop", function (event) {
+              event.preventDefault();
+              const card = document.querySelector(".dragging");
 
-    cards.forEach(card => {
-        card.setAttribute('draggable', true);
+              if (card) {
+                  coluna.appendChild(card);
 
-        card.addEventListener('dragstart', () => {
-            draggedCard = card;
-            card.classList.add('dragging');
-        });
+                  // Atualiza o statusId de acordo com a coluna
+                  let novoStatus;
+                  if (coluna.closest(".card").querySelector(".texto-status").innerText.includes("NÃO INICIADO")) {
+                      novoStatus = 1;
+                  } else if (coluna.closest(".card").querySelector(".texto-status").innerText.includes("EM ANDAMENTO")) {
+                      novoStatus = 2;
+                  } else if (coluna.closest(".card").querySelector(".texto-status").innerText.includes("CONCLUÍDO")) {
+                      novoStatus = 3;
+                  }
 
-        card.addEventListener('dragend', () => {
-            draggedCard = null;
-            card.classList.remove('dragging');
-        });
-    });
+                  // Atualiza o input hidden dentro do card
+                  let form = card.querySelector(".form-status");
+                  form.querySelector(".statusProjeto").value = novoStatus;
 
-    columns.forEach(column => {
-        column.addEventListener('dragover', e => {
-            e.preventDefault();
-            column.classList.add('drag-over');
-        });
+                  // Envia automaticamente para atualizar no banco
+                  form.submit();
+              }
+          });
 
-        column.addEventListener('dragleave', () => {
-            column.classList.remove('drag-over');
-        });
+          coluna.addEventListener("dragover", function (event) {
+              event.preventDefault();
+          });
+      });
 
-        column.addEventListener('drop', () => {
-            if (!draggedCard) return;
+      // Marca o card que está sendo arrastado
+      document.querySelectorAll("[draggable='true']").forEach(card => {
+          card.addEventListener("dragstart", () => {
+              card.classList.add("dragging");
+          });
+          card.addEventListener("dragend", () => {
+              card.classList.remove("dragging");
+          });
+      });
+  });
 
-            column.appendChild(draggedCard);
-            column.classList.remove('drag-over');
 
-            const cardColumn = column.closest('.col-md-3');
-            const statusHeader = cardColumn.querySelector('.card-header-status .texto-status');
-            const statusText = statusHeader ? statusHeader.textContent.trim().toUpperCase() : '';
+  // Lógica de filtro e busca
+  const searchBar = document.querySelector(".barra-search");
+  const botoesFiltro = document.querySelectorAll("button[data-area]");
+  const projetos = document.querySelectorAll(".card-tarefa");
+  const colunas = document.querySelectorAll(".col-md-3");
 
-            let statusId = 1;
-            if (statusText.toLowerCase() === 'em andamento') {
-                statusId = 2;
-            } else if (statusText.toLowerCase() === 'concluído') {
-                statusId = 3;
+  let termoPesquisa = "";
+  let areaSelecionada = "";
+
+  const mensagensNoResults = new Map();
+  colunas.forEach(coluna => {
+      const cardBody = coluna.querySelector(".card-body");
+      if (cardBody) {
+          const messageDiv = document.createElement("div");
+          messageDiv.className = "no-results-message text-center text-muted p-3";
+          messageDiv.textContent = "NENHUM PROJETO ENCONTRADO";
+          messageDiv.style.display = "none";
+          coluna.querySelector(".card").insertBefore(messageDiv, cardBody);
+          mensagensNoResults.set(coluna, messageDiv);
+      }
+  });
+
+  const aplicarFiltros = () => {
+      const colunasComResultados = new Set();
+
+      projetos.forEach(projeto => {
+          const titulo = projeto.querySelector(".titulo-projeto").textContent.toLowerCase();
+          const descricao = projeto.querySelector(".card-body p").textContent.toLowerCase();
+          const projetoArea = projeto.getAttribute("data-area");
+
+          // NOVO: pesquisa pelos participantes
+          const participantesImgs = projeto.querySelectorAll(".d-flex.gap-2 img");
+          const participantesNomes = Array.from(participantesImgs).map(img => img.alt.toLowerCase());
+          const participantesEmails = Array.from(participantesImgs).map(img => img.title.toLowerCase()); // caso queira pesquisar por title
+
+          const colunaPai = projeto.closest(".col-md-3");
+
+          const correspondeAoTermo = 
+              titulo.includes(termoPesquisa) || 
+              descricao.includes(termoPesquisa) ||
+              participantesNomes.some(nome => nome.includes(termoPesquisa)) ||
+              participantesEmails.some(email => email.includes(termoPesquisa));
+
+          const correspondeAArea = (areaSelecionada === "") || (projetoArea === areaSelecionada);
+
+          if (correspondeAoTermo && correspondeAArea) {
+              projeto.style.display = "block";
+              colunasComResultados.add(colunaPai);
+          } else {
+              projeto.style.display = "none";
+          }
+      });
+
+      colunas.forEach(coluna => {
+          const mensagem = mensagensNoResults.get(coluna);
+          if (mensagem) {
+              if (colunasComResultados.has(coluna)) {
+                  mensagem.style.display = "none";
+              } else {
+                  mensagem.style.display = "block";
+              }
+          }
+      });
+  };
+
+
+  searchBar.addEventListener("input", (e) => {
+      termoPesquisa = e.target.value.toLowerCase().trim();
+      aplicarFiltros();
+  });
+
+  botoesFiltro.forEach(botao => {
+      botao.addEventListener("click", () => {
+          const novaArea = botao.getAttribute("data-area");
+
+          if (areaSelecionada === novaArea) {
+              areaSelecionada = "";
+          } else {
+              areaSelecionada = novaArea;
+          }
+          
+          aplicarFiltros();
+      });
+  });
+
+  aplicarFiltros();
+
+  // Lógica para mover os cards no Swiper (Versão Mobile)
+  document.querySelectorAll('.swiper-slide .btn-mover').forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        
+        const newStatusId = e.target.dataset.statusId;
+        const cardElement = e.target.closest('.card-tarefa');
+
+        if (cardElement) {
+            const form = cardElement.querySelector('.form-status');
+            const statusInput = form.querySelector('.statusProjeto');
+            
+            if (form && statusInput) {
+                statusInput.value = newStatusId;
+                form.submit();
             }
-
-            const form = draggedCard.querySelector('.form-status');
-            const input = form.querySelector('input.statusProjeto');
-
-            if (input) {
-                input.value = statusId;
-                setTimeout(() => form.submit(), 300);
-            }
-        });
+        }
     });
-});
+  });

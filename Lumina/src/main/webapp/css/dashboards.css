@@ -22,6 +22,20 @@ body {
     background-color: var(--color-light) !important;
     font-family: var(--font-primary) !important;
     overflow-y: hidden;
+    overflow-x: hidden;
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1; 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .text-grey {
@@ -54,6 +68,28 @@ header {
 .navbar-bottom {
     margin-top: 3rem;
 }
+
+canvas {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.chart-container {
+    position: relative;
+    height: 180px; /* Ou o tamanho que você preferir */
+    width: 100%;
+}
+
+.btn-filtro i,
+.btn-filtro .sigma-icon {
+    width: 24px;        /* mesma largura para todos os ícones */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;  /* espaço entre ícone e texto */
+    font-size: 1.25rem; /* igualar o tamanho da fonte */
+    color: var(--color-gradient); /* ou a cor que você usa */
+}
+
 
 
 .background-nav {
@@ -93,7 +129,7 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-bottom: 8px solid transparent !important; 
     background: linear-gradient(#fff 0 0) padding-box, var(--color-gradient) border-box !important;  
-	height: 27vh !important; 
+	height: 30vh !important; 
 }
 
 .area {
@@ -106,6 +142,7 @@ header {
         var(--color-gradient) border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .texto-status {
     font-size: 1.1rem;
@@ -213,7 +250,13 @@ header {
 
 }
 
-@media (min-height: 600px) and (max-height: 700px) {
+@media (min-width: 375px) and (max-width: 800px) {
+    .chart-container {
+        height: 280px;
+    }
+}
+
+@media (min-height: 600px) and (max-height: 700px) and (min-width: 810px)  {
 
     .navbar-bottom {
 		height: 10vh;
@@ -224,4 +267,10 @@ header {
     .texto-status {
         font-size: 0.8rem;
     }
+    
+    .chart-container {
+    position: relative;
+    height: 125px; 
+    width: 100%;
+}
 }

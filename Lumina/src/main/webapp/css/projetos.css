@@ -47,6 +47,19 @@ body {
     font-family: var(--font-primary) !important;
     overflow-y: hidden;
     overflow-x: hidden;
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1; 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .background-nav {
@@ -94,22 +107,28 @@ textarea.form-control:focus,
 }
 
 .scroll-cards-container {
-    flex: 1;
+    flex-grow: 1;
     width: 100%;
+    height: 70vh; 
     padding: 1rem;
     position: relative;
-    margin-top: -70px;
-    z-index: 10;
+    margin-top: -9vh; 
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 
 .colunas {
     gap: 3rem;
+    height: 70vh;
+    overflow-y: auto; 
 }
 
 .swiper-button-next,
 .swiper-button-prev {
     display: none !important;
-
 }
 
 .area {
@@ -243,7 +262,7 @@ textarea.form-control:focus,
     width: 7rem;
 }
 
-.pagina-atual {
+.icon-wrapper.pagina-atual {
     width: 2rem;
     height: 2rem;
     border-radius: 10rem;
@@ -261,7 +280,6 @@ textarea.form-control:focus,
     padding-top: 0.1rem !important;
 	padding-bottom: 0.1rem !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 1rem;
 }
 
 
@@ -311,10 +329,10 @@ textarea.form-control:focus,
     }
 
     .scroll-cards-container {
-        margin-top: 1rem;
+        height: 60vh; /* Altura fixa para mobile */
+        margin-top: 0.1rem; 
         padding: 0rem;
         overflow-y: auto;
-
     }
 
     .scroll-cards-container::-webkit-scrollbar {
@@ -381,7 +399,7 @@ textarea.form-control:focus,
         font-size: 1.1rem !important;
     }
 
-    .pagina-atual {
+    .icon-wrapper.pagina-atual {
         width: 2rem !important;
         height: 2rem !important;
     }
@@ -489,11 +507,15 @@ textarea.form-control:focus,
     }
 }
 
-@media (min-height: 600px) and (max-height: 700px) {
+@media (min-height: 600px) and (max-height: 700px) and (orientation: landscape) { 
 
      .navbar-bottom {
 		height: 10vh;
 		padding: 0 !important;
 	}
-
+	
+	.scroll-cards-container {
+	    margin-top: -55px; 
+	    z-index: 20; 
+	}
 }

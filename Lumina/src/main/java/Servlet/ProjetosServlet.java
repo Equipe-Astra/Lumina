@@ -31,6 +31,7 @@ public class ProjetosServlet extends HttpServlet {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("Lumina");
 
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,34 +43,53 @@ public class ProjetosServlet extends HttpServlet {
 
             if (usuarioLogado != null) {
                 ProjetosDao dao = new ProjetosDao();
+                
+                // Busca o cargo do funcionário logado
+                Double cargoId = dao.buscaCargo(usuarioLogado);
+                
+                List<Projetos> projetos = null;
+                String jspPath = "";
 
-                Double idArea = dao.buscaArea(usuarioLogado); 
-                List<FuncionariosDTO> colaboradores = null;
-				try {
-					colaboradores = dao.buscarFuncionariosEuron(idArea);
-					request.setAttribute("colaboradores", colaboradores);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-  
-                List<Projetos> projetos = dao.listarProjetos();
-                List<FuncionariosDTO> participantes = null;
-                // Para cada projeto, busca os participantes
-                for (Projetos projeto : projetos) {
-					try {
-						participantes = dao.buscarParticipantesPorProjeto(projeto.getIdProjeto());
-						projeto.setParticipantes(participantes);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
+                if (cargoId != null && cargoId == 1.0) { 
+                    projetos = dao.listarProjetos(); 
+                    jspPath = "/projetosExecGe.jsp";
+                } else if (cargoId != null && cargoId == 2.0) { 
+                    Double idArea = dao.buscaArea(usuarioLogado);
+                    projetos = dao.listarProjetosPorArea(idArea); 
+                    jspPath = "/projetosGerenteProjetos.jsp";
+                } else if (cargoId != null && cargoId == 3.0) { 
+                    Double idArea = dao.buscaArea(usuarioLogado);
+                    projetos = dao.listarProjetosPorParticipacao(idArea, usuarioLogado); // Lista projetos da área
+                    jspPath = "/projetosFuncionariosEuron.jsp";
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/feedFuncionario.jsp");
+                    return;
                 }
                 
-                request.setAttribute("projetos", projetos);
+                // Popula os participantes de cada projeto
+                if (projetos != null) {
+                    for (Projetos projeto : projetos) {
+                        try {
+                            List<FuncionariosDTO> participantes = dao.buscarParticipantesPorProjeto(projeto.getIdProjeto());
+                            projeto.setParticipantes(participantes);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                
+                // Busca colaboradores para o modal de criação/edição
+                Double idArea = dao.buscaArea(usuarioLogado);
+                try {
+                    List<FuncionariosDTO> colaboradores = dao.buscarFuncionariosEuron(idArea);
+                    request.setAttribute("colaboradores", colaboradores);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
-                RequestDispatcher rd = request.getRequestDispatcher("/projetos.jsp");
+                // Define os atributos e direciona para a página JSP correta
+                request.setAttribute("projetos", projetos);
+                RequestDispatcher rd = request.getRequestDispatcher(jspPath);
                 rd.forward(request, response);
             } else {
                 response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -132,6 +152,20 @@ public class ProjetosServlet extends HttpServlet {
                         e.printStackTrace();
                     }
                 }
+                
+             // Caso 3: Deletar projeto
+                if (request.getParameter("deletarId") != null) {
+                    try {
+                        Long projetoId = Long.parseLong(request.getParameter("deletarId"));
+                        dao.deletarProjeto(projetoId);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+
+                    response.sendRedirect(request.getContextPath() + "/ProjetosServlet");
+                    return;
+                }
+
 
              // === PARTE 2: Criar novo projeto ===
                 String titulo = request.getParameter("titulo");
