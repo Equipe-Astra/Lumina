@@ -7,10 +7,14 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+import Entidades.Area;
 import Entidades.Funcionarios;
 import Entidades.ProjetoFuncionario;
 import Entidades.Projetos;
@@ -47,34 +51,134 @@ public class ProjetosDao {
         return projeto;
     }
 
+    public Double buscaCargo(String usuarioLogado) {
+        try {
+            String sql = "SELECT id_cargo FROM Funcionarios WHERE lower(id_funcionario) = lower(:matricula)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter("matricula", usuarioLogado);
+
+            if (query.getSingleResult() == null) {
+                return null;
+            }
+            return Double.parseDouble(query.getSingleResult().toString());
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 
     public List<Projetos> listarProjetos() {
-        String sql = "SELECT p.id_projeto, p.titulo, p.descricao, p.id_status, s.descricao AS status_desc " +
-                "FROM Projetos p " +
-                "JOIN Status s ON p.id_status = s.id_status " +
-                "ORDER BY p.id_projeto";
+    	String sql = "SELECT p.id_projeto, UPPER(p.titulo), p.descricao, p.id_status, s.descricao AS status_desc, p.id_area " +
+    	             "FROM Projetos p " +
+    	             "JOIN Status s ON p.id_status = s.id_status " +
+    	             "ORDER BY p.id_projeto";
 
-        Query query = em.createNativeQuery(sql);
-        List<Object[]> resultados = query.getResultList();
+    	Query query = em.createNativeQuery(sql);
+    	List<Object[]> resultados = query.getResultList();
 
-        List<Projetos> projetos = new ArrayList<>();
+    	List<Projetos> projetos = new ArrayList<>();
 
-        for (Object[] row : resultados) {
-            Projetos projeto = new Projetos();
-            projeto.setIdProjeto(((Number) row[0]).longValue());
-            projeto.setTitulo((String) row[1]);
-            projeto.setDescricao((String) row[2]);
+    	for (Object[] row : resultados) {
+    	    Projetos projeto = new Projetos();
+    	    projeto.setIdProjeto(((Number) row[0]).longValue());
+    	    projeto.setTitulo((String) row[1]);
+    	    projeto.setDescricao((String) row[2]);
 
-            Status status = new Status();
-            status.setId(((Number) row[3]).doubleValue());
-            status.setDescricao((String) row[4]);
+    	    Status status = new Status();
+    	    status.setId(((Number) row[3]).doubleValue());
+    	    status.setDescricao((String) row[4]);
+    	    projeto.setStatus(status);
 
-            projeto.setStatus(status);
+    	    // Novo código para o ID da área
+    	    if (row[5] != null) {
+    	        Area area = new Area();
+    	        area.setIdArea(((Number) row[5]).doubleValue());
+    	        projeto.setIdArea(area);
+    	    }
 
-            projetos.add(projeto);
-        }
+    	    projetos.add(projeto);
+    	}
 
-        return projetos;
+    	return projetos;
+    }
+    
+    public List<Projetos> listarProjetosPorArea(Double idArea) {
+    	String sql = "SELECT p.id_projeto, UPPER(p.titulo), p.descricao, p.id_status, s.descricao AS status_desc, p.id_area " +
+    	             "FROM Projetos p " +
+    	             "JOIN Status s ON p.id_status = s.id_status " +
+    	             "WHERE p.id_area = :idArea " +
+    	             "ORDER BY p.id_projeto";
+
+    	Query query = em.createNativeQuery(sql);
+    	query.setParameter("idArea", idArea);
+    	List<Object[]> resultados = query.getResultList();
+
+    	List<Projetos> projetos = new ArrayList<>();
+
+    	for (Object[] row : resultados) {
+    	    Projetos projeto = new Projetos();
+    	    projeto.setIdProjeto(((Number) row[0]).longValue());
+    	    projeto.setTitulo((String) row[1]);
+    	    projeto.setDescricao((String) row[2]);
+
+    	    Status status = new Status();
+    	    status.setId(((Number) row[3]).doubleValue());
+    	    status.setDescricao((String) row[4]);
+    	    projeto.setStatus(status);
+
+    	    // Novo código para o ID da área
+    	    if (row[5] != null) {
+    	        Area area = new Area();
+    	        area.setIdArea(((Number) row[5]).doubleValue());
+    	        projeto.setIdArea(area);
+    	    }
+
+    	    projetos.add(projeto);
+    	}
+
+    	return projetos;
+    }
+    
+    public List<Projetos> listarProjetosPorParticipacao(Double idArea, String idFuncionario) {
+    	String sql = "SELECT p.id_projeto, UPPER(p.titulo), p.descricao, p.id_status, s.descricao AS status_desc, p.id_area " +
+    	             "FROM Projetos p " +
+    	             "JOIN Status s ON p.id_status = s.id_status " +
+    	             "JOIN projeto_funcionario pf ON p.id_projeto = pf.projetos_id_projeto AND p.id_area = :idArea " +
+    	             "JOIN funcionarios f ON f.id_funcionario = pf.funcionarios_id_funcionario " +
+    	             "WHERE f.id_cargo = 3 " +
+    	             "AND pf.funcionarios_id_funcionario = :idFuncionario " +
+    	             "or p.criado_por = :idFuncionario " +
+    	             "ORDER BY p.id_projeto";
+
+    	Query query = em.createNativeQuery(sql);
+    	query.setParameter("idArea", idArea);
+    	query.setParameter("idFuncionario", idFuncionario);
+    	List<Object[]> resultados = query.getResultList();
+
+    	List<Projetos> projetos = new ArrayList<>();
+
+    	for (Object[] row : resultados) {
+    	    Projetos projeto = new Projetos();
+    	    projeto.setIdProjeto(((Number) row[0]).longValue());
+    	    projeto.setTitulo((String) row[1]);
+    	    projeto.setDescricao((String) row[2]);
+
+    	    Status status = new Status();
+    	    status.setId(((Number) row[3]).doubleValue());
+    	    status.setDescricao((String) row[4]);
+    	    projeto.setStatus(status);
+
+    	    // Novo código para o ID da área
+    	    if (row[5] != null) {
+    	        Area area = new Area();
+    	        area.setIdArea(((Number) row[5]).doubleValue());
+    	        projeto.setIdArea(area);
+    	    }
+
+    	    projetos.add(projeto);
+    	}
+
+    	return projetos;
     }
 
     public Double buscaArea(String usuarioLogado) {
@@ -92,21 +196,30 @@ public class ProjetosDao {
         }
     }
 
-    public List<FuncionariosDTO> buscarFuncionariosEuron(Double idArea) {
-        String sql = "SELECT id_funcionario, nome, email FROM FUNCIONARIOS WHERE id_cargo = 3 AND id_area = :idArea";
+    public List<FuncionariosDTO> buscarFuncionariosEuron(Double idArea) throws SQLException {
+        String sql = "SELECT id_funcionario, nome, email, foto FROM FUNCIONARIOS WHERE id_cargo = 3 AND id_area = :idArea";
         Query query = em.createNativeQuery(sql);
         query.setParameter("idArea", idArea);
 
         List<Object[]> resultados = query.getResultList();
         List<FuncionariosDTO> listaFuncionarios = new ArrayList<>();
 
-        for (Object[] row : resultados) {
+        for (Object[] row : resultados) { 
             String id = (String) row[0];
             String nome = (String) row[1];
             String email = (String) row[2];
+            Blob imagemBlob = (Blob) row[3];
+            
+            String foto = "null"; 
 
-            FuncionariosDTO dto = new FuncionariosDTO(id, nome, email, idArea);
+            if (imagemBlob != null) {
+                byte[] imagem = imagemBlob.getBytes(1, (int) imagemBlob.length());
+                foto = (imagem != null && imagem.length > 0) ? Base64.getEncoder().encodeToString(imagem) : "null";
+            }
 
+
+            FuncionariosDTO dto = new FuncionariosDTO(id, nome, email, idArea, foto);
+ 
             listaFuncionarios.add(dto);
         }
 
@@ -134,8 +247,8 @@ public class ProjetosDao {
         }
     }
     
-    public List<FuncionariosDTO> buscarParticipantesPorProjeto(Long projetoId) {
-        String sql = "SELECT f.id_funcionario, f.nome, f.email " +
+    public List<FuncionariosDTO> buscarParticipantesPorProjeto(Long projetoId) throws SQLException {
+        String sql = "SELECT f.id_funcionario, f.nome, f.email, f.foto " +
                      "FROM funcionarios f " +
                      "JOIN projeto_funcionario pf ON f.id_funcionario = pf.funcionarios_id_funcionario " +
                      "WHERE pf.projetos_id_projeto = :projetoId";
@@ -147,11 +260,20 @@ public class ProjetosDao {
         List<FuncionariosDTO> participantes = new ArrayList<>();
 
         for (Object[] row : resultados) {
-            String id = (String) row[0];
+            String idFuncionario = (String) row[0];
             String nome = (String) row[1];
             String email = (String) row[2];
+            Blob imagemBlob = (Blob) row[3];
+            
+            String foto = "null";  // Define uma foto padrão se o campo foto for nulo
 
-            FuncionariosDTO dto = new FuncionariosDTO(id, nome, email, null);
+            if (imagemBlob != null) {
+                // Caso a imagem não seja nula, converte para um array de bytes
+                byte[] imagem = imagemBlob.getBytes(1, (int) imagemBlob.length());
+                foto = (imagem != null && imagem.length > 0) ? Base64.getEncoder().encodeToString(imagem) : "null";
+            }
+
+            FuncionariosDTO dto = new FuncionariosDTO(idFuncionario, nome, email, null, foto);
             participantes.add(dto);
         }
         return participantes;
@@ -169,6 +291,96 @@ public class ProjetosDao {
             query.setParameter("projetoId", projetoId);
 
             query.executeUpdate();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+    
+    @Transactional
+    public void atualizarProjeto(Long idProjeto, String novoTitulo, String novaDescricao) {
+        try {
+            em.getTransaction().begin();
+
+            String sql = "UPDATE Projetos SET titulo = :titulo, descricao = :descricao WHERE id_projeto = :idProjeto";
+
+            em.createNativeQuery(sql)
+                .setParameter("titulo", novoTitulo)
+                .setParameter("descricao", novaDescricao)
+                .setParameter("idProjeto", idProjeto)
+                .executeUpdate();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+    
+    @Transactional
+    public void sincronizarParticipantes(Long projetoId, List<String> novosParticipantes) {
+        try {
+            em.getTransaction().begin();
+
+            // Busca os participantes atuais
+            String sqlBusca = "SELECT funcionarios_id_funcionario FROM projeto_funcionario WHERE projetos_id_projeto = :projetoId";
+            List<String> participantesAtuais = em.createNativeQuery(sqlBusca)
+                .setParameter("projetoId", projetoId)
+                .getResultList();
+
+            // Participantes a remover
+            for (String antigo : participantesAtuais) {
+                if (!novosParticipantes.contains(antigo)) {
+                    String sqlDelete = "DELETE FROM projeto_funcionario WHERE projetos_id_projeto = :projetoId AND funcionarios_id_funcionario = :funcionarioId";
+                    em.createNativeQuery(sqlDelete)
+                        .setParameter("projetoId", projetoId)
+                        .setParameter("funcionarioId", antigo)
+                        .executeUpdate();
+                }
+            }
+
+            // Participantes a adicionar
+            for (String novo : novosParticipantes) {
+                if (!participantesAtuais.contains(novo)) {
+                    String sqlInsert = "INSERT INTO projeto_funcionario (projetos_id_projeto, funcionarios_id_funcionario) VALUES (:projetoId, :funcionarioId)";
+                    em.createNativeQuery(sqlInsert)
+                        .setParameter("projetoId", projetoId)
+                        .setParameter("funcionarioId", novo)
+                        .executeUpdate();
+                }
+            }
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+    
+    @Transactional
+    public void deletarProjeto(Long projetoId) {
+        try {
+            em.getTransaction().begin();
+
+            // 1. Excluir vínculos de participantes primeiro
+            String sqlDeleteParticipantes = "DELETE FROM projeto_funcionario WHERE projetos_id_projeto = :projetoId";
+            em.createNativeQuery(sqlDeleteParticipantes)
+                .setParameter("projetoId", projetoId)
+                .executeUpdate();
+
+            // 2. Excluir o projeto
+            String sqlDeleteProjeto = "DELETE FROM Projetos WHERE id_projeto = :projetoId";
+            em.createNativeQuery(sqlDeleteProjeto)
+                .setParameter("projetoId", projetoId)
+                .executeUpdate();
 
             em.getTransaction().commit();
         } catch (Exception e) {

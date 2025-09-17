@@ -318,7 +318,7 @@ header {
 	padding: 0.5rem !important;
 }
 
-.area-card, .pagina-atual {
+.area-card, .icon-wrapper.pagina-atual {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 10rem;
@@ -424,7 +424,7 @@ footer {
 	font-size: 0.9rem !important;
 }
 
-.pagina-atual {
+.icon-wrapper.pagina-atual {
 	width: 2rem;
 	height: 2rem;
 }
@@ -556,7 +556,7 @@ footer {
 		font-size: 1.1rem !important;
 	}
 
-	.pagina-atual {
+	.icon-wrapper.pagina-atual {
 		width: 2rem !important;
     	height: 2rem !important;
 	}
@@ -651,7 +651,7 @@ footer {
 		font-size: 1.1rem !important;
 	}
 
-	.pagina-atual {
+	.icon-wrapper.pagina-atual {
 		width: 2rem !important;
     	height: 2rem !important;
 	}
@@ -737,7 +737,7 @@ footer {
 		font-size: 1.1rem !important;
 	}
 
-	.pagina-atual {
+	.icon-wrapper.pagina-atual {
 		width: 2rem !important;
     	height: 2rem !important;
 	}
@@ -982,7 +982,7 @@ footer {
 		padding: 0 !important;
 	}
 	 
-	.pagina-atual {
+	.icon-wrapper.pagina-atual {
 		width: 2rem;
 		height: 2rem;
 	}
@@ -1086,7 +1086,7 @@ footer {
 		padding: 0 !important;
 	}
 	 
-	.pagina-atual {
+	.icon-wrapper.pagina-atual {
 		width: 2rem;
 		height: 2rem;
 	}
@@ -1267,7 +1267,7 @@ footer {
         font-size: 0.8rem;
     }
 	 
-	.pagina-atual {
+	.icon-wrapper.pagina-atual {
 		width: 2rem;
 		height: 2rem;
 	}

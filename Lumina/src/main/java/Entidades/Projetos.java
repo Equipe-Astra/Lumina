@@ -103,23 +103,7 @@ public class Projetos {
 	public void setIdArea(Area idArea) {
 		this.idArea = idArea;
 	}
-
-	public double getId_projeto() {
-		return idProjeto;
-	}
-
-	public void setId_projeto(Long id_projeto) {
-		this.idProjeto = id_projeto;
-	}
-
-	public Area getId_area() {
-		return idArea;
-	}
-
-	public void setId_area(Area id_area) {
-		this.idArea = id_area;
-	}
-
+	
 	public List<FuncionariosDTO> getParticipantes() {
 		return participantes;
 	}

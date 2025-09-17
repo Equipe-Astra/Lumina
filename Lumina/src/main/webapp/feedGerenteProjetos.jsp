@@ -420,9 +420,7 @@
 									<img src="data:image/png;base64,${publicacao.imagemBase64}"
 										class="card-img-bottom ps-2 pe-2" alt="">
 								</figure>
-								<script>
-    console.log("Publicação ID: ${publicacao.idPublicacao}, reacaoUsuario: ${publicacao.reacaoUsuario != null ? publicacao.reacaoUsuario : 0}");
-</script>
+
 								<div
 									class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row"
 									data-minha-reacao="${publicacao.reacaoUsuario != null ? publicacao.reacaoUsuario : 0}"
@@ -597,9 +595,7 @@
 								</div>
 							</div>
 						</div>
-
 					</c:forEach>
-
 				</div>
 
 				<nav
@@ -650,7 +646,6 @@
 			</div>
 		</div>
 	</main>
-	<!-- Chamada JS do BS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-...your-integrity-hash..." crossorigin="anonymous"></script>
@@ -736,12 +731,27 @@
 		    .catch(err => console.error(err));
 		});
 
-		
 		document.addEventListener("DOMContentLoaded", function () {
-		    const inputPesquisa = document.querySelector('.barra-search');
-		    const cards = document.querySelectorAll('#feedContainer .card');
-		    const mensagemVazia = document.getElementById('mensagem-vazia');
+			  const currentPath = window.location.pathname.replace(/\/+$/, "").toLowerCase();
 
+			  document.querySelectorAll("nav a[href]").forEach(link => {
+			    const iconDiv = link.querySelector(".icon-wrapper");
+			    if (!iconDiv) return;
+
+			    const linkPath = link.getAttribute("href").replace(/\/+$/, "").toLowerCase();
+
+			    iconDiv.classList.remove("pagina-atual");
+
+			    if (currentPath === linkPath) {
+			      iconDiv.classList.add("pagina-atual");
+			    }
+			  });
+			});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const inputPesquisa = document.querySelector('.barra-search');
+    const cards = document.querySelectorAll('#feedContainer .card');
+    const mensagemVazia = document.getElementById('mensagem-vazia');
 		    let areaAtiva = null;
 		    let termoPesquisa = '';
 
@@ -755,7 +765,6 @@
 
 		            const areaCard = areaElem.textContent.replace(/\s+/g, ' ').trim();
 
-		            // NOVO POST sempre aparece e não é filtrado
 		            if (areaCard === "NOVO POST") {
 		                card.style.display = "block";
 		                return;
@@ -780,11 +789,10 @@
 		        }
 		    }
 
-		    // --- TRATAMENTO DO NOVO POST ---
 		    const btnNovoPost = document.querySelector('#btn-novo-post');
 		    if (btnNovoPost) {
 		        btnNovoPost.addEventListener('click', function(event) {
-		            event.preventDefault(); // evita qualquer ação padrão
+		            event.preventDefault(); 
 		            const modalTarget = btnNovoPost.getAttribute('data-bs-target');
 		            if (modalTarget) {
 		                const modal = document.querySelector(modalTarget);
@@ -793,11 +801,9 @@
 		                    bsModal.show();
 		                }
 		            }
-		            // NÃO chama filtrarPublicacoes() e não mexe em areaAtiva
 		        });
 		    }
 
-		    // --- TRATAMENTO DOS OUTROS BOTÕES ---
 		    const outrosBotoes = document.querySelectorAll('.opcoes-menu .area-row button:not(#btn-novo-post), .sidebar .area-row button:not(#btn-novo-post)');
 		    outrosBotoes.forEach(botao => {
 		        const areaRow = botao.closest('.area-row');
@@ -824,11 +830,9 @@
 		        filtrarPublicacoes();
 		    });
 
-		    // Primeira filtragem
+
 		    filtrarPublicacoes();
 		
-
-		    // Preenchimento dos modais
 		    document.querySelectorAll('.modal').forEach(modal => {
 		        modal.addEventListener('show.bs.modal', function (event) {
 		            const button = event.relatedTarget;
@@ -890,7 +894,6 @@
 		        4: "apaixonado"
 		    };
 
-		    // Função para trocar o ícone conforme a reação
 		    function trocarIcone(elemento, ativo) {
 		        const tipoReacao = elemento.dataset.reacao;
 		        elemento.classList.remove(
@@ -917,7 +920,6 @@
 		        }
 		    }
 
-		    // Função para enviar reação para o backend
 		    function enviarReacao(idPublicacao, tipoReacao, acao) {
 		        const params = new URLSearchParams();
 		        params.append("idPublicacao", idPublicacao);
@@ -931,7 +933,6 @@
 		        }).catch(err => console.error("Erro ao atualizar reação:", err));
 		    }
 
-		    // Inicializa reações nos cards (feed)
 		    document.querySelectorAll("#feedContainer .reacoes").forEach(container => {
 		        const minhaReacaoNum = Number(container.dataset.minhaReacao) || 0;
 		        const idPublicacao = container.dataset.id;
@@ -972,7 +973,6 @@
 		        });
 		    });
 
-		    // Inicializa reações nos modais (comentários)
 		    document.querySelectorAll(".modal-reacoes").forEach(container => {
 		        container.querySelectorAll(".reacao").forEach(icon => {
 		            icon.addEventListener("click", function () {
@@ -998,9 +998,7 @@
 		            });
 		        });
 		    });
-		 });
-		
-		
+		 });	
 	</script>
 
 </body>
