@@ -634,6 +634,7 @@
 		                    y: { 
 		                        ticks: {
 		                            color: '#999999',
+		                            
 		                            font: { size: 11 }
 		                        },
 		                        grid: { display: false }
