@@ -78,7 +78,7 @@ public class GeminiServlet extends HttpServlet {
 		
 		List<PublicacoesDTO> publicacoes;
 		try {
-			publicacoes = dao.buscaPublicacao();
+			publicacoes = dao.buscaPublicacao(usuarioLogado);
 			request.setAttribute("publicacoes", publicacoes);
 			
 		} catch (SQLException e) {
@@ -221,7 +221,7 @@ public class GeminiServlet extends HttpServlet {
 				request.setAttribute("resultados", resultados);
 				request.setAttribute("lucro", lucro);
 				
-				
+				request.setAttribute("abrirModal", true);
 				request.getRequestDispatcher("feedGerenteProjetos.jsp").forward(request, response);
 			}
 			else if ("manual".equals(acao)) {

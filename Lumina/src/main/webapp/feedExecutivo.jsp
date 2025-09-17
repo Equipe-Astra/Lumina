@@ -79,27 +79,11 @@
 								<div
 									class="nome d-flex justify-content-start flex-column ms-3 mb-0">
 									<p class="fw-medium mb-0 color-gradient text-uppercase">${nome}</p>
-									<p class="fw-medium cargo text-grey mt-1 mb-0">Gerente de
-										Projetos</p>
+									<p class="fw-medium cargo text-grey mt-1 mb-0">Executivo</p>
 								</div>
 							</div>
 							<div class="opcoes-menu">
-								<div
-									class="area-row d-flex align-items-center flex-row mb-4 mt-3"
-									data-points="100">
-									<div
-										class="d-flex justify-content-center flex-column align-items-center">
-										<button type="button" id="btn-novo-post"
-											class="area d-flex justify-content-center align-items-center"
-											data-bs-toggle="modal" data-bs-target="#meuModal">
-											<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
-										</button>
-									</div>
-									<div class="texto flex-column">
-										<p class="texto-area fw-medium mb-0 ms-3 color-gradient">NOVO
-											POST</p>
-									</div>
-								</div>
+							
 								<div class="area-row d-flex align-items-center flex-row mb-4"
 									data-points="100">
 									<div class="d-flex flex-column align-items-center">
@@ -199,27 +183,11 @@
 						<div
 							class="nome d-flex justify-content-center flex-column align-items-center">
 							<p class="fw-medium mb-0 color-gradient text-uppercase">${nome}</p>
-							<p class="fw-medium cargo text-grey mt-2">Gerente de Projetos</p>
+							<p class="fw-medium cargo text-grey mt-2">Executivo</p>
 						</div>
 						<section
 							class="d-flex justify-content-center align-items-baseline flex-column">
-							<div
-								class="area-row d-flex justify-content-center align-items-center flex-row mb-4"
-								data-points="100">
-								<div
-									class="d-flex justify-content-center flex-column align-items-center">
-									<button id="btn-novo-post" type="button"
-										class="area d-flex justify-content-center align-items-center"
-										data-bs-toggle="modal" data-bs-target="#meuModal">
-										<i class="bi bi-plus fs-3 color-gradient"></i>
-									</button>
-								</div>
-								<div class="texto flex-column">
-									<p class="texto-area fw-medium mb-0 ms-3 color-gradient">NOVO
-										POST</p>
-								</div>
-
-							</div>
+							
 							<div
 								class="area-row d-flex justify-content-center align-items-center flex-row mb-4"
 								data-points="100">
@@ -420,9 +388,7 @@
 									<img src="data:image/png;base64,${publicacao.imagemBase64}"
 										class="card-img-bottom ps-2 pe-2" alt="">
 								</figure>
-								<script>
-    console.log("Publicação ID: ${publicacao.idPublicacao}, reacaoUsuario: ${publicacao.reacaoUsuario != null ? publicacao.reacaoUsuario : 0}");
-</script>
+								
 								<div
 									class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row"
 									data-minha-reacao="${publicacao.reacaoUsuario != null ? publicacao.reacaoUsuario : 0}"
@@ -602,32 +568,33 @@
 
 				</div>
 
-				<nav
-					class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
-					<a href="/Lumina/feedGerenteProjetos"
-						class="text-center text-decoration-none text-primary">
-						<div
-							class="d-flex justify-content-center flex-column align-items-center">
-							<div
-								class="icon-wrapper d-flex justify-content-center align-items-center">
-								<i
-									class="bi bi-house d-flex justify-content-center align-items-center color-gradient"></i>
-							</div>
-							<small class="color-gradient mt-1">Feed</small>
-						</div>
-					</a> <a href="/Lumina/ProjetosServlet"
-						class="text-center text-decoration-none text-primary">
-						<div
-							class="d-flex justify-content-center flex-column align-items-center">
-							<div
-								class="icon-wrapper d-flex justify-content-center align-items-center">
-								<i
-									class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
-							</div>
-							<small class="color-gradient mt-1">Meus Projetos</small>
-						</div>
-					</a>
-					<div
+
+		          <nav class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
+                    <a href="/Lumina/feedExecutivo" class="text-center text-decoration-none text-primary">
+                        <div class="d-flex justify-content-center flex-column align-items-center">
+                        <div class="icon-wrapper d-flex justify-content-center align-items-center">
+                            <i class="bi bi-house d-flex justify-content-center align-items-center color-gradient"></i>
+                        </div>
+                        <small class="color-gradient mt-1">Feed</small>
+                        </div>
+                    </a>
+                    <a href="/Lumina/ProjetosServlet" class="text-center text-decoration-none text-primary">
+                        <div class="d-flex justify-content-center flex-column align-items-center">
+                        <div class="icon-wrapper d-flex justify-content-center align-items-center">
+                            <i class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
+                        </div>
+                        <small class="color-gradient mt-1">Meus Projetos</small>
+                        </div>
+                    </a>
+                    <a href="/Lumina/Dashboards" class="text-center text-decoration-none text-primary">
+                        <div class="d-flex justify-content-center flex-column align-items-center">
+                        <div class="icon-wrapper d-flex justify-content-center align-items-center">
+                            <i class="bi bi-bar-chart-line d-flex justify-content-center align-items-center color-gradient"></i>
+                        </div>
+                        <small class="color-gradient mt-1">Dashboards</small>
+                        </div>
+                    </a>
+                    	<div
 						class="d-flex justify-content-center flex-column align-items-center">
 						<form action="Logout" method="post">
 							<button type="submit"
@@ -640,10 +607,7 @@
 							</button>
 						</form>
 					</div>
-
-
-
-				</nav>
+                </nav>
 				<footer>
 					<p class="mt-2 text-grey">© 2025 Lumina from Astra</p>
 				</footer>

@@ -9,6 +9,12 @@ public class PublicacoesDTO {
 	private String objetivos;
 	private String resultados;
 	private Double lucro;
+	private int curtida;
+	private int alegria;
+	private int genial;
+	private int apaixonado;
+	private int comentarios;
+	private int reacaoUsuario;
 	
 	public String getIdPublicacao() {
 		return idPublicacao;
@@ -57,6 +63,42 @@ public class PublicacoesDTO {
 	}
 	public void setLucro(Double lucro) {
 		this.lucro = lucro;
+	}
+	public int getCurtida() {
+		return curtida;
+	}
+	public void setCurtida(int curtida) {
+		this.curtida = curtida;
+	}
+	public int getAlegria() {
+		return alegria;
+	}
+	public void setAlegria(int alegria) {
+		this.alegria = alegria;
+	}
+	public int getGenial() {
+		return genial;
+	}
+	public void setGenial(int genial) {
+		this.genial = genial;
+	}
+	public int getApaixonado() {
+		return apaixonado;
+	}
+	public void setApaixonado(int apaixonado) {
+		this.apaixonado = apaixonado;
+	}
+	public int getComentarios() {
+		return comentarios;
+	}
+	public void setComentarios(int comentarios) {
+		this.comentarios = comentarios;
+	}
+	public int getReacaoUsuario() {
+		return reacaoUsuario;
+	}
+	public void setReacaoUsuario(int reacaoUsuario) {
+		this.reacaoUsuario = reacaoUsuario;
 	}
 	
 }

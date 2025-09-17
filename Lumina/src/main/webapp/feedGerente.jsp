@@ -79,8 +79,7 @@
 								<div
 									class="nome d-flex justify-content-start flex-column ms-3 mb-0">
 									<p class="fw-medium mb-0 color-gradient text-uppercase">${nome}</p>
-									<p class="fw-medium cargo text-grey mt-1 mb-0">Gerente de
-										Projetos</p>
+									<p class="fw-medium cargo text-grey mt-1 mb-0">Gerente ${area}</p>
 								</div>
 							</div>
 							<div class="opcoes-menu">
@@ -199,7 +198,7 @@
 						<div
 							class="nome d-flex justify-content-center flex-column align-items-center">
 							<p class="fw-medium mb-0 color-gradient text-uppercase">${nome}</p>
-							<p class="fw-medium cargo text-grey mt-2">Gerente de Projetos</p>
+							<p class="fw-medium cargo text-grey mt-2">Gerente ${area}</p>
 						</div>
 						<section
 							class="d-flex justify-content-center align-items-baseline flex-column">
@@ -420,9 +419,7 @@
 									<img src="data:image/png;base64,${publicacao.imagemBase64}"
 										class="card-img-bottom ps-2 pe-2" alt="">
 								</figure>
-								<script>
-    console.log("Publicação ID: ${publicacao.idPublicacao}, reacaoUsuario: ${publicacao.reacaoUsuario != null ? publicacao.reacaoUsuario : 0}");
-</script>
+								
 								<div
 									class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row"
 									data-minha-reacao="${publicacao.reacaoUsuario != null ? publicacao.reacaoUsuario : 0}"
@@ -602,32 +599,32 @@
 
 				</div>
 
-				<nav
-					class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
-					<a href="/Lumina/feedGerenteProjetos"
-						class="text-center text-decoration-none text-primary">
-						<div
-							class="d-flex justify-content-center flex-column align-items-center">
-							<div
-								class="icon-wrapper d-flex justify-content-center align-items-center">
-								<i
-									class="bi bi-house d-flex justify-content-center align-items-center color-gradient"></i>
-							</div>
-							<small class="color-gradient mt-1">Feed</small>
-						</div>
-					</a> <a href="/Lumina/ProjetosServlet"
-						class="text-center text-decoration-none text-primary">
-						<div
-							class="d-flex justify-content-center flex-column align-items-center">
-							<div
-								class="icon-wrapper d-flex justify-content-center align-items-center">
-								<i
-									class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
-							</div>
-							<small class="color-gradient mt-1">Meus Projetos</small>
-						</div>
-					</a>
-					<div
+<nav class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
+                    <a href="Lumina/feedGerente" class="text-center text-decoration-none text-primary">
+                        <div class="d-flex justify-content-center flex-column align-items-center">
+                        <div class="icon-wrapper d-flex justify-content-center align-items-center">
+                            <i class="bi bi-house d-flex justify-content-center align-items-center color-gradient"></i>
+                        </div>
+                        <small class="color-gradient mt-1">Feed</small>
+                        </div>
+                    </a>
+                    <a href="/Lumina/ProjetosServlet" class="text-center text-decoration-none text-primary">
+                        <div class="d-flex justify-content-center flex-column align-items-center">
+                        <div class="icon-wrapper d-flex justify-content-center align-items-center">
+                            <i class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
+                        </div>
+                        <small class="color-gradient mt-1">Meus Projetos</small>
+                        </div>
+                    </a>
+                    <a href="/Lumina/Dashboards" class="text-center text-decoration-none text-primary">
+                        <div class="d-flex justify-content-center flex-column align-items-center">
+                        <div class="icon-wrapper d-flex justify-content-center align-items-center">
+                            <i class="bi bi-bar-chart-line d-flex justify-content-center align-items-center color-gradient"></i>
+                        </div>
+                        <small class="color-gradient mt-1">Dashboards</small>
+                        </div>
+                    </a>
+                   <div
 						class="d-flex justify-content-center flex-column align-items-center">
 						<form action="Logout" method="post">
 							<button type="submit"
@@ -640,10 +637,7 @@
 							</button>
 						</form>
 					</div>
-
-
-
-				</nav>
+                </nav>
 				<footer>
 					<p class="mt-2 text-grey">© 2025 Lumina from Astra</p>
 				</footer>

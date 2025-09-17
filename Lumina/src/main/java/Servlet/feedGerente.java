@@ -17,8 +17,8 @@ import Dto.ComentarioDTO;
 import Dto.PublicacoesDTO;
 import Entidades.Projetos;
 
-@WebServlet("/feedGerenteProjetos")
-public class feedGerenteProjetos extends HttpServlet {
+@WebServlet("/feedGerente")
+public class feedGerente extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private final FeedDao dao = new FeedDao();
@@ -42,17 +42,19 @@ public class feedGerenteProjetos extends HttpServlet {
 
             String caminhoImagem = dao.buscaFotoPerfil(usuarioLogado, getServletContext());
             String nome = dao.buscaNome(usuarioLogado);
+            String area = dao.buscaDescricaoArea(usuarioLogado);
             List<Projetos> projetos = dao.buscaProjetos(usuarioLogado);
             List<PublicacoesDTO> publicacoes = dao.buscaPublicacao(usuarioLogado);
             List<ComentarioDTO> comentarios = dao.buscaComentarios(getServletContext());
 
             request.setAttribute("caminhoFotoPerfil", caminhoImagem);
             request.setAttribute("nome", nome);
+            request.setAttribute("area", area);
             request.setAttribute("projetos", projetos);
             request.setAttribute("publicacoes", publicacoes);
             request.setAttribute("comentarios", comentarios);
 
-            forward(request, response, "feedGerenteProjetos.jsp");
+            forward(request, response, "feedGerente.jsp");
 
         } catch (SQLException e) {
             throw new ServletException("Erro ao carregar feed", e);

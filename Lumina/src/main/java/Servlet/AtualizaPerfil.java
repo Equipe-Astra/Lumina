@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import Dao.FeedDao;
+import Dao.LoginDao;
 import Entidades.Funcionarios;
 
 @WebServlet("/AtualizaPerfil")
@@ -39,8 +40,25 @@ public class AtualizaPerfil extends HttpServlet {
 			funcionario.setId(usuarioLogado);
 
 			FeedDao dao = new FeedDao();
+			LoginDao loginDao = new LoginDao();
+
 			dao.cadastraFotoPerfil(funcionario);
-			response.sendRedirect("feedGerenteProjetos");
+			
+			String cargo = loginDao.buscaCargo(usuarioLogado);
+			if (cargo.equalsIgnoreCase("gerente de projetos")) {
+				response.sendRedirect("feedGerenteProjetos");
+			} else if (cargo.equalsIgnoreCase("gerente")) {
+				response.sendRedirect("feedGerente");
+			}
+			else if (cargo.equalsIgnoreCase("executivo")) {
+				response.sendRedirect("feedExecutivo");
+			}
+			else if (cargo.equalsIgnoreCase("colaborador euron")) {
+				response.sendRedirect("feedColaboradorEuron");
+			}
+			else if (cargo.equalsIgnoreCase("colaborador eurofarma")) {
+				response.sendRedirect("feedColaboradorEurofarma");
+			}
 		}
 
 	}
