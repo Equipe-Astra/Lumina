@@ -1,7 +1,9 @@
 package Entidades;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,20 +22,23 @@ public class Publicacao {
 	private Long idPublicacao;
 	
 	@Lob
+	@Basic(fetch = FetchType.LAZY)
 	private String descricao;
 	
 	@Lob
+	@Basic(fetch = FetchType.LAZY)
 	private String objetivos;
 	
 	@Lob
+	@Basic(fetch = FetchType.LAZY)
 	private String resultados;
 
 	@Lob
 	@Column(name = "imagem")
 	private byte[] imagem;
-
+	
 	@JoinColumn(name = "id_funcionario")
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Funcionarios idFuncionario;
 
 	@JoinColumn(name = "ID_AREA")

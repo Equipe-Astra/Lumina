@@ -161,11 +161,37 @@
 							class="card card-tarefa mb-2 shadow border-top-0 border-start-0 border-end-0">
 							<div
 								class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
-								<p class="fw-semibold mt-2 titulo-projeto color-gradient mb-0">EVOLUÇÃO
+								<p id="titulo-grafico4" class="fw-semibold mt-2 titulo-grafico4 color-gradient mb-0">EVOLUÇÃO
 									MENSAL</p>
 								<div
-									class="d-flex justify-content-center flex-column align-items-center">
-
+									class="d-flex justify-content-center flex-row align-items-center">
+									<button type="button"
+										class="d-flex justify-content-center align-items-center border-0 bg-transparent text-grey"
+										id="dropdownMenuButtonEvolucao" data-bs-toggle="dropdown"
+										aria-expanded="false">
+										<i class="bi bi-funnel filtro"></i>
+									</button>
+									<button type="button"
+										class="d-flex justify-content-center align-items-center border-0 bg-transparent text-grey"
+										id="resetFilterButtonEvolucao">
+										<i class="bi bi-arrow-counterclockwise"></i>
+									</button>
+									<ul class="dropdown-menu shadow"
+										aria-labelledby="dropdownMenuButtonEvolucao"
+										style="width: 210px;">
+										<c:forEach items="${todasAsAreas}" var="area">
+											<li class="px-2 py-2">
+												<div class="d-flex flex-row align-items-center">
+													<button type="button"
+														class="d-flex align-items-center border-0 bg-transparent btn-filtro"
+														data-id-area="${area.idArea}"
+														data-descricao-area="${area.descricao}">
+														<p class="texto-area fw-medium mb-0 ms-2">${area.descricao}</p>
+													</button>
+												</div>
+											</li>
+										</c:forEach>
+									</ul>
 								</div>
 							</div>
 							<div class="card-body">
@@ -664,5 +690,171 @@
 		    criarGrafico3(labelsIniciaisGrafico3, valoresIniciaisGrafico3);
 		});
 	</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const coresStatus = {
+        "Não Iniciado": '#5CCEE6',
+        "Em andamento": '#9660FF',
+        "Concluído": '#6260FF'
+    };
+
+    const meses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho",
+                   "Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+
+    const naoIniciado = Array(12).fill(0);
+    const emAndamento = Array(12).fill(0);
+    const concluido = Array(12).fill(0);
+
+    // Variável única para evitar erro de "already declared"
+    let indiceMes;
+
+    // Preencher com dados do servidor via JSP
+    <c:forEach items="${evolucaoMensalList}" var="evo">
+        indiceMes = meses.indexOf("${evo.mes}");
+        if (indiceMes >= 0) {
+            naoIniciado[indiceMes] = ${evo.naoIniciado};
+            emAndamento[indiceMes] = ${evo.emAndamento};
+            concluido[indiceMes] = ${evo.concluido};
+        }
+    </c:forEach>
+
+    const ctx = document.getElementById('grafico4').getContext('2d');
+
+    let chartEvolucao = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: meses,
+            datasets: [
+                {
+                    label: 'NÃO INICIADO',
+                    data: naoIniciado,
+                    borderColor: coresStatus["Não Iniciado"],
+                    backgroundColor: coresStatus["Não Iniciado"],
+                    tension: 0.3,
+                    fill: false,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                },
+                {
+                    label: 'EM ANDAMENTO',
+                    data: emAndamento,
+                    borderColor: coresStatus["Em andamento"],
+                    backgroundColor: coresStatus["Em andamento"],
+                    tension: 0.3,
+                    fill: false,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                },
+                {
+                    label: 'CONCLUÍDO',
+                    data: concluido,
+                    borderColor: coresStatus["Concluído"],
+                    backgroundColor: coresStatus["Concluído"],
+                    tension: 0.3,
+                    fill: false,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'line',
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Número de Projetos'
+                    },
+                    ticks: {
+                        stepSize: 1
+                    }
+                },
+                x: {
+                    grid: {
+                        drawOnChartArea: true
+                    }
+                }
+            }
+        }    });
+
+    const tituloGrafico = document.getElementById("titulo-grafico4");
+
+    // Filtro por área
+    const filterContainer = document.querySelector('.dropdown-menu[aria-labelledby="dropdownMenuButtonEvolucao"]');
+    if (filterContainer) {
+        filterContainer.addEventListener('click', function (event) {
+            const btnFiltro = event.target.closest('.btn-filtro');
+            if (!btnFiltro) return;
+
+            const idAreaRaw = btnFiltro.getAttribute('data-id-area');
+            if (!idAreaRaw) return;
+            const idArea = parseInt(idAreaRaw);
+            const nomeArea = btnFiltro.querySelector('p')?.innerText || "Área desconhecida";
+
+            if (tituloGrafico) tituloGrafico.innerText = `EVOLUÇÃO MENSAL - ` + nomeArea;
+
+            fetch('<%=request.getContextPath()%>/Dashboards?action=filtrarEvolucaoMensal&idArea=' + idArea)
+                .then(res => res.json())
+                .then(data => {
+                    let novaNaoIniciado = Array(12).fill(0);
+                    let novaEmAndamento = Array(12).fill(0);
+                    let novaConcluido = Array(12).fill(0);
+
+                    data.forEach(d => {
+                        const indice = meses.indexOf(d.mes);
+                        if (indice >= 0) {
+                            novaNaoIniciado[indice] = d.naoIniciado;
+                            novaEmAndamento[indice] = d.emAndamento;
+                            novaConcluido[indice] = d.concluido;
+                        }
+                    });
+
+                    chartEvolucao.data.datasets[0].data = novaNaoIniciado;
+                    chartEvolucao.data.datasets[1].data = novaEmAndamento;
+                    chartEvolucao.data.datasets[2].data = novaConcluido;
+                    chartEvolucao.update();
+                })
+                .catch(err => {
+                    console.error('Erro ao buscar dados filtrados:', err);
+                    if (tituloGrafico) tituloGrafico.innerText = 'EVOLUÇÃO MENSAL';
+                });
+        });
+    }
+
+    // Botão de reset
+    const resetButton = document.getElementById("resetFilterButtonEvolucao");
+    if (resetButton) {
+        resetButton.addEventListener('click', function () {
+            if (tituloGrafico) tituloGrafico.innerText = "EVOLUÇÃO MENSAL";
+
+            chartEvolucao.data.datasets[0].data = naoIniciado;
+            chartEvolucao.data.datasets[1].data = emAndamento;
+            chartEvolucao.data.datasets[2].data = concluido;
+            chartEvolucao.update();
+        });
+    }
+
+});
+</script>
+
 </body>
 </html>

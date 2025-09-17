@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+
 import Dao.DashboardsDao;
+import Dto.EvolucaoMensalDTO;
 import Dto.LucroProjetoDTO;
 import Entidades.Area;
 
@@ -56,6 +58,8 @@ public class Dashboards extends HttpServlet {
 				List<Object[]> statusTotais = dao.buscaSomaStatusTodasAreas();
 
 				List<Object[]> quantidadeProjetos = dao.buscaQuantidadeProjetosPorArea();
+				
+				List<EvolucaoMensalDTO> evolucao = dao.buscaEvolucaoMensalTodasAreas();
 
 				List<Map<String, Object>> statusTotalList = new ArrayList<>();
 				for (Object[] row : statusTotais) {
@@ -76,6 +80,7 @@ public class Dashboards extends HttpServlet {
 				request.setAttribute("lucrosPorArea", lucrosPorArea);
 				request.setAttribute("todasAsAreas", todasAsAreas);
 				request.setAttribute("statusTotalList", statusTotalList);
+				request.setAttribute("evolucaoMensalList", evolucao);
 
 				request.setAttribute("quantidadeProjetosList", quantidadeProjetosList);
 
@@ -158,6 +163,30 @@ public class Dashboards extends HttpServlet {
 				response.getWriter().write("{\"error\":\"Erro ao buscar quantidade de projetos por área.\"}");
 			}
 			return;
+		}
+		
+		if ("filtrarEvolucaoMensal".equals(action)) {
+		    try {
+		        int idArea = (idAreaParam == null || idAreaParam.isEmpty()) ? 0 : Integer.parseInt(idAreaParam);
+		        List<EvolucaoMensalDTO> evolucao;
+		        evolucao = dao.buscaEvolucaoMensalPorArea(idArea);
+
+		        Gson gson = new Gson();
+		        String json = gson.toJson(evolucao);
+
+		        response.setContentType("application/json");
+		        response.setCharacterEncoding("UTF-8");
+		        response.getWriter().write(json);
+		        
+
+		    } catch (SQLException | NumberFormatException e) {
+		        e.printStackTrace();
+		        response.setContentType("application/json");
+		        response.setCharacterEncoding("UTF-8");
+		        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		        response.getWriter().write("{\"error\":\"Erro ao buscar evolução mensal.\"}");
+		    }
+		    return;
 		}
 	}
 }

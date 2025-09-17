@@ -16,6 +16,11 @@
 	    <class>Entidades.Comentarios</class>
 		<class>Entidades.LucroProjeto</class>
 		<class>Entidades.ProjetoFuncionario</class>
+		<class>Entidades.Reacoes</class>
+		<class>Entidades.PublicacaoReacao</class>
+		<class>Entidades.PublicacaoReacaoId</class>
+		<class>Entidades.FuncionarioPublicacaoReacao</class>
+		<class>Entidades.FuncionarioPublicacaoReacaoId</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="oracle.jdbc.OracleDriver" />

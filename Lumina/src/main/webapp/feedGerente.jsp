@@ -79,8 +79,7 @@
 								<div
 									class="nome d-flex justify-content-start flex-column ms-3 mb-0">
 									<p class="fw-medium mb-0 color-gradient text-uppercase">${nome}</p>
-									<p class="fw-medium cargo text-grey mt-1 mb-0">Gerente de
-										Projetos</p>
+									<p class="fw-medium cargo text-grey mt-1 mb-0">Gerente ${area}</p>
 								</div>
 							</div>
 							<div class="opcoes-menu">
@@ -199,7 +198,7 @@
 						<div
 							class="nome d-flex justify-content-center flex-column align-items-center">
 							<p class="fw-medium mb-0 color-gradient text-uppercase">${nome}</p>
-							<p class="fw-medium cargo text-grey mt-2">Gerente de Projetos</p>
+							<p class="fw-medium cargo text-grey mt-2">Gerente ${area}</p>
 						</div>
 						<section
 							class="d-flex justify-content-center align-items-baseline flex-column">
@@ -420,7 +419,7 @@
 									<img src="data:image/png;base64,${publicacao.imagemBase64}"
 										class="card-img-bottom ps-2 pe-2" alt="">
 								</figure>
-
+								
 								<div
 									class="reacoes ms-2 mt-3 mb-0 d-flex justify-content-start align-items-center flex-row"
 									data-minha-reacao="${publicacao.reacaoUsuario != null ? publicacao.reacaoUsuario : 0}"
@@ -595,35 +594,37 @@
 								</div>
 							</div>
 						</div>
+
 					</c:forEach>
+
 				</div>
 
-				<nav
-					class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
-					<a href="/Lumina/feedGerenteProjetos"
-						class="text-center text-decoration-none text-primary">
-						<div
-							class="d-flex justify-content-center flex-column align-items-center">
-							<div
-								class="icon-wrapper d-flex justify-content-center align-items-center">
-								<i
-									class="bi bi-house d-flex justify-content-center align-items-center color-gradient"></i>
-							</div>
-							<small class="color-gradient mt-1">Feed</small>
-						</div>
-					</a> <a href="/Lumina/ProjetosServlet"
-						class="text-center text-decoration-none text-primary">
-						<div
-							class="d-flex justify-content-center flex-column align-items-center">
-							<div
-								class="icon-wrapper d-flex justify-content-center align-items-center">
-								<i
-									class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
-							</div>
-							<small class="color-gradient mt-1">Meus Projetos</small>
-						</div>
-					</a>
-					<div
+<nav class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
+                    <a href="Lumina/feedGerente" class="text-center text-decoration-none text-primary">
+                        <div class="d-flex justify-content-center flex-column align-items-center">
+                        <div class="icon-wrapper d-flex justify-content-center align-items-center">
+                            <i class="bi bi-house d-flex justify-content-center align-items-center color-gradient"></i>
+                        </div>
+                        <small class="color-gradient mt-1">Feed</small>
+                        </div>
+                    </a>
+                    <a href="/Lumina/ProjetosServlet" class="text-center text-decoration-none text-primary">
+                        <div class="d-flex justify-content-center flex-column align-items-center">
+                        <div class="icon-wrapper d-flex justify-content-center align-items-center">
+                            <i class="bi bi-clipboard d-flex justify-content-center align-items-center color-gradient"></i>
+                        </div>
+                        <small class="color-gradient mt-1">Meus Projetos</small>
+                        </div>
+                    </a>
+                    <a href="/Lumina/Dashboards" class="text-center text-decoration-none text-primary">
+                        <div class="d-flex justify-content-center flex-column align-items-center">
+                        <div class="icon-wrapper d-flex justify-content-center align-items-center">
+                            <i class="bi bi-bar-chart-line d-flex justify-content-center align-items-center color-gradient"></i>
+                        </div>
+                        <small class="color-gradient mt-1">Dashboards</small>
+                        </div>
+                    </a>
+                   <div
 						class="d-flex justify-content-center flex-column align-items-center">
 						<form action="Logout" method="post">
 							<button type="submit"
@@ -636,16 +637,14 @@
 							</button>
 						</form>
 					</div>
-
-
-
-				</nav>
+                </nav>
 				<footer>
 					<p class="mt-2 text-grey">© 2025 Lumina from Astra</p>
 				</footer>
 			</div>
 		</div>
 	</main>
+	<!-- Chamada JS do BS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-...your-integrity-hash..." crossorigin="anonymous"></script>
@@ -731,27 +730,12 @@
 		    .catch(err => console.error(err));
 		});
 
+		
 		document.addEventListener("DOMContentLoaded", function () {
-			  const currentPath = window.location.pathname.replace(/\/+$/, "").toLowerCase();
+		    const inputPesquisa = document.querySelector('.barra-search');
+		    const cards = document.querySelectorAll('#feedContainer .card');
+		    const mensagemVazia = document.getElementById('mensagem-vazia');
 
-			  document.querySelectorAll("nav a[href]").forEach(link => {
-			    const iconDiv = link.querySelector(".icon-wrapper");
-			    if (!iconDiv) return;
-
-			    const linkPath = link.getAttribute("href").replace(/\/+$/, "").toLowerCase();
-
-			    iconDiv.classList.remove("pagina-atual");
-
-			    if (currentPath === linkPath) {
-			      iconDiv.classList.add("pagina-atual");
-			    }
-			  });
-			});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const inputPesquisa = document.querySelector('.barra-search');
-    const cards = document.querySelectorAll('#feedContainer .card');
-    const mensagemVazia = document.getElementById('mensagem-vazia');
 		    let areaAtiva = null;
 		    let termoPesquisa = '';
 
@@ -765,6 +749,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		            const areaCard = areaElem.textContent.replace(/\s+/g, ' ').trim();
 
+		            // NOVO POST sempre aparece e não é filtrado
 		            if (areaCard === "NOVO POST") {
 		                card.style.display = "block";
 		                return;
@@ -789,10 +774,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		        }
 		    }
 
+		    // --- TRATAMENTO DO NOVO POST ---
 		    const btnNovoPost = document.querySelector('#btn-novo-post');
 		    if (btnNovoPost) {
 		        btnNovoPost.addEventListener('click', function(event) {
-		            event.preventDefault(); 
+		            event.preventDefault(); // evita qualquer ação padrão
 		            const modalTarget = btnNovoPost.getAttribute('data-bs-target');
 		            if (modalTarget) {
 		                const modal = document.querySelector(modalTarget);
@@ -801,9 +787,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		                    bsModal.show();
 		                }
 		            }
+		            // NÃO chama filtrarPublicacoes() e não mexe em areaAtiva
 		        });
 		    }
 
+		    // --- TRATAMENTO DOS OUTROS BOTÕES ---
 		    const outrosBotoes = document.querySelectorAll('.opcoes-menu .area-row button:not(#btn-novo-post), .sidebar .area-row button:not(#btn-novo-post)');
 		    outrosBotoes.forEach(botao => {
 		        const areaRow = botao.closest('.area-row');
@@ -830,9 +818,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		        filtrarPublicacoes();
 		    });
 
-
+		    // Primeira filtragem
 		    filtrarPublicacoes();
 		
+
+		    // Preenchimento dos modais
 		    document.querySelectorAll('.modal').forEach(modal => {
 		        modal.addEventListener('show.bs.modal', function (event) {
 		            const button = event.relatedTarget;
@@ -894,6 +884,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		        4: "apaixonado"
 		    };
 
+		    // Função para trocar o ícone conforme a reação
 		    function trocarIcone(elemento, ativo) {
 		        const tipoReacao = elemento.dataset.reacao;
 		        elemento.classList.remove(
@@ -920,6 +911,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		        }
 		    }
 
+		    // Função para enviar reação para o backend
 		    function enviarReacao(idPublicacao, tipoReacao, acao) {
 		        const params = new URLSearchParams();
 		        params.append("idPublicacao", idPublicacao);
@@ -933,6 +925,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		        }).catch(err => console.error("Erro ao atualizar reação:", err));
 		    }
 
+		    // Inicializa reações nos cards (feed)
 		    document.querySelectorAll("#feedContainer .reacoes").forEach(container => {
 		        const minhaReacaoNum = Number(container.dataset.minhaReacao) || 0;
 		        const idPublicacao = container.dataset.id;
@@ -973,6 +966,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		        });
 		    });
 
+		    // Inicializa reações nos modais (comentários)
 		    document.querySelectorAll(".modal-reacoes").forEach(container => {
 		        container.querySelectorAll(".reacao").forEach(icon => {
 		            icon.addEventListener("click", function () {
@@ -998,7 +992,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		            });
 		        });
 		    });
-		 });	
+		 });
+		
+		
 	</script>
 
 </body>

@@ -32,19 +32,18 @@ public class Login extends HttpServlet {
 			session.setAttribute("usuarioLogado", usuarioValido);
 			
 			if (cargo.equalsIgnoreCase("gerente de projetos")) {
-
 				response.sendRedirect("/Lumina/feedGerenteProjetos");
 			} else if (cargo.equalsIgnoreCase("gerente")) {
-				response.sendRedirect("/Lumina/feedGerente.html");
+				response.sendRedirect("/Lumina/feedGerente");
 			}
 			else if (cargo.equalsIgnoreCase("executivo")) {
-				response.sendRedirect("/Lumina/feedExecutivo.html");
+				response.sendRedirect("/Lumina/feedExecutivo");
 			}
 			else if (cargo.equalsIgnoreCase("colaborador euron")) {
-				response.sendRedirect("/Lumina/feedColaboradorEuron.html");
+				response.sendRedirect("/Lumina/feedColaboradorEuron");
 			}
 			else if (cargo.equalsIgnoreCase("colaborador eurofarma")) {
-				response.sendRedirect("/Lumina/feedColaboradorEurofarma.html");
+				response.sendRedirect("/Lumina/feedColaboradorEurofarma");
 			}
 		}
 		else if(usuarioValido == null) {

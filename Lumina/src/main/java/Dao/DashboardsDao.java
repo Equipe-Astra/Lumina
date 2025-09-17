@@ -1,9 +1,16 @@
 package Dao;
 
 import java.sql.SQLException;
-import java.util.*;
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import Dto.EvolucaoMensalDTO;
 import Dto.LucroProjetoDTO;
 import Entidades.Area;
 
@@ -112,4 +119,98 @@ public class DashboardsDao {
 		Query query = em.createNativeQuery(sql);
 		return query.getResultList();
 	}
+
+	public List<EvolucaoMensalDTO> buscaEvolucaoMensalPorArea(int idArea) throws SQLException {
+	    List<EvolucaoMensalDTO> lista = new ArrayList<>();
+
+	    String sql = "WITH Meses AS ( "
+	               + "    SELECT 1 AS mes, 'Janeiro' AS nome FROM dual UNION ALL "
+	               + "    SELECT 2, 'Fevereiro' FROM dual UNION ALL "
+	               + "    SELECT 3, 'Março' FROM dual UNION ALL "
+	               + "    SELECT 4, 'Abril' FROM dual UNION ALL "
+	               + "    SELECT 5, 'Maio' FROM dual UNION ALL "
+	               + "    SELECT 6, 'Junho' FROM dual UNION ALL "
+	               + "    SELECT 7, 'Julho' FROM dual UNION ALL "
+	               + "    SELECT 8, 'Agosto' FROM dual UNION ALL "
+	               + "    SELECT 9, 'Setembro' FROM dual UNION ALL "
+	               + "    SELECT 10, 'Outubro' FROM dual UNION ALL "
+	               + "    SELECT 11, 'Novembro' FROM dual UNION ALL "
+	               + "    SELECT 12, 'Dezembro' FROM dual "
+	               + ") "
+	               + "SELECT "
+	               + "    m.nome AS mes, "
+	               + "    NVL(SUM(CASE WHEN s.descricao = 'Não Iniciado' THEN 1 ELSE 0 END), 0) AS naoIniciado, "
+	               + "    NVL(SUM(CASE WHEN s.descricao = 'Em andamento' THEN 1 ELSE 0 END), 0) AS emAndamento, "
+	               + "    NVL(SUM(CASE WHEN s.descricao = 'Concluído' THEN 1 ELSE 0 END), 0) AS concluido "
+	               + "FROM Meses m "
+	               + "LEFT JOIN projetos p "
+	               + "    ON EXTRACT(MONTH FROM p.data_criacao) = m.mes "
+	               + "   AND EXTRACT(YEAR FROM p.data_criacao) = EXTRACT(YEAR FROM SYSDATE) "
+	               + "LEFT JOIN status s "
+	               + "    ON p.id_status = s.id_status "
+	               + "AND p.id_area = :idArea "
+	               + "GROUP BY m.mes, m.nome "
+	               + "ORDER BY m.mes";
+
+	    Query query = em.createNativeQuery(sql);
+	    query.setParameter("idArea", idArea);
+
+	    List<Object[]> resultados = query.getResultList();
+
+	    for (Object[] row : resultados) {
+	        String mes = (String) row[0];
+	        int naoIniciado = ((Number) row[1]).intValue();
+	        int emAndamento = ((Number) row[2]).intValue();
+	        int concluido = ((Number) row[3]).intValue();
+
+	        lista.add(new EvolucaoMensalDTO(mes, naoIniciado, emAndamento, concluido));
+	    }
+
+	    return lista;
+	}
+
+
+	public List<EvolucaoMensalDTO> buscaEvolucaoMensalTodasAreas() throws SQLException {
+		List<EvolucaoMensalDTO> lista = new ArrayList<>();
+
+		  String sql = "WITH Meses AS ( "
+	               + "    SELECT 1 AS mes, 'Janeiro' AS nome FROM dual UNION ALL "
+	               + "    SELECT 2, 'Fevereiro' FROM dual UNION ALL "
+	               + "    SELECT 3, 'Março' FROM dual UNION ALL "
+	               + "    SELECT 4, 'Abril' FROM dual UNION ALL "
+	               + "    SELECT 5, 'Maio' FROM dual UNION ALL "
+	               + "    SELECT 6, 'Junho' FROM dual UNION ALL "
+	               + "    SELECT 7, 'Julho' FROM dual UNION ALL "
+	               + "    SELECT 8, 'Agosto' FROM dual UNION ALL "
+	               + "    SELECT 9, 'Setembro' FROM dual UNION ALL "
+	               + "    SELECT 10, 'Outubro' FROM dual UNION ALL "
+	               + "    SELECT 11, 'Novembro' FROM dual UNION ALL "
+	               + "    SELECT 12, 'Dezembro' FROM dual "
+	               + ") "
+	               + "SELECT "
+	               + "    m.nome AS mes, "
+	               + "    NVL(SUM(CASE WHEN s.descricao = 'Não Iniciado' THEN 1 ELSE 0 END), 0) AS naoIniciado, "
+	               + "    NVL(SUM(CASE WHEN s.descricao = 'Em andamento' THEN 1 ELSE 0 END), 0) AS emAndamento, "
+	               + "    NVL(SUM(CASE WHEN s.descricao = 'Concluído' THEN 1 ELSE 0 END), 0) AS concluido "
+	               + "FROM Meses m "
+	               + "LEFT JOIN projetos p "
+	               + "    ON EXTRACT(MONTH FROM p.data_criacao) = m.mes "
+	               + "   AND EXTRACT(YEAR FROM p.data_criacao) = EXTRACT(YEAR FROM SYSDATE) "
+	               + "LEFT JOIN status s "
+	               + "    ON p.id_status = s.id_status "
+	               + "GROUP BY m.mes, m.nome "
+	               + "ORDER BY m.mes";
+
+		Query query = em.createNativeQuery(sql);
+		List<Object[]> resultados = query.getResultList();
+
+		for (Object[] row : resultados) {
+			EvolucaoMensalDTO dto = new EvolucaoMensalDTO(((String) row[0]), ((Number) row[1]).intValue(),
+					((Number) row[2]).intValue(), ((Number) row[3]).intValue());
+			lista.add(dto);
+		}
+
+		return lista;
+	}
+
 }
