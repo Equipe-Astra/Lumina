@@ -55,7 +55,7 @@ public class DashboardsDao {
 	public List<LucroProjetoDTO> buscaLucroPorProjeto(int idArea) throws SQLException {
 		String sql = "SELECT p.ID_PROJETO, p.TITULO, p.DATA_CRIACAO, COALESCE(l.LUCRO, 0) AS LUCRO "
 				+ "FROM PROJETOS p " + "LEFT JOIN LUCROPROJETO l ON p.ID_PROJETO = l.ID_PROJETO "
-				+ "WHERE p.ID_AREA = :idArea " + "ORDER BY l.LUCRO DESC";
+				+ "WHERE p.ID_AREA = :idArea AND p.ID_STATUS = 3 " + "ORDER BY l.LUCRO DESC";
 
 		Query query = em.createNativeQuery(sql);
 		query.setParameter("idArea", idArea);

@@ -52,38 +52,8 @@
 								class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
 								<p id="titulo-grafico1"
 									class="fw-semibold mt-2 titulo-projeto color-gradient mb-0">
-									<span id="titulo-grafico1">LUCRO X ÁREA</span>
+									<span id="titulo-grafico1">LUCRO X PROJETO</span>
 								</p>
-								<div
-									class="d-flex justify-content-center flex-row align-items-center">
-									<button type="button"
-										class="d-flex justify-content-center align-items-center border-0 bg-transparent text-grey"
-										id="dropdownMenuButtonLucro" data-bs-toggle="dropdown"
-										aria-expanded="false">
-										<i class="bi bi-funnel filtro"></i>
-									</button>
-									<button type="button"
-										class="d-flex justify-content-center align-items-center border-0 bg-transparent text-grey"
-										id="resetFilterButtonLucro">
-										<i class="bi bi-arrow-counterclockwise"></i>
-									</button>
-									<ul class="dropdown-menu shadow"
-										aria-labelledby="dropdownMenuButtonLucro"
-										style="width: 210px;">
-										<c:forEach items="${todasAsAreas}" var="area">
-											<li class="px-2 py-2">
-												<div class="d-flex flex-row align-items-center">
-													<button type="button"
-														class="d-flex align-items-center border-0 bg-transparent btn-filtro"
-														data-id-area="${area.idArea}"
-														data-descricao-area="${area.descricao}">
-														<p class="texto-area fw-medium mb-0 ms-2">${area.descricao}</p>
-													</button>
-												</div>
-											</li>
-										</c:forEach>
-									</ul>
-								</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-container">
@@ -99,37 +69,7 @@
 								class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
 								<p id="titulo-grafico2"
 									class="fw-semibold mt-2 titulo-grafico2 color-gradient mb-0">STATUS
-									X ÁREA</p>
-								<div
-									class="d-flex justify-content-center flex-row align-items-center">
-									<button type="button"
-										class="d-flex justify-content-center align-items-center border-0 bg-transparent text-grey"
-										id="dropdownMenuButtonStatus" data-bs-toggle="dropdown"
-										aria-expanded="false">
-										<i class="bi bi-funnel filtro"></i>
-									</button>
-									<button type="button"
-										class="d-flex justify-content-center align-items-center border-0 bg-transparent text-grey"
-										id="resetFilterButtonStatus">
-										<i class="bi bi-arrow-counterclockwise"></i>
-									</button>
-									<ul class="dropdown-menu shadow"
-										aria-labelledby="dropdownMenuButtonStatus"
-										style="width: 210px;">
-										<c:forEach items="${todasAsAreas}" var="area">
-											<li class="px-2 py-2">
-												<div class="d-flex flex-row align-items-center">
-													<button type="button"
-														class="d-flex align-items-center border-0 bg-transparent btn-filtro"
-														data-id-area="${area.idArea}"
-														data-descricao-area="${area.descricao}">
-														<p class="texto-area fw-medium mb-0 ms-2">${area.descricao}</p>
-													</button>
-												</div>
-											</li>
-										</c:forEach>
-									</ul>
-								</div>
+									X PROJETO</p>
 							</div>
 							<div class="card-body">
 								<div class="chart-container">
@@ -163,36 +103,6 @@
 								class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
 								<p id="titulo-grafico4" class="fw-semibold mt-2 titulo-grafico4 color-gradient mb-0">EVOLUÇÃO
 									MENSAL</p>
-								<div
-									class="d-flex justify-content-center flex-row align-items-center">
-									<button type="button"
-										class="d-flex justify-content-center align-items-center border-0 bg-transparent text-grey"
-										id="dropdownMenuButtonEvolucao" data-bs-toggle="dropdown"
-										aria-expanded="false">
-										<i class="bi bi-funnel filtro"></i>
-									</button>
-									<button type="button"
-										class="d-flex justify-content-center align-items-center border-0 bg-transparent text-grey"
-										id="resetFilterButtonEvolucao">
-										<i class="bi bi-arrow-counterclockwise"></i>
-									</button>
-									<ul class="dropdown-menu shadow"
-										aria-labelledby="dropdownMenuButtonEvolucao"
-										style="width: 210px;">
-										<c:forEach items="${todasAsAreas}" var="area">
-											<li class="px-2 py-2">
-												<div class="d-flex flex-row align-items-center">
-													<button type="button"
-														class="d-flex align-items-center border-0 bg-transparent btn-filtro"
-														data-id-area="${area.idArea}"
-														data-descricao-area="${area.descricao}">
-														<p class="texto-area fw-medium mb-0 ms-2">${area.descricao}</p>
-													</button>
-												</div>
-											</li>
-										</c:forEach>
-									</ul>
-								</div>
 							</div>
 							<div class="card-body">
 								<canvas id="grafico4"></canvas>
@@ -208,7 +118,7 @@
 		class="d-flex justify-content-center align-items-center flex-column mb-0">
 		<nav
 			class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
-			<a href="/Lumina/feedExecutivo"
+			<a href="/Lumina/feedGerente"
 				class="text-center text-decoration-none text-primary">
 				<div
 					class="d-flex justify-content-center flex-column align-items-center">
@@ -219,7 +129,8 @@
 					</div>
 					<small class="color-gradient mt-1">Feed</small>
 				</div>
-			</a> <a href="/Lumina/ProjetosServlet"
+			</a> 
+			<a href="/Lumina/ProjetosServlet"
 				class="text-center text-decoration-none text-primary">
 				<div
 					class="d-flex justify-content-center flex-column align-items-center">
@@ -230,7 +141,8 @@
 					</div>
 					<small class="color-gradient mt-1">Meus Projetos</small>
 				</div>
-			</a> <a href="/Lumina/Dashboards"
+			</a> 
+			<a href="/Lumina/dashboardsGerente"
 				class="text-center text-decoration-none text-primary">
 				<div
 					class="d-flex justify-content-center flex-column align-items-center">
@@ -241,8 +153,8 @@
 					</div>
 					<small class="color-gradient mt-1">Dashboards</small>
 				</div>
-			</a>
-			 <div
+			</a> 
+			<div
 						class="d-flex justify-content-center flex-column align-items-center">
 						<form action="Logout" method="post">
 							<button type="submit"
@@ -258,7 +170,7 @@
 		</nav>
 		<p class="mt-2 text-grey footer">© 2025 Lumina from Astra</p>
 	</footer>
-	</div>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
@@ -397,74 +309,6 @@
 	        }
 	
 	        criarGrafico(labelsIniciais, valoresIniciais, 'Lucro Total por Área (R$)');
-	
-	        const filterContainer = document.querySelector('.dropdown-menu[aria-labelledby="dropdownMenuButtonLucro"]');
-	
-	        if (!filterContainer) {
-	            console.error("Contêiner de filtro não encontrado.");
-	            return;
-	        }
-	
-	        filterContainer.addEventListener('click', function(event) {
-	            const clickedElement = event.target;
-	            const btnFiltro = clickedElement.closest('.btn-filtro');
-	
-	            if (!btnFiltro) {
-	                console.warn("Clique fora dos botões de filtro.");
-	                return;
-	            }
-	
-	            const idAreaRaw = btnFiltro.getAttribute('data-id-area');
-	
-	            if (!idAreaRaw) {
-	                console.warn("data-id-area não encontrado no botão clicado.");
-	                return;
-	            }
-	
-	            const idArea = parseInt(idAreaRaw);
-	
-	            if (isNaN(idArea)) {
-	                console.warn("idArea não é um número válido:", idAreaRaw);
-	                return;
-	            }
-	
-	            const nomeArea = btnFiltro.querySelector('p')?.innerText || "Área desconhecida";
-	
-	            if (tituloGrafico1) {
-					tituloGrafico1.innerText = `LUCRO X PROJETO - `+ nomeArea; 
-				}
-	
-	            const url = '<%=request.getContextPath()%>/Dashboards?action=filtrarPorArea&idArea=' + idArea;
-	            console.log("URL usada no fetch:", url);
-	
-	            fetch(url)
-	                .then(res => {
-	                    if (!res.ok) {
-	                        throw new Error('Erro na resposta da rede: ' + res.statusText);
-	                    }
-	                    return res.json();
-	                })
-	                .then(data => {
-	                    console.log("Dados recebidos:", data);
-	                    const labels = data.map(d => d.titulo);
-	                    const valores = data.map(d => d.lucro);
-	
-	                    criarGrafico(labels, valores, `Lucro dos Projetos em ` +nomeArea + ` (R$)`);
-	                })
-	                .catch(error => {
-	                    console.error('Erro ao buscar dados filtrados:', error);
-	
-	                    if (tituloGrafico1) {
-	                        tituloGrafico1.innerText = `LUCRO X ÁREA`;
-	                    }
-	                });
-	        });
-	
-	        const resetFilterButton = document.getElementById("resetFilterButtonLucro");
-	        resetFilterButton.addEventListener("click", function () {
-	            tituloGrafico1.innerText = "LUCRO X ÁREA"; 
-	            criarGrafico(labelsIniciais, valoresIniciais, 'Lucro Total por Área (R$)');  
-	        });
 	    });
 	    
     </script>
@@ -559,54 +403,6 @@
 		
 		    criarGraficoStatus(statusIniciais);
 		
-		
-		    window.addEventListener('resize', () => {
-		        if (chartStatus) {
-		            chartStatus.options.plugins.legend.position = getLegendPosition();
-		            chartStatus.update();
-		        }
-		    });
-		
-		    const filterContainerStatus = document.querySelector('.dropdown-menu[aria-labelledby="dropdownMenuButtonStatus"]');
-		    if (filterContainerStatus) {
-		        filterContainerStatus.addEventListener('click', function (event) {
-		            const btnFiltro = event.target.closest('.btn-filtro');
-		            if (btnFiltro) {
-		                const idAreaRaw = btnFiltro.getAttribute('data-id-area');
-		                if (idAreaRaw) {
-		                    const idArea = parseInt(idAreaRaw);
-		                    const nomeArea = btnFiltro.querySelector('p')?.innerText || "Área desconhecida";
-		
-		                    if (tituloGraficoStatus) {
-		                        tituloGraficoStatus.innerText = `STATUS X PROJETO - ` + nomeArea;
-		                    }
-		
-		                    function atualizarGraficoStatusPorArea(idArea) {
-		                        const url = '<%=request.getContextPath()%>/Dashboards?action=filtrarStatusPorArea&idArea=' + idArea;
-		
-		                        fetch(url)
-		                            .then(res => res.json())
-		                            .then(data => {
-		                                criarGraficoStatus(data);
-		                            })
-		                            .catch(error => {
-		                                console.error('Erro ao buscar dados filtrados:', error);
-		                                if (tituloGraficoStatus) {
-		                                    tituloGraficoStatus.innerText = 'STATUS X PROJETO';
-		                                }
-		                            });
-		                    }
-		                    atualizarGraficoStatusPorArea(idArea);
-		                }
-		            }
-		        });
-		    }
-		
-		    const resetFilterButton = document.getElementById("resetFilterButtonStatus");
-		    resetFilterButton.addEventListener("click", function () {
-		        tituloGraficoStatus.innerText = "STATUS X ÁREA";
-		        criarGraficoStatus(statusIniciais);
-		    });
 		});
 	</script>
 	<script>
@@ -708,10 +504,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const emAndamento = Array(12).fill(0);
     const concluido = Array(12).fill(0);
 
-    // Variável única para evitar erro de "already declared"
     let indiceMes;
 
-    // Preencher com dados do servidor via JSP
     <c:forEach items="${evolucaoMensalList}" var="evo">
         indiceMes = meses.indexOf("${evo.mes}");
         if (indiceMes >= 0) {
@@ -797,63 +591,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         }    });
-
-    const tituloGrafico = document.getElementById("titulo-grafico4");
-
-    // Filtro por área
-    const filterContainer = document.querySelector('.dropdown-menu[aria-labelledby="dropdownMenuButtonEvolucao"]');
-    if (filterContainer) {
-        filterContainer.addEventListener('click', function (event) {
-            const btnFiltro = event.target.closest('.btn-filtro');
-            if (!btnFiltro) return;
-
-            const idAreaRaw = btnFiltro.getAttribute('data-id-area');
-            if (!idAreaRaw) return;
-            const idArea = parseInt(idAreaRaw);
-            const nomeArea = btnFiltro.querySelector('p')?.innerText || "Área desconhecida";
-
-            if (tituloGrafico) tituloGrafico.innerText = `EVOLUÇÃO MENSAL - ` + nomeArea;
-
-            fetch('<%=request.getContextPath()%>/Dashboards?action=filtrarEvolucaoMensal&idArea=' + idArea)
-                .then(res => res.json())
-                .then(data => {
-                    let novaNaoIniciado = Array(12).fill(0);
-                    let novaEmAndamento = Array(12).fill(0);
-                    let novaConcluido = Array(12).fill(0);
-
-                    data.forEach(d => {
-                        const indice = meses.indexOf(d.mes);
-                        if (indice >= 0) {
-                            novaNaoIniciado[indice] = d.naoIniciado;
-                            novaEmAndamento[indice] = d.emAndamento;
-                            novaConcluido[indice] = d.concluido;
-                        }
-                    });
-
-                    chartEvolucao.data.datasets[0].data = novaNaoIniciado;
-                    chartEvolucao.data.datasets[1].data = novaEmAndamento;
-                    chartEvolucao.data.datasets[2].data = novaConcluido;
-                    chartEvolucao.update();
-                })
-                .catch(err => {
-                    console.error('Erro ao buscar dados filtrados:', err);
-                    if (tituloGrafico) tituloGrafico.innerText = 'EVOLUÇÃO MENSAL';
-                });
-        });
-    }
-
-    // Botão de reset
-    const resetButton = document.getElementById("resetFilterButtonEvolucao");
-    if (resetButton) {
-        resetButton.addEventListener('click', function () {
-            if (tituloGrafico) tituloGrafico.innerText = "EVOLUÇÃO MENSAL";
-
-            chartEvolucao.data.datasets[0].data = naoIniciado;
-            chartEvolucao.data.datasets[1].data = emAndamento;
-            chartEvolucao.data.datasets[2].data = concluido;
-            chartEvolucao.update();
-        });
-    }
 
 });
 </script>

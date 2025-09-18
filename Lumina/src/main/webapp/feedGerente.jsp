@@ -616,7 +616,7 @@
                         <small class="color-gradient mt-1">Meus Projetos</small>
                         </div>
                     </a>
-                    <a href="/Lumina/Dashboards" class="text-center text-decoration-none text-primary">
+                    <a href="/Lumina/dashboardsGerente" class="text-center text-decoration-none text-primary">
                         <div class="d-flex justify-content-center flex-column align-items-center">
                         <div class="icon-wrapper d-flex justify-content-center align-items-center">
                             <i class="bi bi-bar-chart-line d-flex justify-content-center align-items-center color-gradient"></i>
@@ -658,6 +658,26 @@
 	</c:if>
 
 	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		  // Pega o caminho da URL, remove a barra final e converte para minúsculas
+		  const currentPath = window.location.pathname.replace(/\/+$/, "").toLowerCase();
+
+		  document.querySelectorAll("nav a[href]").forEach(link => {
+		    const iconDiv = link.querySelector(".icon-wrapper");
+		    if (!iconDiv) return;
+
+		    // Pega o caminho do link, remove a barra final e converte para minúsculas
+		    const linkPath = link.getAttribute("href").replace(/\/+$/, "").toLowerCase();
+
+		    // Remove a classe de todos os links antes de adicionar ao ativo
+		    iconDiv.classList.remove("pagina-atual");
+
+		    // Adiciona a classe apenas se os caminhos forem idênticos
+		    if (currentPath === linkPath) {
+		      iconDiv.classList.add("pagina-atual");
+		    }
+		  });
+		});
 	
 		function toggleVerMais(btn) {
 		    const card = btn.closest('.card-body');
