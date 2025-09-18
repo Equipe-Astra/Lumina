@@ -44,13 +44,12 @@ public class ProjetosServlet extends HttpServlet {
             if (usuarioLogado != null) {
                 ProjetosDao dao = new ProjetosDao();
                 
-                // Busca o cargo do funcionário logado
                 Double cargoId = dao.buscaCargo(usuarioLogado);
                 
                 List<Projetos> projetos = null;
                 String jspPath = "";
 
-                if (cargoId != null && cargoId == 1.0) { 
+                if (cargoId != null && (cargoId == 1.0 || cargoId == 5.0)) { 
                     projetos = dao.listarProjetos(); 
                     jspPath = "/projetosExecGe.jsp";
                 } else if (cargoId != null && cargoId == 2.0) { 
@@ -59,14 +58,13 @@ public class ProjetosServlet extends HttpServlet {
                     jspPath = "/projetosGerenteProjetos.jsp";
                 } else if (cargoId != null && cargoId == 3.0) { 
                     Double idArea = dao.buscaArea(usuarioLogado);
-                    projetos = dao.listarProjetosPorParticipacao(idArea, usuarioLogado); // Lista projetos da área
+                    projetos = dao.listarProjetosPorParticipacao(idArea, usuarioLogado); 
                     jspPath = "/projetosFuncionariosEuron.jsp";
                 } else {
-                    response.sendRedirect(request.getContextPath() + "/feedFuncionario.jsp");
+                    response.sendRedirect(request.getContextPath() + "/feedColaboradorEurofarma");
                     return;
                 }
                 
-                // Popula os participantes de cada projeto
                 if (projetos != null) {
                     for (Projetos projeto : projetos) {
                         try {
@@ -78,7 +76,6 @@ public class ProjetosServlet extends HttpServlet {
                     }
                 }
                 
-                // Busca colaboradores para o modal de criação/edição
                 Double idArea = dao.buscaArea(usuarioLogado);
                 try {
                     List<FuncionariosDTO> colaboradores = dao.buscarFuncionariosEuron(idArea);
@@ -87,7 +84,6 @@ public class ProjetosServlet extends HttpServlet {
                     e.printStackTrace();
                 }
 
-                // Define os atributos e direciona para a página JSP correta
                 request.setAttribute("projetos", projetos);
                 RequestDispatcher rd = request.getRequestDispatcher(jspPath);
                 rd.forward(request, response);
@@ -115,7 +111,7 @@ public class ProjetosServlet extends HttpServlet {
                 String projetoIdStr = request.getParameter("projetoId");
                 String statusIdStr = request.getParameter("statusId");
 
-             // Caso 1: Atualizar status diretamente (vindo de dropdown de status)
+      
                 if (projetoIdStr != null && statusIdStr != null && request.getParameter("titulo") == null) {
                     try {
                         Long projetoId = Long.parseLong(projetoIdStr);
@@ -129,7 +125,6 @@ public class ProjetosServlet extends HttpServlet {
                     return;
                 }
                 
-             // Caso 2: Editar projeto existente
                 if (projetoIdStr != null && request.getParameter("titulo") != null) {
                     try {
                         Long projetoId = Long.parseLong(projetoIdStr);
@@ -137,7 +132,6 @@ public class ProjetosServlet extends HttpServlet {
                         String descricao = request.getParameter("descricao");
                         String[] participantesArray = request.getParameterValues("participantes");
 
-                        // Atualiza título e descrição
                         dao.atualizarProjeto(projetoId, titulo, descricao);
 
                         // Sincroniza participantes
