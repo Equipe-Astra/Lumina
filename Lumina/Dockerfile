@@ -17,6 +17,9 @@ COPY docker/wildfly/modules/com/oracle/ojdbc/main /opt/jboss/wildfly/modules/com
 # Copia standalone.xml customizado
 COPY docker/wildfly/configuration/standalone.xml /opt/jboss/wildfly/standalone/configuration/standalone.xml
 
+# Ajuste JAVA_OPTS para Render Free (512MB RAM)
+ENV JAVA_OPTS="-Xms64m -Xmx256m -XX:MetaspaceSize=64m -XX:MaxMetaspaceSize=128m -Djava.net.preferIPv4Stack=true -Djava.awt.headless=true"
+
 EXPOSE 8080
 
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
