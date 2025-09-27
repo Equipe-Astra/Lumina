@@ -29,4 +29,7 @@ ENV ORACLE_PASSWORD=080103
 EXPOSE 8080
 
 # Inicializa Payara Micro com datasource Oracle
-CMD sh -c 'java -jar payara-micro.jar --deploy Lumina.war --jvmOptions "-Djdbc.LuminaDS=javax.sql.DataSource" --property "jdbc/LuminaDS=$ORACLE_URL,$ORACLE_USER,$ORACLE_PASSWORD" --port 8080'
+CMD ["java", "-Djdbc.LuminaDS=javax.sql.DataSource", "-jar", "payara-micro.jar", 
+     "--deploy", "Lumina.war", 
+     "--port", "8080",
+     "--properties", "jdbc/LuminaDS=$ORACLE_URL,$ORACLE_USER,$ORACLE_PASSWORD"]
