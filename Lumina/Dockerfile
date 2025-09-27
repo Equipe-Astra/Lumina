@@ -29,4 +29,4 @@ ENV ORACLE_PASSWORD=080103
 EXPOSE 8080
 
 # Inicializa Payara Micro com datasource Oracle
-CMD ["java", "-Djdbc.LuminaDS.url=jdbc:oracle:thin:@oracle.fiap.com.br:1524:ORCL", "-Djdbc.LuminaDS.user=rm552352", "-Djdbc.LuminaDS.password=080103", "-jar", "payara-micro.jar", "--deploy", "Lumina.war", "--httpPort", "8080"]
+CMD ["java", "-Djdbc.LuminaDS.url=jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL", "-Djdbc.LuminaDS.user=rm552352", "-Djdbc.LuminaDS.password=080103", "-jar", "payara-micro.jar", "--deploy", "Lumina.war", "--port", "8080"]
