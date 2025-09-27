@@ -3,23 +3,30 @@ FROM maven:3.9.1-eclipse-temurin-11 AS build
 
 COPY . /app
 WORKDIR /app
+
 RUN mvn clean package -DskipTests
 
-# Stage 2: WildFly
-FROM jboss/wildfly:21.0.0.Final
+# Stage 2: Payara Micro
+FROM eclipse-temurin:11-jre
 
-# Copia WAR
-COPY --from=build /app/target/*.war /opt/jboss/wildfly/standalone/deployments/
+WORKDIR /opt/app
 
-# Copia módulo Oracle
-COPY docker/wildfly/modules/com/oracle/ojdbc/main /opt/jboss/wildfly/modules/com/oracle/ojdbc/main
+# Baixa Payara Micro
+RUN curl -L -o payara-micro.jar https://search.maven.org/remotecontent?filepath=fish/payara/extras/payara-micro/6.2023.9/payara-micro-6.2023.9.jar
 
-# Copia standalone.xml customizado
-COPY docker/wildfly/configuration/standalone.xml /opt/jboss/wildfly/standalone/configuration/standalone.xml
+# Copia WAR do build
+COPY --from=build /app/target/*.war ./Lumina.war
 
-# Ajuste JAVA_OPTS para Render Free (512MB RAM)
-ENV JAVA_OPTS="-Xms64m -Xmx256m -XX:MetaspaceSize=64m -XX:MaxMetaspaceSize=128m -Djava.net.preferIPv4Stack=true -Djava.awt.headless=true"
+# Copia driver Oracle
+COPY docker/wildfly/modules/com/oracle/ojdbc/main/ojdbc11.jar ./ojdbc11.jar
 
+# Variáveis de conexão Oracle
+ENV ORACLE_URL=jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
+ENV ORACLE_USER=rm552352
+ENV ORACLE_PASSWORD=080103
+
+# Porta padrão Payara Micro
 EXPOSE 8080
 
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
+# Inicializa Payara Micro com datasource Oracle
+CMD sh -c 'java -jar payara-micro.jar --deploy Lumina.war --addJVMOption "-Djdbc.LuminaDS=javax.sql.DataSource" --property "jdbc/LuminaDS=$ORACLE_URL,$ORACLE_USER,$ORACLE_PASSWORD" --port 8080'
