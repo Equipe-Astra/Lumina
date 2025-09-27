@@ -49,13 +49,16 @@ public class ProjetosServlet extends HttpServlet {
                 List<Projetos> projetos = null;
                 String jspPath = "";
 
-                if (cargoId != null && (cargoId == 1.0 || cargoId == 5.0)) { 
+                if (cargoId != null && cargoId == 1.0) { 
                     projetos = dao.listarProjetos(); 
-                    jspPath = "/projetosExecGe.jsp";
+                    jspPath = "/projetosExecutivo.jsp";
                 } else if (cargoId != null && cargoId == 2.0) { 
                     Double idArea = dao.buscaArea(usuarioLogado);
                     projetos = dao.listarProjetosPorArea(idArea); 
                     jspPath = "/projetosGerenteProjetos.jsp";
+                } else if (cargoId != null && cargoId == 5.0) { 
+                	projetos = dao.listarProjetos();  
+                    jspPath = "/projetosGerente.jsp";
                 } else if (cargoId != null && cargoId == 3.0) { 
                     Double idArea = dao.buscaArea(usuarioLogado);
                     projetos = dao.listarProjetosPorParticipacao(idArea, usuarioLogado); 

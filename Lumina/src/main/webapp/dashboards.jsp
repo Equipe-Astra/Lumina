@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=0.7">
 <title>Lumina</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -242,19 +242,16 @@
 					<small class="color-gradient mt-1">Dashboards</small>
 				</div>
 			</a>
-			 <div
-						class="d-flex justify-content-center flex-column align-items-center">
-						<form action="Logout" method="post">
-							<button type="submit"
-								class="color-gradient mt-1 border-0 d-flex flex-column align-items-center">
-								<div
-									class="icon-wrapper d-flex justify-content-center align-items-center">
-									<i class="bi bi-box-arrow-right color-gradient"></i>
-								</div>
-								<span>Sair</span>
-							</button>
-						</form>
-					</div>
+			 <div class="d-flex justify-content-center flex-column align-items-center">
+				<form action="Logout" method="post" class="mb-0">
+					<button type="submit" class="color-gradient border-0 d-flex flex-column align-items-center">
+						<div class="icon-wrapper d-flex justify-content-center align-items-center">
+							<i class="bi bi-box-arrow-right color-gradient"></i>
+						</div>
+						<small class="color-gradient mt-1">Sair</small>
+					</button>
+				</form>
+			</div>
 		</nav>
 		<p class="mt-2 text-grey footer">© 2025 Lumina from Astra</p>
 	</footer>
@@ -267,6 +264,26 @@
 		src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 
 	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		  // Pega o caminho da URL, remove a barra final e converte para minúsculas
+		  const currentPath = window.location.pathname.replace(/\/+$/, "").toLowerCase();
+
+		  document.querySelectorAll("nav a[href]").forEach(link => {
+		    const iconDiv = link.querySelector(".icon-wrapper");
+		    if (!iconDiv) return;
+
+		    // Pega o caminho do link, remove a barra final e converte para minúsculas
+		    const linkPath = link.getAttribute("href").replace(/\/+$/, "").toLowerCase();
+
+		    // Remove a classe de todos os links antes de adicionar ao ativo
+		    iconDiv.classList.remove("pagina-atual");
+
+		    // Adiciona a classe apenas se os caminhos forem idênticos
+		    if (currentPath === linkPath) {
+		      iconDiv.classList.add("pagina-atual");
+		    }
+		  });
+		});
 	    document.addEventListener("DOMContentLoaded", function () {
 	
 	

@@ -51,7 +51,7 @@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav">
 						<div class="d-flex justify-content-start flex-column">
-							<form class="d-flex" role="search">
+							<form class="d-flex mb-0" role="search">
 								<span
 									class="input-group-text rounded-5 bg-white barra-pesquisar">
 									<i class="bi bi-search"></i> <input type="search"
@@ -61,7 +61,7 @@
 								</span>
 							</form>
 							<div class="perfil-mobile mt-1">
-								<form action="AtualizaPerfil" method="post"
+								<form action="AtualizaPerfil" method="post" class="mb-0"
 									enctype="multipart/form-data">
 									<figure class="mb-0 position-relative">
 										<img id="fotoPerfilHeader" class="foto rounded-circle"
@@ -132,7 +132,7 @@
 										<button type="button"
 											class="area d-flex justify-content-center align-items-center">
 											<span
-												class="sigma-icon texto-area fw-medium color-gradient d-flex justify-content-center align-items-center">&Sigma;</span>
+												class="sigma-icon texto-area fs-5 mt-1 fw-medium color-gradient d-flex justify-content-center align-items-center">&Sigma;</span>
 										</button>
 									</div>
 									<div class="texto flex-column">
@@ -388,7 +388,7 @@
 
 								<figure class="mb-0">
 									<img src="data:image/png;base64,${publicacao.imagemBase64}"
-										class="card-img-bottom ps-2 pe-2" alt="">
+										class="card-img-bottom ps-2 pe-2 pt-1" alt="">
 								</figure>
 
 								<div
@@ -584,16 +584,13 @@
 							<small class="color-gradient mt-1">Feed</small>
 						</div>
 					</a>
-					<div
-						class="d-flex justify-content-center flex-column align-items-center">
-						<form action="Logout" method="post">
-							<button type="submit"
-								class="color-gradient mt-1 border-0 d-flex flex-column align-items-center">
-								<div
-									class="icon-wrapper d-flex justify-content-center align-items-center">
+					<div class="d-flex justify-content-center flex-column align-items-center">
+						<form action="Logout" method="post" class="mb-0">
+							<button type="submit" class="color-gradient border-0 d-flex flex-column align-items-center">
+								<div class="icon-wrapper d-flex justify-content-center align-items-center">
 									<i class="bi bi-box-arrow-right color-gradient"></i>
 								</div>
-								<span>Sair</span>
+								<small class="color-gradient mt-1">Sair</small>
 							</button>
 						</form>
 					</div>

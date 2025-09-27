@@ -59,7 +59,60 @@
 											<i class="bi bi-funnel filtro"></i>
 										</button>
 
-
+										<!-- Dropdown sobreposto -->
+										<ul
+											class="dropdown-menu shadow position-absolute mt-2 dropdown-menu-end"
+											aria-labelledby="dropdownMenuButton"
+											style="width: 210px; z-index: 1050;">
+											<li class="px-2 py-2">
+												<div class="d-flex flex-row align-items-center">
+													<button type="button"
+														class="d-flex border-0 bg-transparent" data-area="2.0">
+														<i class="bi bi-database fs-5 d-flex color-gradient"></i>
+														<p class="texto-area fw-medium mb-0 ms-2">DATA</p>
+													</button>
+												</div>
+											</li>
+											<li class="px-2 py-2">
+												<div class="d-flex flex-row align-items-center">
+													<button type="button"
+														class="d-flex border-0 bg-transparent" data-area="3.0">
+														<i class="bi bi-bandaid fs-5 d-flex color-gradient"></i>
+														<p class="texto-area fw-medium mb-0 ms-2">DIGITAL
+															HEALTH</p>
+													</button>
+												</div>
+											</li>
+											<li class="px-2 py-2">
+												<div class="d-flex flex-row align-items-center">
+													<button type="button"
+														class="d-flex border-0 bg-transparent" data-area="4.0">
+														<i class="bi bi-lightbulb fs-5 d-flex color-gradient"></i>
+														<p class="texto-area fw-medium mb-0 ms-2">OPEN
+															INNOVATION</p>
+													</button>
+												</div>
+											</li>
+											<li class="px-2 py-2">
+												<div class="d-flex flex-row align-items-center">
+													<button type="button"
+														class="d-flex border-0 bg-transparent" data-area="1.0">
+														<i class="fs-5 d-flex color-gradient">Σ</i>
+														<p class="texto-area fw-medium mb-0 ms-2">SIX SIGMA</p>
+													</button>
+												</div>
+											</li>
+											<li class="px-2">
+												<div class="d-flex flex-row align-items-center">
+													<button type="button"
+														class="d-flex border-0 bg-transparent" data-area="5.0">
+														<i
+															class="bi bi-currency-dollar fs-5 d-flex color-gradient"></i>
+														<p class="texto-area fw-medium mb-0 ms-2">VENTURES</p>
+													</button>
+												</div>
+											</li>
+										</ul>
 									</div>
 								</span>
 							</form>
@@ -100,7 +153,9 @@
 									<c:if test="${projeto.status.descricao == 'Não Iniciado'}">
 										<div class="card card-tarefa mb-3 shadow-sm"
 											data-id="${projeto.idProjeto}"
-											data-area="${projeto.idArea.idArea}" draggable="true">
+											data-area="${projeto.idArea.idArea}"
+											data-area-nome="${projeto.idArea.descricao}"
+											draggable="true">
 
 											<!-- Header do Card -->
 											<div
@@ -193,7 +248,9 @@
 									<c:if test="${projeto.status.descricao == 'Em andamento'}">
 										<div class="card card-tarefa mb-3 shadow-sm"
 											data-id="${projeto.idProjeto}"
-											data-area="${projeto.idArea.idArea}" draggable="true">
+											data-area="${projeto.idArea.idArea}"
+											data-area-nome="${projeto.idArea.descricao}"
+											draggable="true">
 
 											<!-- Header do Card -->
 											<div
@@ -285,7 +342,9 @@
 									<c:if test="${projeto.status.descricao == 'Concluído'}">
 										<div class="card card-tarefa mb-3 shadow-sm"
 											data-id="${projeto.idProjeto}"
-											data-area="${projeto.idArea.idArea}" draggable="true">
+											data-area="${projeto.idArea.idArea}"
+											data-area-nome="${projeto.idArea.descricao}" 
+											draggable="true">
 
 											<!-- Header do Card -->
 											<div
@@ -372,8 +431,7 @@
 									<button type="button" id="btn-novo-post"
 										class="area open-modal d-flex justify-content-center align-items-center"
 										data-bs-toggle="modal" data-bs-target="#meuModal"
-										data-status="Não Iniciado"
-										style="display: none !important">
+										data-status="Não Iniciado" style="display: none !important">
 										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
 									</button>
 								</div>
@@ -383,7 +441,8 @@
 									<c:if test="${projeto.status.descricao == 'Não Iniciado'}">
 										<div class="card card-tarefa mb-3 shadow-sm"
 											data-id="${projeto.idProjeto}"
-											data-area="${projeto.idArea.idArea}">
+											data-area="${projeto.idArea.idArea}"
+											data-area-nome="${projeto.idArea.descricao}">
 											<div
 												class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
 												<p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
@@ -403,8 +462,8 @@
 															style="display: none !important">
 														<button type="submit"
 															class="border-0 bg-transparent btn-excluir">
-															<i class="bi bi-trash text-grey" style="display: none !important"
-															></i>
+															<i class="bi bi-trash text-grey"
+																style="display: none !important"></i>
 														</button>
 													</form>
 													<div class="dropdown" style="display: none !important">
@@ -466,8 +525,7 @@
 									<button type="button" id="btn-novo-post"
 										class="area open-modal d-flex justify-content-center align-items-center"
 										data-bs-toggle="modal" data-bs-target="#meuModal"
-										data-status="Em andamento"
-										style="display: none !important">
+										data-status="Em andamento" style="display: none !important">
 										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
 									</button>
 								</div>
@@ -477,7 +535,8 @@
 									<c:if test="${projeto.status.descricao == 'Em andamento'}">
 										<div class="card card-tarefa mb-3 shadow-sm"
 											data-id="${projeto.idProjeto}"
-											data-area="${projeto.idArea.idArea}">
+											data-area="${projeto.idArea.idArea}"
+											data-area-nome="${projeto.idArea.descricao}">
 											<div
 												class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
 												<p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
@@ -497,7 +556,7 @@
 														<button type="submit"
 															class="border-0 bg-transparent btn-excluir">
 															<i class="bi bi-trash text-grey"
-															style="display: none !important"></i>
+																style="display: none !important"></i>
 														</button>
 													</form>
 													<div class="dropdown" style="display: none !important">
@@ -558,8 +617,7 @@
 									<button type="button" id="btn-novo-post"
 										class="area open-modal d-flex justify-content-center align-items-center"
 										data-bs-toggle="modal" data-bs-target="#meuModal"
-										data-status="Concluído"
-										style="display: none !important">
+										data-status="Concluído" style="display: none !important">
 										<i class="bi bi-plus fs-4 mt-1 color-gradient"></i>
 									</button>
 								</div>
@@ -569,7 +627,8 @@
 									<c:if test="${projeto.status.descricao == 'Concluído'}">
 										<div class="card card-tarefa mb-3 shadow-sm"
 											data-id="${projeto.idProjeto}"
-											data-area="${projeto.idArea.idArea}">
+											data-area="${projeto.idArea.idArea}"
+											data-area-nome="${projeto.idArea.descricao}">
 											<div
 												class="card-header card-header-tarefa bg-white d-flex justify-content-between align-items-center">
 												<p class="fw-semibold mt-1 titulo-projeto mb-0">${projeto.titulo}</p>
@@ -589,7 +648,7 @@
 														<button type="submit"
 															class="border-0 bg-transparent btn-excluir">
 															<i class="bi bi-trash text-grey"
-															style="display: none !important"></i>
+																style="display: none !important"></i>
 														</button>
 													</form>
 													<div class="dropdown" style="display: none !important">
@@ -654,7 +713,7 @@
 		class="d-flex justify-content-center align-items-center flex-column mb-0">
 		<nav
 			class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
-			<a href="/Lumina/feedColaboradorEuron"
+			<a href="/Lumina/feedExecutivo"
 				class="text-center text-decoration-none text-primary">
 				<div
 					class="d-flex justify-content-center flex-column align-items-center">
@@ -676,6 +735,17 @@
 					</div>
 					<small class="color-gradient mt-1">Meus Projetos</small>
 				</div>
+			</a> <a href="/Lumina/Dashboards"
+				class="text-center text-decoration-none text-primary">
+				<div
+					class="d-flex justify-content-center flex-column align-items-center">
+					<div
+						class="icon-wrapper d-flex justify-content-center align-items-center">
+						<i
+							class="bi bi-bar-chart-line d-flex justify-content-center align-items-center color-gradient"></i>
+					</div>
+					<small class="color-gradient mt-1">Dashboards</small>
+				</div>
 			</a> 
 			<div class="d-flex justify-content-center flex-column align-items-center">
 				<form action="Logout" method="post" class="mb-0">
@@ -683,7 +753,7 @@
 						<div class="icon-wrapper d-flex justify-content-center align-items-center">
 							<i class="bi bi-box-arrow-right color-gradient"></i>
 						</div>
-						<small class="color-gradient mt-1">Sair</small>
+						<small class="color-gradient">Sair</small>
 					</button>
 				</form>
 			</div>

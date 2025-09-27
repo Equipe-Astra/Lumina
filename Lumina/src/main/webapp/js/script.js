@@ -496,47 +496,47 @@
   });
 
   const aplicarFiltros = () => {
-      const colunasComResultados = new Set();
+    const colunasComResultados = new Set();
 
-      projetos.forEach(projeto => {
-          const titulo = projeto.querySelector(".titulo-projeto").textContent.toLowerCase();
-          const descricao = projeto.querySelector(".card-body p").textContent.toLowerCase();
-          const projetoArea = projeto.getAttribute("data-area");
+    projetos.forEach(projeto => {
+      const titulo = projeto.querySelector(".titulo-projeto").textContent.toLowerCase();
+      const descricao = projeto.querySelector(".card-body p").textContent.toLowerCase();
 
-          // NOVO: pesquisa pelos participantes
-          const participantesImgs = projeto.querySelectorAll(".d-flex.gap-2 img");
-          const participantesNomes = Array.from(participantesImgs).map(img => img.alt.toLowerCase());
-          const participantesEmails = Array.from(participantesImgs).map(img => img.title.toLowerCase()); // caso queira pesquisar por title
+      const projetoArea = (projeto.getAttribute("data-area") || "").toLowerCase();
+      const nomeArea = (projeto.getAttribute("data-area-nome") || "").toLowerCase(); // <-- novo
 
-          const colunaPai = projeto.closest(".col-md-3");
+      const participantesImgs = projeto.querySelectorAll(".d-flex.gap-2 img");
+      const participantesNomes = Array.from(participantesImgs).map(img => img.alt.toLowerCase());
+      const participantesEmails = Array.from(participantesImgs).map(img => img.title.toLowerCase());
 
-          const correspondeAoTermo = 
-              titulo.includes(termoPesquisa) || 
-              descricao.includes(termoPesquisa) ||
-              participantesNomes.some(nome => nome.includes(termoPesquisa)) ||
-              participantesEmails.some(email => email.includes(termoPesquisa));
+      const colunaPai = projeto.closest(".col-md-3");
 
-          const correspondeAArea = (areaSelecionada === "") || (projetoArea === areaSelecionada);
+      const correspondeAoTermo =
+        titulo.includes(termoPesquisa) ||
+        descricao.includes(termoPesquisa) ||
+        projetoArea.includes(termoPesquisa) ||  
+        nomeArea.includes(termoPesquisa) ||    
+        participantesNomes.some(nome => nome.includes(termoPesquisa)) ||
+        participantesEmails.some(email => email.includes(termoPesquisa));
 
-          if (correspondeAoTermo && correspondeAArea) {
-              projeto.style.display = "block";
-              colunasComResultados.add(colunaPai);
-          } else {
-              projeto.style.display = "none";
-          }
-      });
+      const correspondeAArea = (areaSelecionada === "") || (projetoArea === areaSelecionada);
 
-      colunas.forEach(coluna => {
-          const mensagem = mensagensNoResults.get(coluna);
-          if (mensagem) {
-              if (colunasComResultados.has(coluna)) {
-                  mensagem.style.display = "none";
-              } else {
-                  mensagem.style.display = "block";
-              }
-          }
-      });
+      if (correspondeAoTermo && correspondeAArea) {
+        projeto.style.display = "block";
+        colunasComResultados.add(colunaPai);
+      } else {
+        projeto.style.display = "none";
+      }
+    });
+
+    colunas.forEach(coluna => {
+      const mensagem = mensagensNoResults.get(coluna);
+      if (mensagem) {
+        mensagem.style.display = colunasComResultados.has(coluna) ? "none" : "block";
+      }
+    });
   };
+
 
 
   searchBar.addEventListener("input", (e) => {

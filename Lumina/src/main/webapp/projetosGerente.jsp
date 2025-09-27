@@ -704,7 +704,7 @@
 		class="d-flex justify-content-center align-items-center flex-column mb-0">
 		<nav
 			class="navbar navbar-light bg-white shadow ps-3 pe-3 navbar-bottom d-flex fixed d-flex justify-content-around align-items-center">
-			<a href="/feedGerente.html"
+			<a href="/Lumina/feedGerente"
 				class="text-center text-decoration-none text-primary">
 				<div
 					class="d-flex justify-content-center flex-column align-items-center">
@@ -726,7 +726,7 @@
 					</div>
 					<small class="color-gradient mt-1">Meus Projetos</small>
 				</div>
-			</a> <a href="./dashboards.html"
+			</a> <a href="/Lumina/dashboardsGerente"
 				class="text-center text-decoration-none text-primary">
 				<div
 					class="d-flex justify-content-center flex-column align-items-center">
@@ -737,17 +737,17 @@
 					</div>
 					<small class="color-gradient mt-1">Dashboards</small>
 				</div>
-			</a> <a href="#" class="text-center text-decoration-none text-primary">
-				<div
-					class="d-flex justify-content-center flex-column align-items-center">
-					<div
-						class="icon-wrapper d-flex justify-content-center align-items-center">
-						<i
-							class="bi bi-box-arrow-right d-flex justify-content-center align-items-center color-gradient"></i>
-					</div>
-					<small class="color-gradient mt-1">Sair</small>
-				</div>
-			</a>
+			</a> 
+			<div class="d-flex justify-content-center flex-column align-items-center">
+				<form action="Logout" method="post" class="mb-0">
+					<button type="submit" class="color-gradient border-0 d-flex flex-column align-items-center">
+						<div class="icon-wrapper d-flex justify-content-center align-items-center">
+							<i class="bi bi-box-arrow-right color-gradient"></i>
+						</div>
+						<small class="color-gradient mt-1">Sair</small>
+					</button>
+				</form>
+			</div>
 		</nav>
 		<p class="mt-2 text-grey footer">© 2025 Lumina from Astra</p>
 	</footer>

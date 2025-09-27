@@ -68,117 +68,126 @@ public class ProjetosDao {
 
 
     public List<Projetos> listarProjetos() {
-    	String sql = "SELECT p.id_projeto, UPPER(p.titulo), p.descricao, p.id_status, s.descricao AS status_desc, p.id_area " +
-    	             "FROM Projetos p " +
-    	             "JOIN Status s ON p.id_status = s.id_status " +
-    	             "ORDER BY p.id_projeto";
+        String sql = "SELECT p.id_projeto, UPPER(p.titulo), p.descricao, " +
+                     "p.id_status, s.descricao AS status_desc, " +
+                     "p.id_area, a.descricao AS area_nome " + 
+                     "FROM Projetos p " +
+                     "JOIN Status s ON p.id_status = s.id_status " +
+                     "JOIN Area a ON p.id_area = a.id_area " +
+                     "ORDER BY p.id_projeto";
 
-    	Query query = em.createNativeQuery(sql);
-    	List<Object[]> resultados = query.getResultList();
+        Query query = em.createNativeQuery(sql);
+        List<Object[]> resultados = query.getResultList();
 
-    	List<Projetos> projetos = new ArrayList<>();
+        List<Projetos> projetos = new ArrayList<>();
 
-    	for (Object[] row : resultados) {
-    	    Projetos projeto = new Projetos();
-    	    projeto.setIdProjeto(((Number) row[0]).longValue());
-    	    projeto.setTitulo((String) row[1]);
-    	    projeto.setDescricao((String) row[2]);
+        for (Object[] row : resultados) {
+            Projetos projeto = new Projetos();
+            projeto.setIdProjeto(((Number) row[0]).longValue());
+            projeto.setTitulo((String) row[1]);
+            projeto.setDescricao((String) row[2]);
 
-    	    Status status = new Status();
-    	    status.setId(((Number) row[3]).doubleValue());
-    	    status.setDescricao((String) row[4]);
-    	    projeto.setStatus(status);
+            Status status = new Status();
+            status.setId(((Number) row[3]).doubleValue());
+            status.setDescricao((String) row[4]);
+            projeto.setStatus(status);
 
-    	    // Novo código para o ID da área
-    	    if (row[5] != null) {
-    	        Area area = new Area();
-    	        area.setIdArea(((Number) row[5]).doubleValue());
-    	        projeto.setIdArea(area);
-    	    }
+            if (row[5] != null) {
+                Area area = new Area();
+                area.setIdArea(((Number) row[5]).doubleValue());
+                area.setDescricao((String) row[6]); 
+                projeto.setIdArea(area);
+            }
 
-    	    projetos.add(projeto);
-    	}
+            projetos.add(projeto);
+        }
 
-    	return projetos;
+        return projetos;
     }
-    
+
     public List<Projetos> listarProjetosPorArea(Double idArea) {
-    	String sql = "SELECT p.id_projeto, UPPER(p.titulo), p.descricao, p.id_status, s.descricao AS status_desc, p.id_area " +
-    	             "FROM Projetos p " +
-    	             "JOIN Status s ON p.id_status = s.id_status " +
-    	             "WHERE p.id_area = :idArea " +
-    	             "ORDER BY p.id_projeto";
+        String sql = "SELECT p.id_projeto, UPPER(p.titulo), p.descricao, " +
+                     "p.id_status, s.descricao AS status_desc, " +
+                     "p.id_area, a.descricao AS area_nome " +
+                     "FROM Projetos p " +
+                     "JOIN Status s ON p.id_status = s.id_status " +
+                     "JOIN Area a ON p.id_area = a.id_area " +
+                     "WHERE p.id_area = :idArea " +
+                     "ORDER BY p.id_projeto";
 
-    	Query query = em.createNativeQuery(sql);
-    	query.setParameter("idArea", idArea);
-    	List<Object[]> resultados = query.getResultList();
+        Query query = em.createNativeQuery(sql);
+        query.setParameter("idArea", idArea);
+        List<Object[]> resultados = query.getResultList();
 
-    	List<Projetos> projetos = new ArrayList<>();
+        List<Projetos> projetos = new ArrayList<>();
 
-    	for (Object[] row : resultados) {
-    	    Projetos projeto = new Projetos();
-    	    projeto.setIdProjeto(((Number) row[0]).longValue());
-    	    projeto.setTitulo((String) row[1]);
-    	    projeto.setDescricao((String) row[2]);
+        for (Object[] row : resultados) {
+            Projetos projeto = new Projetos();
+            projeto.setIdProjeto(((Number) row[0]).longValue());
+            projeto.setTitulo((String) row[1]);
+            projeto.setDescricao((String) row[2]);
 
-    	    Status status = new Status();
-    	    status.setId(((Number) row[3]).doubleValue());
-    	    status.setDescricao((String) row[4]);
-    	    projeto.setStatus(status);
+            Status status = new Status();
+            status.setId(((Number) row[3]).doubleValue());
+            status.setDescricao((String) row[4]);
+            projeto.setStatus(status);
 
-    	    // Novo código para o ID da área
-    	    if (row[5] != null) {
-    	        Area area = new Area();
-    	        area.setIdArea(((Number) row[5]).doubleValue());
-    	        projeto.setIdArea(area);
-    	    }
+            if (row[5] != null) {
+                Area area = new Area();
+                area.setIdArea(((Number) row[5]).doubleValue());
+                area.setDescricao((String) row[6]);
+                projeto.setIdArea(area);
+            }
 
-    	    projetos.add(projeto);
-    	}
+            projetos.add(projeto);
+        }
 
-    	return projetos;
+        return projetos;
     }
-    
+
     public List<Projetos> listarProjetosPorParticipacao(Double idArea, String idFuncionario) {
-    	String sql = "SELECT p.id_projeto, UPPER(p.titulo), p.descricao, p.id_status, s.descricao AS status_desc, p.id_area " +
-    	             "FROM Projetos p " +
-    	             "JOIN Status s ON p.id_status = s.id_status " +
-    	             "JOIN projeto_funcionario pf ON p.id_projeto = pf.projetos_id_projeto AND p.id_area = :idArea " +
-    	             "JOIN funcionarios f ON f.id_funcionario = pf.funcionarios_id_funcionario " +
-    	             "WHERE f.id_cargo = 3 " +
-    	             "AND pf.funcionarios_id_funcionario = :idFuncionario " +
-    	             "or p.criado_por = :idFuncionario " +
-    	             "ORDER BY p.id_projeto";
+        String sql = "SELECT p.id_projeto, UPPER(p.titulo), p.descricao, " +
+                     "p.id_status, s.descricao AS status_desc, " +
+                     "p.id_area, a.descricao AS area_nome " +
+                     "FROM Projetos p " +
+                     "JOIN Status s ON p.id_status = s.id_status " +
+                     "JOIN Area a ON p.id_area = a.id_area " +
+                     "JOIN projeto_funcionario pf ON p.id_projeto = pf.projetos_id_projeto AND p.id_area = :idArea " +
+                     "JOIN funcionarios f ON f.id_funcionario = pf.funcionarios_id_funcionario " +
+                     "WHERE f.id_cargo = 3 " +
+                     "AND pf.funcionarios_id_funcionario = :idFuncionario " +
+                     "OR p.criado_por = :idFuncionario " +
+                     "ORDER BY p.id_projeto";
 
-    	Query query = em.createNativeQuery(sql);
-    	query.setParameter("idArea", idArea);
-    	query.setParameter("idFuncionario", idFuncionario);
-    	List<Object[]> resultados = query.getResultList();
+        Query query = em.createNativeQuery(sql);
+        query.setParameter("idArea", idArea);
+        query.setParameter("idFuncionario", idFuncionario);
+        List<Object[]> resultados = query.getResultList();
 
-    	List<Projetos> projetos = new ArrayList<>();
+        List<Projetos> projetos = new ArrayList<>();
 
-    	for (Object[] row : resultados) {
-    	    Projetos projeto = new Projetos();
-    	    projeto.setIdProjeto(((Number) row[0]).longValue());
-    	    projeto.setTitulo((String) row[1]);
-    	    projeto.setDescricao((String) row[2]);
+        for (Object[] row : resultados) {
+            Projetos projeto = new Projetos();
+            projeto.setIdProjeto(((Number) row[0]).longValue());
+            projeto.setTitulo((String) row[1]);
+            projeto.setDescricao((String) row[2]);
 
-    	    Status status = new Status();
-    	    status.setId(((Number) row[3]).doubleValue());
-    	    status.setDescricao((String) row[4]);
-    	    projeto.setStatus(status);
+            Status status = new Status();
+            status.setId(((Number) row[3]).doubleValue());
+            status.setDescricao((String) row[4]);
+            projeto.setStatus(status);
 
-    	    // Novo código para o ID da área
-    	    if (row[5] != null) {
-    	        Area area = new Area();
-    	        area.setIdArea(((Number) row[5]).doubleValue());
-    	        projeto.setIdArea(area);
-    	    }
+            if (row[5] != null) {
+                Area area = new Area();
+                area.setIdArea(((Number) row[5]).doubleValue());
+                area.setDescricao((String) row[6]);
+                projeto.setIdArea(area);
+            }
 
-    	    projetos.add(projeto);
-    	}
+            projetos.add(projeto);
+        }
 
-    	return projetos;
+        return projetos;
     }
 
     public Double buscaArea(String usuarioLogado) {
