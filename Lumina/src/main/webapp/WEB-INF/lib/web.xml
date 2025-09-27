@@ -14,5 +14,8 @@
         <servlet-name>GeminiServlet</servlet-name>
         <url-pattern>/gemini</url-pattern>
     </servlet-mapping>
+    <jboss-web>
+    	<context-root>Lumina</context-root>
+    </jboss-web>
 
 </web-app>

@@ -50,9 +50,6 @@
                                 <input type="password" name="password" class="form-control" placeholder="SENHA" id="password">
                                 <i class="bi bi-eye me-3" id="togglePass"></i>
                             </div>
-                            <div class="conta d-flex">
-                                <button type="button" class="btn d-flex justify-content-center align-items-center esqueci mt-1" id="forgotPassword">ESQUECI MINHA SENHA</button>
-                            </div>
                         </div>
                         <div class="mb-5 d-flex justify-content-center align-items-center">
                             <button type="submit" id="entrar" class="btn pt-2 pb-2 ps-5 pe-5 fw-medium text-light">ENTRAR</button>
