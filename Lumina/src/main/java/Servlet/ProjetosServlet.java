@@ -197,6 +197,9 @@ public class ProjetosServlet extends HttpServlet {
 
                 // Salvar projeto
                 Projetos projetoSalvo = dao.cadastrarProjeto(projeto);
+                if (projetoSalvo == null || projetoSalvo.getIdProjeto() == null) {
+                    throw new ServletException("Erro ao salvar o projeto. Verifique se o DAO retornou corretamente.");
+                }
                 System.out.println("Projeto salvo com sucesso." + projetoSalvo);
 
 
