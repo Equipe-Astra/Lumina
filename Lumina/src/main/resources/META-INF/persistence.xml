@@ -5,8 +5,7 @@
                                  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
 	version="2.2">
 
-	<persistence-unit name="Lumina" transaction-type="JTA">
-		<jta-data-source>java:/LuminaDS</jta-data-source>
+	<persistence-unit name="Lumina" transaction-type="RESOURCE_LOCAL">
 		<class>Entidades.Cargo</class>
 		<class>Entidades.Area</class>
 		<class>Entidades.Funcionarios</class>

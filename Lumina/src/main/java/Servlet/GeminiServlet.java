@@ -198,10 +198,11 @@ public class GeminiServlet extends HttpServlet {
 				String descricao = "", objetivos = "", resultados = "", lucro = "";
 
 				String regex = "(?is)" +
-					    "Descrição do projeto:\\s*(?<descricao>.*?)(?=\\n\\s*Objetivos:|\\n\\s*Resultados:|\\n\\s*Lucro\\s*:|\\n\\s*Lucro\\s*|$)" +
-					    "(?:\\n\\s*Objetivos:\\s*(?<objetivos>.*?)(?=\\n\\s*Resultados:|\\n\\s*Lucro\\s*:|\\n\\s*Lucro\\s*|$))?" +
-					    "(?:\\n\\s*Resultados:\\s*(?<resultados>.*?)(?=\\n\\s*Lucro\\s*:|\\n\\s*Lucro\\s*|$))?" +
-					    "(?:\\n\\s*Lucro\\s*:??\\s*(?<lucro>.*))?";
+					    "Descrição do projeto:??\\s*(?<descricao>.*?)(?=\\n\\s*Objetivos:??|\\n\\s*Resultados:??|\\n\\s*Lucro:??|$)" +
+					    "(?:\\n\\s*Objetivos:??\\s*(?<objetivos>.*?)(?=\\n\\s*Resultados:??|\\n\\s*Lucro:??|$))?" +
+					    "(?:\\n\\s*Resultados:??\\s*(?<resultados>.*?)(?=\\n\\s*Lucro:??|$))?" +
+					    "(?:\\n\\s*Lucro:??\\s*(?<lucro>.*))?";
+
 
 				
 				System.out.println(textoGerado);

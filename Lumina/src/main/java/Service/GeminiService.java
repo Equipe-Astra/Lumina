@@ -7,8 +7,8 @@ import java.net.URL;
 public class GeminiService {
 
     public static String enviarPrompt(String prompt) throws IOException {
-        String apiKey = "AIzaSyAWvJrtILTQAfhm4_PSnT7eSZeKNo8meRY";
-        String endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="+apiKey;
+        String apiKey = "AIzaSyARtLjg4auCiIqPn5524yK5PotEnEZPNGU";
+        String endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key="+apiKey;
 
         String jsonInputString = "{\n" +
                 "  \"contents\": [\n" +

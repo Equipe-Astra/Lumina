@@ -1,22 +1,17 @@
-# Stage 1: Build com Maven
-FROM maven:3.9.1-eclipse-temurin-11 AS build
+# Base Tomcat 10 com JDK 11
+FROM tomcat:9.0-jdk11 
 
-COPY . /app
-WORKDIR /app
-RUN mvn clean package -DskipTests
+# Limpar apps padrão
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Stage 2: WildFly
-FROM jboss/wildfly:21.0.0.Final
+# Copiar WAR
+COPY target/Lumina.war /usr/local/tomcat/webapps/Lumina.war
 
-# Copia WAR
-COPY --from=build /app/target/*.war /opt/jboss/wildfly/standalone/deployments/
+# Copiar driver Oracle
+COPY docker/tomcat/modules/com/oracle/ojdbc/main/ojdbc11.jar /usr/local/tomcat/lib/ojdbc11.jar
 
-# Copia módulo Oracle
-COPY docker/wildfly/modules/com/oracle/ojdbc/main /opt/jboss/wildfly/modules/com/oracle/ojdbc/main
-
-# Copia standalone.xml customizado
-COPY docker/wildfly/configuration/standalone.xml /opt/jboss/wildfly/standalone/configuration/standalone.xml
-
+# Porta
 EXPOSE 8080
 
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
+# Rodar Tomcat
+CMD ["catalina.sh", "run"]

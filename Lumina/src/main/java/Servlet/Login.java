@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
 			session.setAttribute("usuarioLogado", usuarioValido);
 			
 			if (cargo.equalsIgnoreCase("gerente de projetos")) {
-				response.sendRedirect("/Lumina/feedGerenteProjetos");
+				response.sendRedirect("feedGerenteProjetos");
 			} else if (cargo.equalsIgnoreCase("gerente")) {
 				response.sendRedirect("/Lumina/feedGerente");
 			}
