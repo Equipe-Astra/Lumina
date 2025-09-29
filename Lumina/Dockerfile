@@ -15,5 +15,5 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Rodar Tomcat
-CMD ["catalina.sh", "run"]
+ENTRYPOINT ["/entrypoint.sh"]
 
