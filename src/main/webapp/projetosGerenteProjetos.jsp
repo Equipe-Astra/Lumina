@@ -104,7 +104,7 @@
 										    data-bs-toggle="modal" 
 										    data-bs-target="#meuModal"
 										    draggable="true"
-											data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|data:image/png;base64,${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
+											data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|${p.foto}<c:if test="${!loop.last}">@@@</c:if></c:forEach>"
 										    >
 
 											<!-- Header do Card -->
@@ -201,7 +201,7 @@
 										    data-bs-toggle="modal" 
 										    data-bs-target="#meuModal"
 										    draggable="true"
-											data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|data:image/png;base64,${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
+											data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|${p.foto}<c:if test="${!loop.last}">@@@</c:if></c:forEach>"
 										    >
 
 											<!-- Header do Card -->
@@ -298,7 +298,7 @@
 										    data-bs-toggle="modal" 
 										    data-bs-target="#meuModal"
 										    draggable="true"
-											data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|data:image/png;base64,${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
+											data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|${p.foto}<c:if test="${!loop.last}">@@@</c:if></c:forEach>"
 										    >
 
 											<!-- Header do Card -->
@@ -900,129 +900,104 @@
 		  });
 		});
 	
-	function criarParticipanteFoto(id, nome, fotoBase64) {
-        // Função utilitária para criar o elemento da foto do participante
-        const img = document.createElement('img');
-        img.src = `data:image/png;base64,${fotoBase64}`;
-        img.alt = nome;
-        img.className = 'foto rounded-circle shadow';
-        img.style.cssText = 'width: 40px; height: 40px;';
-        img.title = nome;
-        img.setAttribute('data-id', id);
-        return img;
-    }
+function criarParticipanteFoto(id, nome, fotoBase64) {
+    // Função utilitária para criar o elemento da foto do participante
+    const img = document.createElement('img');
+    img.src = `data:image/png;base64,${fotoBase64}`;
+    img.alt = nome;
+    img.className = 'foto rounded-circle shadow';
+    img.style.cssText = 'width: 40px; height: 40px;';
+    img.title = nome;
+    img.setAttribute('data-id', id);
+    return img;
+}
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const meuModal = document.getElementById('meuModal');
-        const btnAdicionar = document.getElementById('btnAdicionar');
-        const participantesSelecionadosContainer = document.getElementById('participantesSelecionados');
-        const inputTitulo = document.getElementById('modalTituloInputCriar');
-        const textareaDescricao = document.getElementById('descricao');
-        const btnAddParticipantes = meuModal.querySelector('.area-participantes');
+document.addEventListener('DOMContentLoaded', function () {
+    const meuModal = document.getElementById('meuModal');
+    const btnAdicionar = document.getElementById('btnAdicionar');
+    const participantesSelecionadosContainer = document.getElementById('participantesSelecionados');
+    const inputTitulo = document.getElementById('modalTituloInputCriar');
+    const textareaDescricao = document.getElementById('descricao');
+    const btnAddParticipantes = meuModal.querySelector('.area-participantes');
 
+    // 1. Lógica para ABRIR O MODAL E OCULTAR O BOTÃO DE ENVIO (clique no CARD)
+    const cardsClicaveis = document.querySelectorAll('.projeto-card-clicavel');
 
-        // 1. Lógica para ABRIR O MODAL E OCULTAR O BOTÃO DE ENVIO (clique no CARD)
-        const cardsClicaveis = document.querySelectorAll('.projeto-card-clicavel');
-        
-        cardsClicaveis.forEach(card => {
-            card.addEventListener('click', function(event) {
-                
-                // Impedir que o clique nos botões de Editar ou Excluir acione essa lógica
-                if (event.target.closest('.btn-editar') || event.target.closest('.btn-excluir') || event.target.closest('.dropdown')) {
-                    return; 
-                }
+    cardsClicaveis.forEach(card => {
+        card.addEventListener('click', function (event) {
+            // Impedir que o clique nos botões de Editar ou Excluir acione essa lógica
+            if (event.target.closest('.btn-editar') || event.target.closest('.btn-excluir') || event.target.closest('.dropdown')) {
+                return;
+            }
 
-                // 🌟 FORÇA A ABERTURA DO MODAL
-                const modalInstance = bootstrap.Modal.getOrCreateInstance(meuModal);
-                modalInstance.show();
+            // 🌟 FORÇA A ABERTURA DO MODAL
+            const modalInstance = bootstrap.Modal.getOrCreateInstance(meuModal);
+            modalInstance.show();
 
-                // 1. OCULTA: O botão "ADICIONAR" (envio)
-                if (btnAdicionar) {
-                    btnAdicionar.style.display = 'none';
-                }
+            // OCULTA botões de envio e adicionar participantes
+            if (btnAdicionar) btnAdicionar.style.display = 'none';
+            if (btnAddParticipantes) btnAddParticipantes.style.display = 'none';
 
-                // 2. OCULTA: O botão de adicionar novos participantes
-                if (btnAddParticipantes) {
-                    btnAddParticipantes.style.display = 'none';
-                }
-                
-                // 3. Preenche o modal com os dados do projeto
-                inputTitulo.value = this.getAttribute('data-titulo');
-                inputTitulo.placeholder = ''; 
-                textareaDescricao.value = this.getAttribute('data-descricao');
-                
-                // 4. Desabilita campos para visualização
-                inputTitulo.setAttribute('readonly', 'true');
-                textareaDescricao.setAttribute('readonly', 'true');
-                
-                // 5. EXIBE: Participantes do Projeto
-                participantesSelecionadosContainer.innerHTML = ''; // Limpa antes de preencher
-                
-                const participantesDataString = this.getAttribute('data-participantes');
-                if (participantesDataString) {
-                    // Divide a string em blocos de 3 (ID, Nome, Foto)
-                    const parts = participantesDataString.split('|');
-                    
-                    for (let i = 0; i < parts.length; i += 3) {
-                        const id = parts[i];
-                        const nome = parts[i + 1];
-                        const foto = parts[i + 2];
-                        
-                        // Garante que todos os 3 campos existem
-                        if (id && nome && foto) {
-                            const fotoElement = criarParticipanteFoto(id, nome, foto);
-                            participantesSelecionadosContainer.appendChild(fotoElement);
-                        }
-                    }
-                }
-            });
-        });
+            // Preenche os campos do modal
+            inputTitulo.value = this.getAttribute('data-titulo');
+            inputTitulo.placeholder = '';
+            textareaDescricao.value = this.getAttribute('data-descricao');
 
-        // 2. Lógica para ABRIR O MODAL E MOSTRAR O BOTÃO DE ENVIO (clique no botão '+')
-        const btnsCriar = document.querySelectorAll('.open-modal');
-        btnsCriar.forEach(btn => {
-            btn.addEventListener('click', function() {
-                // 1. MOSTRA: O botão "ADICIONAR"
-                if (btnAdicionar) {
-                    btnAdicionar.style.display = 'block';
-                }
-                
-                // 2. MOSTRA: O botão de adicionar novos participantes (para criação)
-                if(btnAddParticipantes) {
-                    btnAddParticipantes.style.display = 'flex';
-                }
-                
-                // 3. Remove atributos de visualização/edição e limpa campos
-                inputTitulo.removeAttribute('readonly');
-                textareaDescricao.removeAttribute('readonly');
-                
-                inputTitulo.placeholder = 'ADICIONE UM TÍTULO';
-                inputTitulo.value = '';
-                textareaDescricao.value = '';
-                
-                // Limpa participantes exibidos e os inputs hidden
-                document.getElementById('inputsParticipantes').innerHTML = '';
-                participantesSelecionadosContainer.innerHTML = '';
+            inputTitulo.setAttribute('readonly', 'true');
+            textareaDescricao.setAttribute('readonly', 'true');
 
-                // Seta o statusId
-                const statusId = this.getAttribute('data-status-id');
-                document.getElementById('statusProjeto').value = statusId;
-            });
-        });
-
-        // 3. Lógica para limpar e resetar o modal ao fechar
-        meuModal.addEventListener('hidden.bs.modal', function() {
-            // Reseta o estado de "visualização"
-            inputTitulo.removeAttribute('readonly');
-            textareaDescricao.removeAttribute('readonly');
-            
-            // Limpa os dados preenchidos
-            inputTitulo.value = '';
-            textareaDescricao.value = '';
-            document.getElementById('inputsParticipantes').innerHTML = ''; 
+            // Limpa e exibe participantes
             participantesSelecionadosContainer.innerHTML = '';
+            const participantesDataString = this.getAttribute('data-participantes');
+
+            if (participantesDataString) {
+                const participantes = participantesDataString.split('@@@');
+
+                participantes.forEach(participante => {
+                    const [id, nome, fotoBase64] = participante.split('|');
+                    if (id && nome && fotoBase64) {
+                        const fotoElement = criarParticipanteFoto(id, nome, fotoBase64);
+                        participantesSelecionadosContainer.appendChild(fotoElement);
+                    }
+                });
+            }
         });
     });
+
+    // 2. Lógica para ABRIR O MODAL E MOSTRAR O BOTÃO DE ENVIO (clique no botão '+')
+    const btnsCriar = document.querySelectorAll('.open-modal');
+    btnsCriar.forEach(btn => {
+        btn.addEventListener('click', function () {
+            if (btnAdicionar) btnAdicionar.style.display = 'block';
+            if (btnAddParticipantes) btnAddParticipantes.style.display = 'flex';
+
+            inputTitulo.removeAttribute('readonly');
+            textareaDescricao.removeAttribute('readonly');
+
+            inputTitulo.placeholder = 'ADICIONE UM TÍTULO';
+            inputTitulo.value = '';
+            textareaDescricao.value = '';
+
+            document.getElementById('inputsParticipantes').innerHTML = '';
+            participantesSelecionadosContainer.innerHTML = '';
+
+            const statusId = this.getAttribute('data-status-id');
+            document.getElementById('statusProjeto').value = statusId;
+        });
+    });
+
+    // 3. Resetar modal ao fechar
+    meuModal.addEventListener('hidden.bs.modal', function () {
+        inputTitulo.removeAttribute('readonly');
+        textareaDescricao.removeAttribute('readonly');
+
+        inputTitulo.value = '';
+        textareaDescricao.value = '';
+        document.getElementById('inputsParticipantes').innerHTML = '';
+        participantesSelecionadosContainer.innerHTML = '';
+    });
+});
+
 
 	</script>
 </body>
