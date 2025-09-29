@@ -901,9 +901,12 @@
 		});
 	
 function criarParticipanteFoto(id, nome, fotoBase64) {
-    // Função utilitária para criar o elemento da foto do participante
     const img = document.createElement('img');
-    img.src = `data:image/png;base64,${fotoBase64}`;
+
+    // ✅ Corrige caso o "fotoBase64" já venha com "data:image/png;base64,"
+    const base64Valido = fotoBase64.startsWith('data:image') ? fotoBase64 : `data:image/png;base64,${fotoBase64}`;
+
+    img.src = base64Valido;
     img.alt = nome;
     img.className = 'foto rounded-circle shadow';
     img.style.cssText = 'width: 40px; height: 40px;';
@@ -911,6 +914,7 @@ function criarParticipanteFoto(id, nome, fotoBase64) {
     img.setAttribute('data-id', id);
     return img;
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const meuModal = document.getElementById('meuModal');
