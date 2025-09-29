@@ -7,4 +7,5 @@ if [ -n "$PORT" ]; then
 fi
 
 # Executa o Tomcat
-exec catalina.sh run
+exec catalina.sh run "$JAVA_OPTS"
+
