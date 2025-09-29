@@ -137,7 +137,6 @@ public class ProjetosServlet extends HttpServlet {
 
                         dao.atualizarProjeto(projetoId, titulo, descricao);
 
-                        // Sincroniza participantes
                         if (participantesArray != null) {
                             List<String> novosParticipantes = List.of(participantesArray);
                             dao.sincronizarParticipantes(projetoId, novosParticipantes);
@@ -150,7 +149,6 @@ public class ProjetosServlet extends HttpServlet {
                     }
                 }
                 
-             // Caso 3: Deletar projeto
                 if (request.getParameter("deletarId") != null) {
                     try {
                         Long projetoId = Long.parseLong(request.getParameter("deletarId"));
@@ -163,15 +161,12 @@ public class ProjetosServlet extends HttpServlet {
                     return;
                 }
 
-
-             // === PARTE 2: Criar novo projeto ===
                 String titulo = request.getParameter("titulo");
                 String descricao = request.getParameter("descricao");
                 String[] participantes = request.getParameterValues("participantes");
-                String statusStr = request.getParameter("statusId"); // Já é o ID
+                String statusStr = request.getParameter("statusId"); 
 
-                // Mapear status para ID
-                double statusId = 1; // default "Não Iniciado"
+                double statusId = 1; 
                 if (statusStr != null && !statusStr.trim().isEmpty()) {
                     try {
                         statusId = Double.parseDouble(statusStr);
@@ -195,7 +190,6 @@ public class ProjetosServlet extends HttpServlet {
                 projeto.setCriadoPor(usuarioLogado);
                 projeto.setIdArea(area);
 
-                // Salvar projeto
                 Projetos projetoSalvo = dao.cadastrarProjeto(projeto);
                 if (projetoSalvo == null || projetoSalvo.getIdProjeto() == null) {
                     throw new ServletException("Erro ao salvar o projeto. Verifique se o DAO retornou corretamente.");
@@ -205,7 +199,6 @@ public class ProjetosServlet extends HttpServlet {
 
                 if (participantes != null && participantes.length > 0) {
                     for (String idFuncionario : participantes) {
-                        // Garante que o ID do funcionário não é nulo antes de chamar o método
                         if (idFuncionario != null && !idFuncionario.trim().isEmpty()) {
                             dao.salvarProjetoFuncionario(projetoSalvo.getIdProjeto(), idFuncionario);
                         }

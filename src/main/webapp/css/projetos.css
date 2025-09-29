@@ -50,7 +50,6 @@ body {
     
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 /* No arquivo: ./css/projetos.css */
@@ -125,7 +124,7 @@ textarea.form-control:focus,
     height: 70vh; 
     padding: 1rem;
     position: relative;
-    margin-top: -9vh; 
+    margin-top: -7vh; 
     z-index: 20;
     display: flex;
     justify-content: center;
@@ -342,8 +341,8 @@ textarea.form-control:focus,
     }
 
     .scroll-cards-container {
-        height: 60vh; /* Altura fixa para mobile */
-        margin-top: 0.1rem; 
+        height: 60vh; 
+        margin-top: 1rem; 
         padding: 0rem;
         overflow-y: auto;
     }

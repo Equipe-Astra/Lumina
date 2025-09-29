@@ -98,13 +98,11 @@
 							<div class="card-body">
 								<c:forEach var="projeto" items="${projetos}">
 									<c:if test="${projeto.status.descricao == 'Não Iniciado'}">
-										<div class="card card-tarefa mb-3 shadow-sm projeto-card-clicavel"
+										<div class="card card-tarefa mb-3 shadow-sm"
 											data-id="${projeto.idProjeto}"
 											data-area="${projeto.idArea.idArea}" 
 											data-titulo="${projeto.titulo}"
 										    data-descricao="${projeto.descricao}"
-										    data-bs-toggle="modal" 
-										    data-bs-target="#meuModal"
 										    draggable="true"
 										    data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
 										    >
@@ -198,13 +196,11 @@
 							<div class="card-body">
 								<c:forEach var="projeto" items="${projetos}">
 									<c:if test="${projeto.status.descricao == 'Em andamento'}">
-										<div class="card card-tarefa mb-3 shadow-sm projeto-card-clicavel"
+										<div class="card card-tarefa mb-3 shadow-sm"
 											data-id="${projeto.idProjeto}"
 											data-area="${projeto.idArea.idArea}" 
 											data-titulo="${projeto.titulo}"
 										    data-descricao="${projeto.descricao}"
-										    data-bs-toggle="modal" 
-										    data-bs-target="#meuModal"
 										    draggable="true"
 										    data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
 										    >
@@ -297,13 +293,11 @@
 							<div class="card-body">
 								<c:forEach var="projeto" items="${projetos}">
 									<c:if test="${projeto.status.descricao == 'Concluído'}">
-										<div class="card card-tarefa mb-3 shadow-sm projeto-card-clicavel"
+										<div class="card card-tarefa mb-3 shadow-sm"
 											data-id="${projeto.idProjeto}"
 											data-area="${projeto.idArea.idArea}" 
 											data-titulo="${projeto.titulo}"
 										    data-descricao="${projeto.descricao}"
-										    data-bs-toggle="modal" 
-										    data-bs-target="#meuModal"
 										    draggable="true"
 										    data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
 										    >
@@ -379,7 +373,6 @@
 					</div>
 				</div>
 			</section>
-			<!-- Swiper Wrapper -->
 			<div class="swiper mySwiper d-block d-md-none px-2">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
@@ -897,149 +890,21 @@
 					992: { slidesPerView: 3, } } }); 
 	
 	document.addEventListener("DOMContentLoaded", function () {
-		  // Pega o caminho da URL, remove a barra final e converte para minúsculas
 		  const currentPath = window.location.pathname.replace(/\/+$/, "").toLowerCase();
 
 		  document.querySelectorAll("nav a[href]").forEach(link => {
 		    const iconDiv = link.querySelector(".icon-wrapper");
 		    if (!iconDiv) return;
 
-		    // Pega o caminho do link, remove a barra final e converte para minúsculas
 		    const linkPath = link.getAttribute("href").replace(/\/+$/, "").toLowerCase();
 
-		    // Remove a classe de todos os links antes de adicionar ao ativo
 		    iconDiv.classList.remove("pagina-atual");
 
-		    // Adiciona a classe apenas se os caminhos forem idênticos
 		    if (currentPath === linkPath) {
 		      iconDiv.classList.add("pagina-atual");
 		    }
 		  });
 		});
-	
-	function criarParticipanteFoto(id, nome, fotoBase64) {
-        // Função utilitária para criar o elemento da foto do participante
-        const img = document.createElement('img');
-        img.src = `data:image/png;base64,${fotoBase64}`;
-        img.alt = nome;
-        img.className = 'foto rounded-circle shadow';
-        img.style.cssText = 'width: 40px; height: 40px;';
-        img.title = nome;
-        img.setAttribute('data-id', id);
-        return img;
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const meuModal = document.getElementById('meuModal');
-        const btnAdicionar = document.getElementById('btnAdicionar');
-        const participantesSelecionadosContainer = document.getElementById('participantesSelecionados');
-        const inputTitulo = document.getElementById('modalTituloInputCriar');
-        const textareaDescricao = document.getElementById('descricao');
-        const btnAddParticipantes = meuModal.querySelector('.area-participantes');
-
-
-        // 1. Lógica para ABRIR O MODAL E OCULTAR O BOTÃO DE ENVIO (clique no CARD)
-        const cardsClicaveis = document.querySelectorAll('.projeto-card-clicavel');
-        
-        cardsClicaveis.forEach(card => {
-            card.addEventListener('click', function(event) {
-                
-                // Impedir que o clique nos botões de Editar ou Excluir acione essa lógica
-                if (event.target.closest('.btn-editar') || event.target.closest('.btn-excluir') || event.target.closest('.dropdown')) {
-                    return; 
-                }
-
-                // 🌟 FORÇA A ABERTURA DO MODAL
-                const modalInstance = bootstrap.Modal.getOrCreateInstance(meuModal);
-                modalInstance.show();
-
-                // 1. OCULTA: O botão "ADICIONAR" (envio)
-                if (btnAdicionar) {
-                    btnAdicionar.style.display = 'none';
-                }
-
-                // 2. OCULTA: O botão de adicionar novos participantes
-                if (btnAddParticipantes) {
-                    btnAddParticipantes.style.display = 'none';
-                }
-                
-                // 3. Preenche o modal com os dados do projeto
-                inputTitulo.value = this.getAttribute('data-titulo');
-                inputTitulo.placeholder = ''; 
-                textareaDescricao.value = this.getAttribute('data-descricao');
-                
-                // 4. Desabilita campos para visualização
-                inputTitulo.setAttribute('readonly', 'true');
-                textareaDescricao.setAttribute('readonly', 'true');
-                
-                // 5. EXIBE: Participantes do Projeto
-                participantesSelecionadosContainer.innerHTML = ''; // Limpa antes de preencher
-                
-                const participantesDataString = this.getAttribute('data-participantes');
-                if (participantesDataString) {
-                    // Divide a string em blocos de 3 (ID, Nome, Foto)
-                    const parts = participantesDataString.split('|');
-                    
-                    for (let i = 0; i < parts.length; i += 3) {
-                        const id = parts[i];
-                        const nome = parts[i + 1];
-                        const foto = parts[i + 2];
-                        
-                        // Garante que todos os 3 campos existem
-                        if (id && nome && foto) {
-                            const fotoElement = criarParticipanteFoto(id, nome, foto);
-                            participantesSelecionadosContainer.appendChild(fotoElement);
-                        }
-                    }
-                }
-            });
-        });
-
-        // 2. Lógica para ABRIR O MODAL E MOSTRAR O BOTÃO DE ENVIO (clique no botão '+')
-        const btnsCriar = document.querySelectorAll('.open-modal');
-        btnsCriar.forEach(btn => {
-            btn.addEventListener('click', function() {
-                // 1. MOSTRA: O botão "ADICIONAR"
-                if (btnAdicionar) {
-                    btnAdicionar.style.display = 'block';
-                }
-                
-                // 2. MOSTRA: O botão de adicionar novos participantes (para criação)
-                if(btnAddParticipantes) {
-                    btnAddParticipantes.style.display = 'flex';
-                }
-                
-                // 3. Remove atributos de visualização/edição e limpa campos
-                inputTitulo.removeAttribute('readonly');
-                textareaDescricao.removeAttribute('readonly');
-                
-                inputTitulo.placeholder = 'ADICIONE UM TÍTULO';
-                inputTitulo.value = '';
-                textareaDescricao.value = '';
-                
-                // Limpa participantes exibidos e os inputs hidden
-                document.getElementById('inputsParticipantes').innerHTML = '';
-                participantesSelecionadosContainer.innerHTML = '';
-
-                // Seta o statusId
-                const statusId = this.getAttribute('data-status-id');
-                document.getElementById('statusProjeto').value = statusId;
-            });
-        });
-
-        // 3. Lógica para limpar e resetar o modal ao fechar
-        meuModal.addEventListener('hidden.bs.modal', function() {
-            // Reseta o estado de "visualização"
-            inputTitulo.removeAttribute('readonly');
-            textareaDescricao.removeAttribute('readonly');
-            
-            // Limpa os dados preenchidos
-            inputTitulo.value = '';
-            textareaDescricao.value = '';
-            document.getElementById('inputsParticipantes').innerHTML = ''; 
-            participantesSelecionadosContainer.innerHTML = '';
-        });
-    });
 
 	</script>
 </body>

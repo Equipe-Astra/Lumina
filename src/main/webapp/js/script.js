@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Toggle senha
 const togglePassword = document.querySelector('#togglePass');
 const togglePassword2 = document.querySelector('#togglePass2');
 const password = document.querySelector('#password');
@@ -75,7 +74,6 @@ document.querySelectorAll('input[data-js]').forEach(($input) => {
   }, false);
 });
 
-// Validação
 const button = document.getElementById('cadastrar');
 if (button) {
   button.addEventListener('click', (event) => {
@@ -174,12 +172,10 @@ document.querySelectorAll('input').forEach(($input) => {
   });
 });
 
-// Delegação de eventos para o dropdown de criação
 const inputsParticipantesCriar = document.getElementById('inputsParticipantes');
 const participantesSelecionadosCriar = document.getElementById('participantesSelecionados');
 const dropdownMenuCriar = document.querySelector('#meuModal .dropdown-menu');
 
-// Cria um Set para os participantes selecionados no modal de criação
 const participantesAdicionadosCriar = new Set();
 
 if (dropdownMenuCriar) {
@@ -191,7 +187,6 @@ if (dropdownMenuCriar) {
         const nome = item.getAttribute('data-nome');
         const foto = item.getAttribute('data-foto');
 
-        // Verifica se o participante já foi adicionado
         if (participantesAdicionadosCriar.has(id)) {
             return;
         }
@@ -213,7 +208,7 @@ if (dropdownMenuCriar) {
                 inputParaRemover.remove();
             }
             item.style.display = 'block';
-            participantesAdicionadosCriar.delete(id); // Remove do Set
+            participantesAdicionadosCriar.delete(id); 
             atualizarDropdownCriacao();
         });
 
@@ -227,12 +222,11 @@ if (dropdownMenuCriar) {
         inputsParticipantesCriar.appendChild(inputHidden);
         
         item.style.display = 'none';
-        participantesAdicionadosCriar.add(id); // Adiciona ao Set
+        participantesAdicionadosCriar.add(id); 
         atualizarDropdownCriacao();
     });
 }
 
-// Função para atualizar o dropdown de criação
 function atualizarDropdownCriacao() {
     const itens = document.querySelectorAll('#meuModal .participante-item');
     itens.forEach(item => {
@@ -254,7 +248,6 @@ if (inputBuscarCriar) {
       const email = item.querySelector('.cargo').textContent.toLowerCase();
       const idParticipante = item.getAttribute('data-id');
 
-      // Adiciona a verificação do Set
       if ((nome.includes(termoBusca) || email.includes(termoBusca)) && !participantesAdicionadosCriar.has(idParticipante)) {
         item.style.display = 'block';
       } else {
@@ -264,7 +257,6 @@ if (inputBuscarCriar) {
   });
 }
 
-// --- LÓGICA DE EDIÇÃO REVISADA ---
 const participantesAdicionados = new Set();
 const participantesSelecionadosEditar = document.getElementById("participantesSelecionadosEditar");
 const inputsParticipantesEditar = document.getElementById("inputsParticipantesEditar");
@@ -280,14 +272,12 @@ function atualizarDropdownParticipantes() {
   });
 }
 
-// A lógica para o modal de edição
 document.querySelectorAll(".btn-editar").forEach(botao => {
   botao.addEventListener("click", function () {
     const id = this.getAttribute("data-id");
     const titulo = this.getAttribute("data-titulo");
     const descricao = this.getAttribute("data-descricao");
 
-    // Limpa tudo e reinicia o Set
     participantesSelecionadosEditar.innerHTML = '';
     inputsParticipantesEditar.innerHTML = '';
     participantesAdicionados.clear();
@@ -300,7 +290,6 @@ document.querySelectorAll(".btn-editar").forEach(botao => {
     const fotosParticipantesNoCard = card.querySelectorAll(".d-flex.gap-2 img");
 
     fotosParticipantesNoCard.forEach(fotoOriginal => {
-      // CORREÇÃO: Pega o ID do atributo 'data-id' da imagem, não do 'alt'.
       const idParticipante = fotoOriginal.getAttribute("data-id"); 
       const nomeParticipante = fotoOriginal.getAttribute("alt");
       const fotoSrc = fotoOriginal.src;
@@ -330,8 +319,7 @@ document.querySelectorAll(".btn-editar").forEach(botao => {
 
       participantesSelecionadosEditar.appendChild(img);
       inputsParticipantesEditar.appendChild(inputHidden);
-      
-      // Adiciona o ID do participante ao Set
+
       participantesAdicionados.add(idParticipante);
     });
     
@@ -346,7 +334,6 @@ if (modalEdicao) {
     });
 }
 
-// Delegação de eventos para o dropdown de edição
 const dropdownMenuEditar = document.querySelector('#modalEdicao .dropdown-menu');
 
 if (dropdownMenuEditar) {
@@ -427,7 +414,7 @@ if (btnAdicionar) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    const columns = document.querySelectorAll(".card-body"); // as colunas
+    const columns = document.querySelectorAll(".card-body"); 
 
     columns.forEach(coluna => {
         coluna.addEventListener("drop", function (event) {
@@ -437,7 +424,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (card) {
                 coluna.appendChild(card);
 
-                // Atualiza o statusId de acordo com a coluna
                 let novoStatus;
                 if (coluna.closest(".card").querySelector(".texto-status").innerText.includes("NÃO INICIADO")) {
                     novoStatus = 1;
@@ -447,11 +433,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     novoStatus = 3;
                 }
 
-                // Atualiza o input hidden dentro do card
                 let form = card.querySelector(".form-status");
                 form.querySelector(".statusProjeto").value = novoStatus;
 
-                // Envia automaticamente para atualizar no banco
                 form.submit();
             }
         });
@@ -461,7 +445,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Marca o card que está sendo arrastado
     document.querySelectorAll("[draggable='true']").forEach(card => {
         card.addEventListener("dragstart", () => {
             card.classList.add("dragging");
@@ -472,8 +455,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-// Lógica de filtro e busca
 const searchBar = document.querySelector(".barra-search");
 const botoesFiltro = document.querySelectorAll("button[data-area]");
 const projetos = document.querySelectorAll(".card-tarefa");
@@ -503,7 +484,7 @@ const aplicarFiltros = () => {
     const descricao = projeto.querySelector(".card-body p").textContent.toLowerCase();
 
     const projetoArea = (projeto.getAttribute("data-area") || "").toLowerCase();
-    const nomeArea = (projeto.getAttribute("data-area-nome") || "").toLowerCase(); // <-- novo
+    const nomeArea = (projeto.getAttribute("data-area-nome") || "").toLowerCase(); 
 
     const participantesImgs = projeto.querySelectorAll(".d-flex.gap-2 img");
     const participantesNomes = Array.from(participantesImgs).map(img => img.alt.toLowerCase());
@@ -560,7 +541,6 @@ botoesFiltro.forEach(botao => {
 
 aplicarFiltros();
 
-// Lógica para mover os cards no Swiper (Versão Mobile)
 document.querySelectorAll('.swiper-slide .btn-mover').forEach(button => {
   button.addEventListener('click', (e) => {
       e.preventDefault(); 

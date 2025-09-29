@@ -818,7 +818,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		        });
 		    });
 
-		    // Pesquisa
 		    inputPesquisa.addEventListener('input', function() {
 		        termoPesquisa = this.value;
 		        filtrarPublicacoes();
@@ -949,7 +948,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		                const contador = this.closest('div.flex-column')?.querySelector('p');
 		                const ativaExistente = container.querySelector(".reacao.ativo");
 
-		                // Usuário só pode trocar reação se desmarcar a anterior
 		                if (ativaExistente && !jaAtiva) return;
 
 		                if (jaAtiva) {

@@ -274,10 +274,9 @@ public class ProjetosDao {
             String email = (String) row[2];
             Blob imagemBlob = (Blob) row[3];
             
-            String foto = "null";  // Define uma foto padrão se o campo foto for nulo
+            String foto = "null";  
 
             if (imagemBlob != null) {
-                // Caso a imagem não seja nula, converte para um array de bytes
                 byte[] imagem = imagemBlob.getBytes(1, (int) imagemBlob.length());
                 foto = (imagem != null && imagem.length > 0) ? Base64.getEncoder().encodeToString(imagem) : "null";
             }
@@ -337,7 +336,6 @@ public class ProjetosDao {
         try {
             em.getTransaction().begin();
 
-            // Busca os participantes atuais
             String sqlBusca = "SELECT funcionarios_id_funcionario FROM projeto_funcionario WHERE projetos_id_projeto = :projetoId";
             List<String> participantesAtuais = em.createNativeQuery(sqlBusca)
                 .setParameter("projetoId", projetoId)
@@ -354,7 +352,6 @@ public class ProjetosDao {
                 }
             }
 
-            // Participantes a adicionar
             for (String novo : novosParticipantes) {
                 if (!participantesAtuais.contains(novo)) {
                     String sqlInsert = "INSERT INTO projeto_funcionario (projetos_id_projeto, funcionarios_id_funcionario) VALUES (:projetoId, :funcionarioId)";
@@ -379,13 +376,11 @@ public class ProjetosDao {
         try {
             em.getTransaction().begin();
 
-            // 1. Excluir vínculos de participantes primeiro
             String sqlDeleteParticipantes = "DELETE FROM projeto_funcionario WHERE projetos_id_projeto = :projetoId";
             em.createNativeQuery(sqlDeleteParticipantes)
                 .setParameter("projetoId", projetoId)
                 .executeUpdate();
 
-            // 2. Excluir o projeto
             String sqlDeleteProjeto = "DELETE FROM Projetos WHERE id_projeto = :projetoId";
             em.createNativeQuery(sqlDeleteProjeto)
                 .setParameter("projetoId", projetoId)

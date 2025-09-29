@@ -180,7 +180,6 @@
 						</div>
 						<section
 							class="d-flex justify-content-center align-items-baseline flex-column">
-							<!-- N veis e Pontua  es -->
 							<div
 								class="nivel-row d-flex justify-content-center align-items-center flex-row"
 								data-points="100">
@@ -366,7 +365,6 @@
 			</div>
 
 			<div class="col-md-9 d-flex justify-content-center align-items-center flex-column mt-5">
-			  <!-- Área com scroll -->
 			  <div class="scrollable-cards w-100">
 			    <div class="row w-100">
 			      <div class="col-md-6 mb-4 d-flex justify-content-center">
@@ -411,7 +409,6 @@
 			        	</figure>
 			        </div>
 			      </div>
-			      <!-- Pode continuar adicionando cards aqui -->
 			    </div>
 			  </div>
 			
@@ -421,7 +418,6 @@
 			</div>
 			</div>
 	</main>
-	<!-- Chamada JS do BS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-...your-integrity-hash..." crossorigin="anonymous"></script>
