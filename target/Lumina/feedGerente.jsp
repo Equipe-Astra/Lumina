@@ -656,20 +656,16 @@
 
 	<script>
 	document.addEventListener("DOMContentLoaded", function () {
-		  // Pega o caminho da URL, remove a barra final e converte para minúsculas
 		  const currentPath = window.location.pathname.replace(/\/+$/, "").toLowerCase();
 
 		  document.querySelectorAll("nav a[href]").forEach(link => {
 		    const iconDiv = link.querySelector(".icon-wrapper");
 		    if (!iconDiv) return;
 
-		    // Pega o caminho do link, remove a barra final e converte para minúsculas
 		    const linkPath = link.getAttribute("href").replace(/\/+$/, "").toLowerCase();
 
-		    // Remove a classe de todos os links antes de adicionar ao ativo
 		    iconDiv.classList.remove("pagina-atual");
 
-		    // Adiciona a classe apenas se os caminhos forem idênticos
 		    if (currentPath === linkPath) {
 		      iconDiv.classList.add("pagina-atual");
 		    }
@@ -766,7 +762,6 @@
 
 		            const areaCard = areaElem.textContent.replace(/\s+/g, ' ').trim();
 
-		            // NOVO POST sempre aparece e não é filtrado
 		            if (areaCard === "NOVO POST") {
 		                card.style.display = "block";
 		                return;
@@ -791,11 +786,10 @@
 		        }
 		    }
 
-		    // --- TRATAMENTO DO NOVO POST ---
 		    const btnNovoPost = document.querySelector('#btn-novo-post');
 		    if (btnNovoPost) {
 		        btnNovoPost.addEventListener('click', function(event) {
-		            event.preventDefault(); // evita qualquer ação padrão
+		            event.preventDefault(); 
 		            const modalTarget = btnNovoPost.getAttribute('data-bs-target');
 		            if (modalTarget) {
 		                const modal = document.querySelector(modalTarget);
@@ -804,11 +798,9 @@
 		                    bsModal.show();
 		                }
 		            }
-		            // NÃO chama filtrarPublicacoes() e não mexe em areaAtiva
 		        });
 		    }
 
-		    // --- TRATAMENTO DOS OUTROS BOTÕES ---
 		    const outrosBotoes = document.querySelectorAll('.opcoes-menu .area-row button:not(#btn-novo-post), .sidebar .area-row button:not(#btn-novo-post)');
 		    outrosBotoes.forEach(botao => {
 		        const areaRow = botao.closest('.area-row');
@@ -829,17 +821,14 @@
 		        });
 		    });
 
-		    // Pesquisa
 		    inputPesquisa.addEventListener('input', function() {
 		        termoPesquisa = this.value;
 		        filtrarPublicacoes();
 		    });
 
-		    // Primeira filtragem
 		    filtrarPublicacoes();
 		
 
-		    // Preenchimento dos modais
 		    document.querySelectorAll('.modal').forEach(modal => {
 		        modal.addEventListener('show.bs.modal', function (event) {
 		            const button = event.relatedTarget;
@@ -901,7 +890,6 @@
 		        4: "apaixonado"
 		    };
 
-		    // Função para trocar o ícone conforme a reação
 		    function trocarIcone(elemento, ativo) {
 		        const tipoReacao = elemento.dataset.reacao;
 		        elemento.classList.remove(
@@ -928,7 +916,6 @@
 		        }
 		    }
 
-		    // Função para enviar reação para o backend
 		    function enviarReacao(idPublicacao, tipoReacao, acao) {
 		        const params = new URLSearchParams();
 		        params.append("idPublicacao", idPublicacao);
@@ -942,7 +929,6 @@
 		        }).catch(err => console.error("Erro ao atualizar reação:", err));
 		    }
 
-		    // Inicializa reações nos cards (feed)
 		    document.querySelectorAll("#feedContainer .reacoes").forEach(container => {
 		        const minhaReacaoNum = Number(container.dataset.minhaReacao) || 0;
 		        const idPublicacao = container.dataset.id;
@@ -965,7 +951,6 @@
 		                const contador = this.closest('div.flex-column')?.querySelector('p');
 		                const ativaExistente = container.querySelector(".reacao.ativo");
 
-		                // Usuário só pode trocar reação se desmarcar a anterior
 		                if (ativaExistente && !jaAtiva) return;
 
 		                if (jaAtiva) {
@@ -983,7 +968,6 @@
 		        });
 		    });
 
-		    // Inicializa reações nos modais (comentários)
 		    document.querySelectorAll(".modal-reacoes").forEach(container => {
 		        container.querySelectorAll(".reacao").forEach(icon => {
 		            icon.addEventListener("click", function () {

@@ -890,20 +890,16 @@
 					992: { slidesPerView: 3, } } }); 
 	
 	document.addEventListener("DOMContentLoaded", function () {
-		  // Pega o caminho da URL, remove a barra final e converte para minúsculas
 		  const currentPath = window.location.pathname.replace(/\/+$/, "").toLowerCase();
 
 		  document.querySelectorAll("nav a[href]").forEach(link => {
 		    const iconDiv = link.querySelector(".icon-wrapper");
 		    if (!iconDiv) return;
 
-		    // Pega o caminho do link, remove a barra final e converte para minúsculas
 		    const linkPath = link.getAttribute("href").replace(/\/+$/, "").toLowerCase();
 
-		    // Remove a classe de todos os links antes de adicionar ao ativo
 		    iconDiv.classList.remove("pagina-atual");
 
-		    // Adiciona a classe apenas se os caminhos forem idênticos
 		    if (currentPath === linkPath) {
 		      iconDiv.classList.add("pagina-atual");
 		    }

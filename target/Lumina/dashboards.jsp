@@ -265,20 +265,16 @@
 
 	<script>
 	document.addEventListener("DOMContentLoaded", function () {
-		  // Pega o caminho da URL, remove a barra final e converte para minúsculas
 		  const currentPath = window.location.pathname.replace(/\/+$/, "").toLowerCase();
 
 		  document.querySelectorAll("nav a[href]").forEach(link => {
 		    const iconDiv = link.querySelector(".icon-wrapper");
 		    if (!iconDiv) return;
 
-		    // Pega o caminho do link, remove a barra final e converte para minúsculas
 		    const linkPath = link.getAttribute("href").replace(/\/+$/, "").toLowerCase();
 
-		    // Remove a classe de todos os links antes de adicionar ao ativo
 		    iconDiv.classList.remove("pagina-atual");
 
-		    // Adiciona a classe apenas se os caminhos forem idênticos
 		    if (currentPath === linkPath) {
 		      iconDiv.classList.add("pagina-atual");
 		    }
@@ -726,10 +722,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const emAndamento = Array(12).fill(0);
     const concluido = Array(12).fill(0);
 
-    // Variável única para evitar erro de "already declared"
     let indiceMes;
 
-    // Preencher com dados do servidor via JSP
     <c:forEach items="${evolucaoMensalList}" var="evo">
         indiceMes = meses.indexOf("${evo.mes}");
         if (indiceMes >= 0) {
@@ -818,7 +812,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const tituloGrafico = document.getElementById("titulo-grafico4");
 
-    // Filtro por área
     const filterContainer = document.querySelector('.dropdown-menu[aria-labelledby="dropdownMenuButtonEvolucao"]');
     if (filterContainer) {
         filterContainer.addEventListener('click', function (event) {
@@ -860,7 +853,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Botão de reset
     const resetButton = document.getElementById("resetFilterButtonEvolucao");
     if (resetButton) {
         resetButton.addEventListener('click', function () {
