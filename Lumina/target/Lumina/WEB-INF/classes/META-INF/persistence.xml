@@ -20,7 +20,7 @@
 		<class>Entidades.PublicacaoReacaoId</class>
 		<class>Entidades.FuncionarioPublicacaoReacao</class>
 		<class>Entidades.FuncionarioPublicacaoReacaoId</class>
-		<properties>
+		<properties> 
 			<property name="javax.persistence.jdbc.driver"
 				value="oracle.jdbc.OracleDriver" />
 			<property name="javax.persistence.jdbc.url"

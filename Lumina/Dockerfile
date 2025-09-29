@@ -10,8 +10,10 @@ COPY target/Lumina.war /usr/local/tomcat/webapps/Lumina.war
 # Copiar driver Oracle
 COPY docker/tomcat/modules/com/oracle/ojdbc/main/ojdbc11.jar /usr/local/tomcat/lib/ojdbc11.jar
 
-# Porta
-EXPOSE 8080
+# Copiar entrypoint
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Rodar Tomcat
 CMD ["catalina.sh", "run"]
+

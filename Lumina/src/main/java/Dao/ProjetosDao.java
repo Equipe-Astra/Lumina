@@ -22,7 +22,7 @@ import Entidades.Status;
 import Dto.FuncionariosDTO;
 
 public class ProjetosDao {
-    private EntityManagerFactory emf;
+    private EntityManagerFactory emf; 
     private EntityManager em;
 
     public ProjetosDao() {

@@ -40,7 +40,7 @@ public class ProjetosServlet extends HttpServlet {
 
         if (session != null) {
             String usuarioLogado = (String) session.getAttribute("usuarioLogado");
-
+ 
             if (usuarioLogado != null) {
                 ProjetosDao dao = new ProjetosDao();
                 
