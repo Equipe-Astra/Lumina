@@ -14,6 +14,9 @@ COPY docker/tomcat/modules/com/oracle/ojdbc/main/ojdbc11.jar /usr/local/tomcat/l
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+# Definir limites de memória Java
+ENV JAVA_OPTS="-Xms128m -Xmx300m"
+
 # Rodar Tomcat
 ENTRYPOINT ["/entrypoint.sh"]
 
