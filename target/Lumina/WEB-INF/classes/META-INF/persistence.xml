@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+	version="2.2">
+
+	<persistence-unit name="Lumina" transaction-type="RESOURCE_LOCAL">
+		<class>Entidades.Cargo</class>
+		<class>Entidades.Area</class>
+		<class>Entidades.Funcionarios</class>
+		<class>Entidades.Projetos</class>
+		<class>Entidades.Status</class>
+		<class>Entidades.Publicacao</class>
+	    <class>Entidades.Comentarios</class>
+		<class>Entidades.LucroProjeto</class>
+		<class>Entidades.ProjetoFuncionario</class>
+		<class>Entidades.Reacoes</class>
+		<class>Entidades.PublicacaoReacao</class>
+		<class>Entidades.PublicacaoReacaoId</class>
+		<class>Entidades.FuncionarioPublicacaoReacao</class>
+		<class>Entidades.FuncionarioPublicacaoReacaoId</class>
+		<properties> 
+			<property name="javax.persistence.jdbc.driver"
+				value="oracle.jdbc.OracleDriver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:oracle:thin:@(DESCRIPTION=(RETRY_COUNT=20)(RETRY_DELAY=3)(ADDRESS=(PROTOCOL=tcps)(PORT=1521)(HOST=adb.sa-saopaulo-1.oraclecloud.com))(CONNECT_DATA=(SERVICE_NAME=ga817656df576db_luminadb_low.adb.oraclecloud.com))(SECURITY=(SSL_SERVER_DN_MATCH=YES)))" />
+			<property name="javax.persistence.jdbc.user"
+				value="ADMIN" />
+			<property name="javax.persistence.jdbc.password"
+				value="LuminaFiap123#" />
+
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.Oracle12cDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.connection.useUnicode"
+				value="true" />
+			<property name="hibernate.connection.characterEncoding"
+				value="UTF-8" />
+		</properties>
+	</persistence-unit>
+</persistence>
