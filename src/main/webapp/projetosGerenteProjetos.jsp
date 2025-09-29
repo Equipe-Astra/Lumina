@@ -104,7 +104,7 @@
 										    data-bs-toggle="modal" 
 										    data-bs-target="#meuModal"
 										    draggable="true"
-										    data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
+										    data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|data:image/png;base64,${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
 										    >
 
 											<!-- Header do Card -->
@@ -201,7 +201,7 @@
 										    data-bs-toggle="modal" 
 										    data-bs-target="#meuModal"
 										    draggable="true"
-										    data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
+										    data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|data:image/png;base64,${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
 										    >
 
 											<!-- Header do Card -->
@@ -298,7 +298,7 @@
 										    data-bs-toggle="modal" 
 										    data-bs-target="#meuModal"
 										    draggable="true"
-										    data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
+										    data-participantes="<c:forEach var="p" items="${projeto.participantes}" varStatus="loop">${p.id}|${p.nome}|data:image/png;base64,${p.foto}<c:if test="${!loop.last}">|</c:if></c:forEach>"
 										    >
 
 											<!-- Header do Card -->
