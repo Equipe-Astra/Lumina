@@ -1,5 +1,5 @@
 # Base Tomcat 10 com JDK 11
-FROM tomcat:9.0-jdk11 
+FROM tomcat:9.0-jdk11-openjdk-slim
 
 # Limpar apps padrão
 RUN rm -rf /usr/local/tomcat/webapps/*
